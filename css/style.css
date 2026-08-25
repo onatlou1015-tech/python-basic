@@ -1,0 +1,369 @@
+/* ============================================
+   SHARED STYLES FOR ALL SECTION PAGES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f4f8fe;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #152b3c;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 36px;
+    box-shadow: 0 20px 40px -12px rgba(0,20,40,0.12), 0 8px 24px -6px rgba(0,20,40,0.06);
+    padding: 2.8rem 2.8rem;
+}
+
+@media (max-width: 700px) {
+    .container { padding: 1.8rem 1.2rem; }
+}
+
+/* ===== TOP NAVIGATION ===== */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 2px solid #e6edf6;
+    margin-bottom: 2rem;
+}
+
+.top-nav .breadcrumb {
+    font-size: 0.85rem;
+    color: #4d6f8b;
+}
+
+.top-nav .breadcrumb a {
+    color: #1d6b9b;
+    text-decoration: none;
+}
+
+.top-nav .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.top-nav .section-badge {
+    background: #1d6b9b;
+    color: white;
+    padding: 0.3rem 1.2rem;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(145deg, #0f2b44, #1d4568);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-header .subtitle {
+    font-size: 1rem;
+    color: #3e5a76;
+    margin-top: 0.2rem;
+}
+
+/* ===== CONTENT BLOCKS ===== */
+.intro-block {
+    background: #e5f0fd;
+    padding: 1.5rem 2rem;
+    border-radius: 24px;
+    border-left: 6px solid #1d6b9b;
+    margin-bottom: 2rem;
+}
+
+.intro-block p {
+    color: #1a3d5a;
+}
+
+.learning-outcomes {
+    background: #f7fbff;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    border: 1px solid #dce8f5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.learning-outcomes .label {
+    font-weight: 600;
+    color: #1d3f5d;
+}
+
+.learning-outcomes .pill {
+    background: white;
+    padding: 0.2rem 1rem;
+    border-radius: 40px;
+    border: 1px solid #c7d9ee;
+    font-size: 0.82rem;
+}
+
+/* ===== PART CARDS ===== */
+.part {
+    background: #fafdff;
+    border-radius: 24px;
+    padding: 1.8rem 2rem;
+    margin: 1.8rem 0;
+    border: 1px solid #e2ecf8;
+    box-shadow: 0 4px 12px rgba(0,20,30,0.02);
+}
+
+.part h2 {
+    font-size: 1.4rem;
+    font-weight: 650;
+    color: #0e314b;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.part .part-label {
+    background: #1d5b81;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.1rem 0.9rem;
+    border-radius: 40px;
+}
+
+.part p, .part li {
+    color: #1d3750;
+    font-size: 0.98rem;
+}
+
+.part ul {
+    list-style: none;
+    padding-left: 0.2rem;
+    margin-top: 0.6rem;
+}
+
+.part ul li {
+    padding: 0.3rem 0 0.3rem 1.8rem;
+    position: relative;
+}
+
+.part ul li::before {
+    content: "•";
+    color: #2473a8;
+    font-weight: 700;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0.1rem;
+    top: 0.1rem;
+}
+
+/* ===== CODE BLOCKS ===== */
+.code-block {
+    background: #0e1f2e;
+    color: #e4f0fb;
+    padding: 1.2rem 1.6rem;
+    border-radius: 18px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+    margin: 0.8rem 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid #2b4a66;
+}
+
+.code-block .comment {
+    color: #8aaec9;
+}
+
+.example-box {
+    background: #f4faff;
+    border-radius: 18px;
+    padding: 0.2rem 1.2rem 0.8rem 1.2rem;
+    border: 1px solid #d2e2f2;
+    margin: 1rem 0;
+}
+
+.example-box .code-block {
+    margin: 0.4rem 0 0.2rem;
+}
+
+/* ===== GOLDEN RULES ===== */
+.golden-rules {
+    background: #f0f6fe;
+    border-radius: 20px;
+    padding: 1.2rem 1.8rem;
+    margin-top: 1rem;
+    border-left: 5px solid #3a7ca5;
+}
+
+.golden-rules h4 {
+    font-weight: 600;
+    color: #0d3857;
+}
+
+.golden-rules ul {
+    margin-top: 0.3rem;
+}
+
+.golden-rules ul li::before {
+    content: "✦";
+    color: #2e6f99;
+}
+
+/* ===== CHALLENGE BOX ===== */
+.challenge-box {
+    background: #e5f2fa;
+    border-radius: 24px;
+    padding: 1.8rem 2rem;
+    margin: 2.5rem 0 1.8rem;
+    border: 2px solid #b8d3ec;
+}
+
+.challenge-box h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #05314f;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.challenge-box h3::before {
+    content: "⚡";
+    font-size: 1.8rem;
+}
+
+.challenge-box ul {
+    list-style: none;
+    margin: 0.6rem 0 0.8rem;
+}
+
+.challenge-box ul li {
+    padding: 0.3rem 0 0.3rem 1.8rem;
+    position: relative;
+}
+
+.challenge-box ul li::before {
+    content: "▹";
+    color: #1f6c97;
+    font-weight: 700;
+    position: absolute;
+    left: 0.1rem;
+}
+
+/* ===== NAVIGATION (NEXT/BACK) ===== */
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2.5rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #e6edf6;
+}
+
+.nav-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links .back {
+    background: #f0f5fc;
+    color: #1d3f5d;
+    border: 1px solid #d1e0ef;
+}
+
+.nav-links .back:hover {
+    background: #e0ecf9;
+    transform: translateX(-4px);
+}
+
+.nav-links .next {
+    background: #1d6b9b;
+    color: white;
+    border: 1px solid #1d6b9b;
+}
+
+.nav-links .next:hover {
+    background: #155582;
+    transform: translateX(4px);
+}
+
+.nav-links .toc-link {
+    background: transparent;
+    color: #4d6f8b;
+    border: 1px solid #d1e0ef;
+}
+
+.nav-links .toc-link:hover {
+    background: #f0f5fc;
+}
+
+/* ===== FOOTER ===== */
+.section-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px dashed #c7d8ec;
+    font-size: 0.85rem;
+    color: #4d6f8b;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* ===== INLINE CODE ===== */
+.inline-code {
+    background: #eaf0f7;
+    padding: 0.1rem 0.5rem;
+    border-radius: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #1a4c72;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .nav-links a {
+        justify-content: center;
+    }
+    .top-nav {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+}

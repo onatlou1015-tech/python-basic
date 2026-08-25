@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Basic Python Programming – Course Home</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f8fe;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #152b3c;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px -12px rgba(0,20,40,0.12), 0 8px 24px -6px rgba(0,20,40,0.06);
+            padding: 2.8rem 2.8rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1.8rem 1.2rem; }
+        }
+
+        /* Header */
+        .course-header {
+            border-bottom: 2px solid #e6edf6;
+            padding-bottom: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-header h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0f2b44, #1d4568);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .course-header .subhead {
+            font-size: 1.05rem;
+            color: #3e5a76;
+            margin-top: 0.3rem;
+        }
+
+        .course-header .badge {
+            display: inline-block;
+            background: #306998;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background: #e5f0fd;
+            padding: 1.8rem 2rem;
+            border-radius: 24px;
+            border-left: 6px solid #1d6b9b;
+            margin-bottom: 2.5rem;
+        }
+
+        .intro-box h2 {
+            font-size: 1.4rem;
+            color: #0b314b;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-box p {
+            color: #1a3d5a;
+        }
+
+        /* TOC */
+        .toc-section h2 {
+            font-size: 1.8rem;
+            font-weight: 650;
+            color: #0e2b43;
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            border: 1px solid #d1e0ef;
+            font-weight: 500;
+            color: #1d3f5b;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .toc-item:hover {
+            background: #e8f0fe;
+            border-color: #1d6b9b;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(29, 107, 155, 0.15);
+        }
+
+        .toc-item .num {
+            background: #dce8f5;
+            border-radius: 40px;
+            padding: 0.1rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1f4d72;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .toc-item .label {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .toc-item .status {
+            font-size: 0.7rem;
+            color: #4d708b;
+            background: #f0f5fd;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid #c6d8eb;
+        }
+
+        .toc-item.current {
+            background: #e8f0fe;
+            border: 2px solid #1d6b9b;
+        }
+
+        .toc-item.current .status {
+            background: #1d6b9b;
+            color: white;
+            border-color: #1d6b9b;
+        }
+
+        /* Learning Outcomes */
+        .outcomes-section {
+            margin: 2.5rem 0;
+        }
+
+        .outcomes-section h2 {
+            font-size: 1.4rem;
+            color: #0e2b43;
+            margin-bottom: 0.8rem;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .outcome-pill {
+            background: #f8faff;
+            border-radius: 40px;
+            padding: 0.4rem 1.2rem;
+            border: 1px solid #dfeaf5;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1d3d5c;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #c7d8ec;
+            font-size: 0.9rem;
+            color: #4d6f8b;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .footer a {
+            color: #1d6b9b;
+            text-decoration: none;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Course Header -->
+            <div class="course-header">
+                <h1>🐍 Basic Python Programming</h1>
+                <div class="subhead">From absolute beginner to confident
+                    programmer</div>
+                <span class="badge">Python 3 · 10 Sections</span>
+            </div>
+
+            <!-- Intro -->
+            <div class="intro-box">
+                <h2>Welcome to Basic Python Programming!</h2>
+                <p>
+                    This course is designed to take you from absolute beginner
+                    to confident programmer,
+                    equipped with the skills to solve real-world problems
+                    through code.
+                    Python is powerful enough to run YouTube, Instagram, and
+                    NASA's systems,
+                    yet simple enough for complete beginners to learn.
+                </p>
+                <p
+                    style="margin-top: 0.8rem; font-weight: 500; color: #00427a;">
+                    📌 Indicator: Design algorithms that use computational
+                    thinking to solve problems or perform tasks encountered.
+                </p>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="outcomes-section">
+                <h2>📌 By the end of this course, you will be able to:</h2>
+                <div class="outcomes-grid">
+                    <span class="outcome-pill">Write your first program</span>
+                    <span class="outcome-pill">Use variables &amp; data
+                        types</span>
+                    <span class="outcome-pill">Input &amp; f-strings</span>
+                    <span class="outcome-pill">Conditional statements</span>
+                    <span class="outcome-pill">For loops &amp; range()</span>
+                    <span class="outcome-pill">While loops &amp;
+                        randomness</span>
+                    <span class="outcome-pill">Lists &amp; slicing</span>
+                    <span class="outcome-pill">String methods</span>
+                    <span class="outcome-pill">Functions &amp; DRY</span>
+                    <span class="outcome-pill">Dictionaries</span>
+                    <span class="outcome-pill">Complete game project</span>
+                    <span class="outcome-pill">Debugging strategies</span>
+                </div>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="toc-section">
+                <h2>📑 Table of Contents</h2>
+                <div class="toc-grid">
+                    <a href="section1-hello-world.html"
+                        class="toc-item current">
+                        <span class="num">1</span>
+                        <span class="label">Hello, World! – The Absolute
+                            Basics</span>
+                        <span class="status">start here</span>
+                    </a>
+                    <a href="section2-input-fstrings.html" class="toc-item">
+                        <span class="num">2</span>
+                        <span class="label">Interactive Chatbot – Input &amp;
+                            f-Strings</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section3-conditional-statements.html"
+                        class="toc-item">
+                        <span class="num">3</span>
+                        <span class="label">The Decision Maker – Conditional
+                            Statements</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section4-for-loops.html" class="toc-item">
+                        <span class="num">4</span>
+                        <span class="label">Repeating Patterns – For Loops &amp;
+                            range()</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section5-while-loops-random.html" class="toc-item">
+                        <span class="num">5</span>
+                        <span class="label">Guess the Number – While Loops &amp;
+                            Randomness</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section6-lists.html" class="toc-item">
+                        <span class="num">6</span>
+                        <span class="label">My Playlist – Introduction to
+                            Lists</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section7-string-methods.html" class="toc-item">
+                        <span class="num">7</span>
+                        <span class="label">Message Encoder – String Methods
+                            &amp; Slicing</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section8-functions.html" class="toc-item">
+                        <span class="num">8</span>
+                        <span class="label">Code Organizer – Writing Your Own
+                            Functions</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section9-dictionaries.html" class="toc-item">
+                        <span class="num">9</span>
+                        <span class="label">Digital Phonebook –
+                            Dictionaries</span>
+                        <span class="status">ready</span>
+                    </a>
+                    <a href="section10-final-project-debugging.html"
+                        class="toc-item">
+                        <span class="num">10</span>
+                        <span class="label">Game Jam – Final Project &amp;
+                            Debugging</span>
+                        <span class="status">ready</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <span>🐍 Basic Python Programming</span>
+                <span>✨ 10 sections · From beginner to creator</span>
+            </div>
+        </div>
+    </body>
+</html>

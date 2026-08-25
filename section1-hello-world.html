@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Section 1 – Hello, World! | Basic Python</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+            rel="stylesheet"> -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="breadcrumb">
+                    <a href="index.html">🏠 Home</a> &gt; Section 1
+                </div>
+                <span class="section-badge">Section 1 of 10</span>
+            </div>
+
+            <!-- Section Header -->
+            <div class="section-header">
+                <h1>🐍 Section 1 · "Hello, World!" – The Absolute Basics</h1>
+                <div class="subtitle">What is code? Syntax vs. natural language.
+                    The print() function. Variables (strings, integers, floats).
+                    Rules for naming variables.</div>
+            </div>
+
+            <!-- Intro -->
+            <div class="intro-block">
+                <p><strong>Speaking the Language of Computers</strong></p>
+                <p>Imagine you are a master chef, but your kitchen appliance
+                    only understands French. If you shout "Turn on!" in English,
+                    nothing happens. To cook, you must learn the appliance's
+                    specific French commands.</p>
+                <p style="margin-top: 0.6rem;">Coding is exactly that. Code is a
+                    set of instructions written in a programming language (like
+                    Python) that tells a computer exactly what to do.</p>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="learning-outcomes">
+                <span class="label">📘 By the end of this lesson, you
+                    will:</span>
+                <span class="pill">understand code vs. human speech</span>
+                <span class="pill">write your first print()</span>
+                <span class="pill">store data in variables</span>
+                <span class="pill">golden rules for naming</span>
+            </div>
+
+            <!-- Part A -->
+            <div class="part">
+                <h2><span class="part-label">A</span> Syntax vs. Natural
+                    Language</h2>
+                <p>Human language (English, Spanish, etc.) is full of context,
+                    slang, and ambiguity.</p>
+                <p><em>Example: "I saw the man with the telescope."</em> (Did I
+                    have the telescope, or did he?)</p>
+                <ul>
+                    <li><strong>Syntax</strong> is the strict, unbreakable
+                        grammar of a programming language.</li>
+                    <li>In Python, you must use a colon <span
+                            class="inline-code">:</span> for certain
+                        statements.</li>
+                    <li>You must use parentheses <span
+                            class="inline-code">()</span> to call
+                        functions.</li>
+                    <li>If you miss a single quotation mark <span
+                            class="inline-code">"</span>, the entire program
+                        crashes.</li>
+                </ul>
+            </div>
+
+            <!-- Part B -->
+            <div class="part">
+                <h2><span class="part-label">B</span> Your First Command – The
+                    <code>print()</code> Function</h2>
+                <p>A <strong>function</strong> is a pre-built tool in Python
+                    that does a specific job. The <code>print()</code> function
+                    outputs text or numbers to your screen.</p>
+                <div class="example-box">
+                    <p><strong>Syntax example:</strong></p>
+                    <div class="code-block">print("Hello, World!")</div>
+                    <ul>
+                        <li><span class="inline-code">print</span> is the
+                            command.</li>
+                        <li>The parentheses <span class="inline-code">()</span>
+                            hold the instruction.</li>
+                        <li>The quotation marks <span
+                                class="inline-code">" "</span> tell Python this
+                            is plain text.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Part C -->
+            <div class="part">
+                <h2><span class="part-label">C</span> Variables – The Storage
+                    Boxes</h2>
+                <p>A <strong>variable</strong> is a named container used to
+                    store data in the computer's memory.</p>
+                <p><strong>Data Types (What goes inside the box):</strong></p>
+                <ul>
+                    <li><strong>Strings (str):</strong> Text. Must always be
+                        wrapped in quotes.<br>
+                        <span class="inline-code">name = "Alice"</span></li>
+                    <li><strong>Integers (int):</strong> Whole numbers (no
+                        decimals). No quotes needed.<br>
+                        <span class="inline-code">age = 30</span></li>
+                    <li><strong>Floats (float):</strong> Numbers with decimals.
+                        No quotes needed.<br>
+                        <span class="inline-code">price = 19.99</span></li>
+                </ul>
+
+                <div class="example-box">
+                    <p><strong># Example in Action</strong></p>
+                    <div class="code-block">greeting = "Hello" # String
+                        score = 10 # Integer
+                        pi = 3.14 # Float
+
+                        print(greeting) # Outputs: Hello
+                        print(score + 5) # Outputs: 15</div>
+                </div>
+            </div>
+
+            <!-- Part D - Golden Rules -->
+            <div class="part">
+                <h2><span class="part-label">D</span> The 5 Golden Rules for
+                    Naming Variables</h2>
+                <div class="golden-rules">
+                    <h4>📌 Golden Rules</h4>
+                    <ul>
+                        <li><strong>Must start with a letter (a-z, A-Z) or an
+                                underscore _.</strong><br>
+                            <span class="inline-code">score</span>, <span
+                                class="inline-code">Name</span> ✓ &nbsp; <span
+                                class="inline-code">1st_place</span> ✗</li>
+                        <li><strong>Can only contain letters, numbers, and
+                                underscores.</strong><br>
+                            <span class="inline-code">My_score</span> ✓ &nbsp;
+                            <span class="inline-code">my-score</span> ✗</li>
+                        <li><strong>Case-sensitive.</strong> <span
+                                class="inline-code">age</span> and <span
+                                class="inline-code">Age</span> are
+                            different.</li>
+                        <li><strong>Cannot use Python's
+                                "Reserved Keywords"</strong> (<span
+                                class="inline-code">print</span>, <span
+                                class="inline-code">if</span>, <span
+                                class="inline-code">while</span>, etc.)</li>
+                        <li><strong>Be descriptive!</strong> <span
+                                class="inline-code">p</span> is legal, but <span
+                                class="inline-code">price_of_coffee</span> is
+                            better.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Recap -->
+            <div
+                style="background: #eef6fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #c9dded;">
+                <p style="font-weight: 500; color: #0a304b;">📌 <strong>Today,
+                        you learned</strong> that coding is about giving precise
+                    instructions using strict syntax. You can output data using
+                    <code>print()</code>, and store different types of data
+                    (Strings, Integers, Floats) inside variables.</p>
+            </div>
+
+            <!-- Challenge -->
+            <div class="challenge-box">
+                <h3>Challenge</h3>
+                <p>Write a small program that does the following:</p>
+                <ul>
+                    <li>Creates a variable called <strong>student_name</strong>
+                        (String) with your name.</li>
+                    <li>Creates a variable called <strong>grade_average</strong>
+                        (Float) with a number like 88.5.</li>
+                    <li>Creates a variable called <strong>total_classes</strong>
+                        (Integer) with a number like 5.</li>
+                    <li>Prints them all using a single <code>print()</code>
+                        function.</li>
+                </ul>
+                <div
+                    style="margin-top: 0.8rem; background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; color: #d6e8f9; font-family: monospace; font-size: 0.9rem; overflow-x: auto;">
+                    <span style="color: #9bb9d9;"># your code here</span><br>
+                    student_name = "Alex"<br>
+                    grade_average = 88.5<br>
+                    total_classes = 5<br>
+                    print(student_name, grade_average, total_classes)
+                </div>
+                <div style="margin-top: 1rem;">
+                    <span
+                        style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                        📁 Name: section1-xxxxx-xx
+                    </span>
+                    <span
+                        style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                        📧 onatlou1015@gmail.com
+                    </span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-links">
+                <a href="index.html" class="toc-link">📑 Table of Contents</a>
+                <a href="section2-input-fstrings.html" class="next">Next: Input
+                    &amp; f-Strings →</a>
+            </div>
+
+            <!-- Footer -->
+            <div class="section-footer">
+                <span>🐍 Section 1 · Hello, World!</span>
+                <span>print() · variables · golden rules</span>
+            </div>
+        </div>
+    </body>
+</html>
