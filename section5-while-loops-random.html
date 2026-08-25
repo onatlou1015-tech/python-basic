@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 5 – While Loops & Randomness | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 700px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .comparison-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #dce8f5;
+        }
+        .comparison-card h4 {
+            color: #0e314b;
+            margin-bottom: 0.5rem;
+        }
+        .comparison-card.for {
+            border-left: 4px solid #1d6b9b;
+        }
+        .comparison-card.while {
+            border-left: 4px solid #e67e22;
+        }
+        .danger-box {
+            background: #ffebee;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #c62828;
+            margin: 1rem 0;
+        }
+        .danger-box code {
+            background: #ffcdd2;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #b71c1c;
+        }
+        .module-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+        .module-table th,
+        .module-table td {
+            border: 1px solid #dce8f5;
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+        .module-table th {
+            background: #e8f0fe;
+            color: #0e314b;
+            font-weight: 600;
+        }
+        .module-table tr:nth-child(even) {
+            background: #f8faff;
+        }
+        .module-table code {
+            background: #eaf0f7;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .game-output {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #d6e8f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .game-output .highlight {
+            color: #a6e22e;
+        }
+        .game-output .prompt {
+            color: #f0c674;
+        }
+        .game-output .error {
+            color: #f7768e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section4-for-loops.html">Section 4</a> &gt; Section 5
+            </div>
+            <span class="section-badge">Section 5 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🎯 Section 5 · Guess the Number – While Loops &amp; Randomness</h1>
+            <div class="subtitle">while loops (when you don't know how many iterations). Infinite loops (and how to avoid them). break statements. Importing modules (import random).</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>The Art of "Keep Going Until..."</strong></p>
+            <p>Imagine you're playing hide and seek. You don't know how many times you'll need to search before finding your friend. You just keep looking until you find them. That's exactly what a <code>while</code> loop does—it keeps repeating while a condition is true, and you don't always know how many times that will be.</p>
+            <p style="margin-top: 0.6rem;">While loops are perfect for interactive programs that need to keep running until the user says "stop," or for situations where the number of repetitions depends on user input or random events.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">use while loops</span>
+            <span class="pill">avoid infinite loops</span>
+            <span class="pill">use break to exit</span>
+            <span class="pill">import the random module</span>
+            <span class="pill">build a complete game</span>
+        </div>
+
+        <!-- Part A: while loops -->
+        <div class="part">
+            <h2><span class="part-label">A</span> while Loops – The "Don't Know When to Stop" Loop</h2>
+            <p>A <code>while</code> loop repeats as long as a condition is <code>True</code>. It's like telling a friend: <em>"Keep walking while I'm not there yet."</em></p>
+
+            <div class="example-box">
+                <p><strong>Basic syntax:</strong></p>
+                <div class="code-block">while condition:
+    # Code to run repeatedly
+    # Keep running WHILE condition is True
+    # Stop when condition becomes False</div>
+            </div>
+
+            <p><strong>Simple example:</strong></p>
+            <div class="example-box">
+                <div class="code-block">counter = 0
+while counter < 5:
+    print(f"Count: {counter}")
+    counter += 1  # Increment counter
+print("Done!")
+
+# Output:
+# Count: 0
+# Count: 1
+# Count: 2
+# Count: 3
+# Count: 4
+# Done!</div>
+            </div>
+
+            <p><strong>Visual comparison:</strong></p>
+            <div class="comparison-grid">
+                <div class="comparison-card for">
+                    <h4>for loop (known number of times)</h4>
+                    <div class="code-block" style="font-size: 0.8rem;">Repeat 5 times → [1][2][3][4][5] → Stop</div>
+                </div>
+                <div class="comparison-card while">
+                    <h4>while loop (unknown number of times)</h4>
+                    <div class="code-block" style="font-size: 0.8rem;">Keep going while condition is True<br>→ [1][2][3]... [?] → Stop when condition becomes False</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part B: for vs while -->
+        <div class="part">
+            <h2><span class="part-label">B</span> for vs. while – When to Use Which</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card for">
+                    <h4>Use a <code>for</code> loop when:</h4>
+                    <ul>
+                        <li>You know exactly how many times to repeat.</li>
+                        <li>You're iterating through a sequence (list, string, range).</li>
+                        <li>You want to process each item in a collection.</li>
+                    </ul>
+                    <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># For loop - known number of iterations
+for i in range(10):
+    print(i)  # Exactly 10 times
+
+# For loop - iterating through a list
+for fruit in ["apple", "banana", "cherry"]:
+    print(fruit)  # Exactly 3 times</div>
+                </div>
+                <div class="comparison-card while">
+                    <h4>Use a <code>while</code> loop when:</h4>
+                    <ul>
+                        <li>You don't know how many times to repeat.</li>
+                        <li>The repetition depends on user input or dynamic conditions.</li>
+                        <li>You need to keep running until something changes.</li>
+                    </ul>
+                    <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># While loop - continues until user says stop
+user_input = ""
+while user_input != "quit":
+    user_input = input("Type something (or 'quit' to stop): ")
+    print(f"You typed: {user_input}")
+
+# While loop - continues until random condition is met
+import random
+roll = 0
+while roll != 6:
+    roll = random.randint(1, 6)
+    print(f"Rolled: {roll}")</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part C: Infinite Loops -->
+        <div class="part">
+            <h2><span class="part-label">C</span> Infinite Loops – The Danger Zone</h2>
+            <p>An <strong>infinite loop</strong> is a loop that never stops. It happens when the condition never becomes <code>False</code>.</p>
+
+            <div class="danger-box">
+                <p><strong>⚠️ WARNING: Infinite loop example (NEVER RUN THIS!):</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># DANGER! This will run forever!
+while True:
+    print("Help! I'm stuck!")
+    # No way to exit! Your program will freeze!</div>
+            </div>
+
+            <p><strong>How to fix common infinite loop mistakes:</strong></p>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Forgetting to update the condition</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+count = 0
+while count < 5:
+    print(count)
+    # count never changes! It stays 0 forever!
+
+# Correct - Update the variable
+count = 0
+while count < 5:
+    print(count)
+    count += 1  # NOW the condition will eventually become False</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Wrong condition logic</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+password = "secret"
+user_input = ""
+while user_input != password:
+    print("Wrong password!")  # This runs forever!
+    # Need to ask for input again inside the loop!
+
+# Correct - Ask for input inside the loop
+password = "secret"
+user_input = ""
+while user_input != password:
+    user_input = input("Enter password: ")
+    if user_input != password:
+        print("Wrong password! Try again.")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Using <code>=</code> instead of <code>==</code> in conditions</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This assigns, never becomes False
+x = 0
+while x = 5:  # Syntax error or infinite loop!
+    print(x)
+
+# Correct - Compare properly
+x = 0
+while x != 5:  # Or while x < 5
+    print(x)
+    x += 1</div>
+            </div>
+        </div>
+
+        <!-- Part D: The break Statement -->
+        <div class="part">
+            <h2><span class="part-label">D</span> The break Statement – Emergency Exit</h2>
+            <p><code>break</code> lets you exit a loop immediately, even if the condition is still <code>True</code>. It's like hitting the emergency stop button.</p>
+
+            <div class="example-box">
+                <p><strong>Basic usage:</strong></p>
+                <div class="code-block">while True:  # Infinite loop (on purpose!)
+    user_input = input("Enter a number (or 'quit' to exit): ")
+    
+    if user_input == "quit":
+        break  # Exit the loop immediately
+    print(f"You entered: {user_input}")
+print("Loop ended!")</div>
+            </div>
+
+            <p><strong>Real-world example: Password system with limited attempts:</strong></p>
+            <div class="example-box">
+                <div class="code-block">password = "python123"
+attempts = 0
+max_attempts = 3
+
+while attempts < max_attempts:
+    guess = input("Enter password: ")
+    attempts += 1
+    
+    if guess == password:
+        print("Access granted! Welcome!")
+        break  # Exit on success
+    else:
+        remaining = max_attempts - attempts
+        print(f"Wrong password. {remaining} attempts remaining.")
+
+if attempts == max_attempts:
+    print("Too many failed attempts. Account locked.")</div>
+            </div>
+
+            <p><strong>Using break in a number guessing game:</strong></p>
+            <div class="example-box">
+                <div class="code-block">import random
+secret = random.randint(1, 10)
+print("I'm thinking of a number between 1 and 10.")
+
+while True:  # Keep going until the user guesses
+    guess = int(input("Your guess: "))
+    
+    if guess == secret:
+        print("You got it! Congratulations!")
+        break  # Exit the game
+    elif guess < secret:
+        print("Too low! Try again.")
+    else:
+        print("Too high! Try again.")</div>
+            </div>
+        </div>
+
+        <!-- Part E: Importing Modules -->
+        <div class="part">
+            <h2><span class="part-label">E</span> Importing Modules – import random</h2>
+            <p><strong>Modules</strong> are pre-written code libraries that add extra functionality to Python. You need to <strong>import</strong> them before you can use them.</p>
+            <p>The <code>random</code> module provides functions for generating random numbers and choices.</p>
+
+            <div class="example-box">
+                <p><strong>Basic usage:</strong></p>
+                <div class="code-block">import random
+
+# Generate a random integer between 1 and 10 (inclusive)
+number = random.randint(1, 10)
+print(number)
+
+# Random float between 0 and 1
+decimal = random.random()
+print(decimal)
+
+# Random choice from a list
+colors = ["red", "blue", "green", "yellow"]
+choice = random.choice(colors)
+print(choice)
+
+# Shuffle a list
+cards = [1, 2, 3, 4, 5]
+random.shuffle(cards)
+print(cards)  # Random order</div>
+            </div>
+
+            <p><strong>Common random functions:</strong></p>
+            <table class="module-table">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>random.randint(a, b)</code></td>
+                        <td>Random integer between a and b (inclusive)</td>
+                        <td><code>random.randint(1, 6)</code> → 4</td>
+                    </tr>
+                    <tr>
+                        <td><code>random.random()</code></td>
+                        <td>Random float between 0 and 1</td>
+                        <td><code>random.random()</code> → 0.732</td>
+                    </tr>
+                    <tr>
+                        <td><code>random.choice(list)</code></td>
+                        <td>Random item from a list</td>
+                        <td><code>random.choice(["A", "B", "C"])</code> → "B"</td>
+                    </tr>
+                    <tr>
+                        <td><code>random.shuffle(list)</code></td>
+                        <td>Shuffles a list in place</td>
+                        <td><code>random.shuffle(cards)</code> → shuffles</td>
+                    </tr>
+                    <tr>
+                        <td><code>random.uniform(a, b)</code></td>
+                        <td>Random float between a and b</td>
+                        <td><code>random.uniform(1.0, 5.0)</code> → 3.72</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Importing specific functions:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Option 1: Import the whole module
+import random
+roll = random.randint(1, 6)
+
+# Option 2: Import specific functions (cleaner!)
+from random import randint, choice, shuffle
+roll = randint(1, 6)      # No "random." needed!
+color = choice(["red", "blue"])</div>
+            </div>
+        </div>
+
+        <!-- Part F: Complete Game -->
+        <div class="part">
+            <h2><span class="part-label">F</span> Building a Complete Game – "Guess the Number"</h2>
+            <p>Let's build a full-featured guessing game that uses everything we've learned:</p>
+
+            <div class="code-block" style="font-size: 0.85rem;"># Guess the Number - Complete Game
+import random
+
+print("=== GUESS THE NUMBER ===")
+print("I'm thinking of a number between 1 and 100.")
+print("Try to guess it! I'll give you hints.\n")
+
+# Game settings
+secret_number = random.randint(1, 100)
+attempts = 0
+max_attempts = 10
+game_over = False
+
+# Main game loop
+while not game_over:
+    # Get player's guess
+    try:
+        guess = int(input(f"Attempt {attempts + 1}/{max_attempts} - Your guess: "))
+        attempts += 1
+    except ValueError:
+        print("Please enter a valid number!")
+        continue
+    
+    # Check the guess
+    if guess < 1 or guess > 100:
+        print("Number must be between 1 and 100!")
+        continue
+    
+    # Compare guess to secret
+    if guess == secret_number:
+        print(f"\nCongratulations! You got it in {attempts} attempts!")
+        game_over = True
+        
+    elif guess < secret_number:
+        print("Too low! Try higher.")
+        
+    else:
+        print("Too high! Try lower.")
+    
+    # Check if player ran out of attempts
+    if attempts >= max_attempts and not game_over:
+        print(f"\nGame over! The number was {secret_number}.")
+        game_over = True
+
+print("\nThanks for playing!")
+
+# Bonus: Ask if they want to play again
+play_again = input("\nPlay again? (yes/no): ").lower()
+if play_again == "yes":
+    # We could restart the game here by resetting variables
+    print("Restarting game...")</div>
+
+            <div class="game-output"><span class="highlight">=== GUESS THE NUMBER ===</span>
+I'm thinking of a number between 1 and 100.
+Try to guess it! I'll give you hints.
+
+<span class="prompt">Attempt 1/10 - Your guess: 50</span>
+Too high! Try lower.
+<span class="prompt">Attempt 2/10 - Your guess: 25</span>
+Too low! Try higher.
+<span class="prompt">Attempt 3/10 - Your guess: 37</span>
+Too low! Try higher.
+<span class="prompt">Attempt 4/10 - Your guess: 43</span>
+Too high! Try lower.
+<span class="prompt">Attempt 5/10 - Your guess: 40</span>
+Too high! Try lower.
+<span class="prompt">Attempt 6/10 - Your guess: 38</span>
+Too low! Try higher.
+<span class="prompt">Attempt 7/10 - Your guess: 39</span>
+
+<span class="highlight">Congratulations! You got it in 7 attempts!</span>
+
+Thanks for playing!
+
+Play again? (yes/no): no</div>
+        </div>
+
+        <!-- Part G: Ultimate Guessing Game -->
+        <div class="part">
+            <h2><span class="part-label">G</span> Advanced – The Ultimate Guessing Game</h2>
+            <p>Here's an enhanced version with multiple difficulty levels and scoring:</p>
+
+            <div class="code-block" style="font-size: 0.8rem;"># Ultimate Guessing Game
+import random
+
+def play_game():
+    print("\n" + "=" * 40)
+    print("     GUESS THE NUMBER - ULTIMATE EDITION")
+    print("=" * 40)
+    
+    # Difficulty selection
+    print("\nSelect difficulty:")
+    print("1. Easy (1-50, 10 attempts)")
+    print("2. Medium (1-100, 7 attempts)")
+    print("3. Hard (1-200, 5 attempts)")
+    print("4. Custom")
+    
+    choice = input("Choose (1-4): ")
+    
+    # Set game parameters based on difficulty
+    if choice == "1":
+        max_number = 50
+        max_attempts = 10
+        difficulty_name = "Easy"
+    elif choice == "2":
+        max_number = 100
+        max_attempts = 7
+        difficulty_name = "Medium"
+    elif choice == "3":
+        max_number = 200
+        max_attempts = 5
+        difficulty_name = "Hard"
+    elif choice == "4":
+        max_number = int(input("Max number (1-1000): "))
+        max_attempts = int(input("Max attempts: "))
+        difficulty_name = "Custom"
+    else:
+        print("Invalid choice. Defaulting to Medium.")
+        max_number = 100
+        max_attempts = 7
+        difficulty_name = "Medium"
+    
+    # Generate secret number
+    secret = random.randint(1, max_number)
+    attempts = 0
+    guessed = False
+    
+    print(f"\n{difficulty_name} Mode Selected")
+    print(f"Guess a number between 1 and {max_number}")
+    print(f"You have {max_attempts} attempts.\n")
+    
+    # Game loop
+    while attempts < max_attempts:
+        try:
+            guess = int(input(f"Attempt {attempts + 1}/{max_attempts} - Guess: "))
+            attempts += 1
+            
+            if guess < 1 or guess > max_number:
+                print(f"Number must be between 1 and {max_number}!")
+                continue
+                
+            # Calculate difference for better hint
+            diff = abs(guess - secret)
+            
+            if guess == secret:
+                print(f"\nYOU WIN! The number was {secret}!")
+                print(f"Found it in {attempts} attempts!")
+                score = max(0, (max_attempts - attempts + 1) * 10)
+                print(f"Score: {score} points")
+                guessed = True
+                break
+            elif guess < secret:
+                if diff <= 5:
+                    print("Very close! Just a little higher.")
+                elif diff <= 10:
+                    print("Close! Go higher.")
+                else:
+                    print("Too low! Try higher.")
+            else:  # guess > secret
+                if diff <= 5:
+                    print("Very close! Just a little lower.")
+                elif diff <= 10:
+                    print("Close! Go lower.")
+                else:
+                    print("Too high! Try lower.")
+                    
+            # Give hint based on remaining attempts
+            if attempts == max_attempts - 1:
+                print("Last chance!")
+                
+        except ValueError:
+            print("Please enter a valid number!")
+    
+    if not guessed:
+        print(f"\nGAME OVER! The number was {secret}.")
+        print("Better luck next time!")
+    
+    return guessed
+
+# Main program with replay loop
+def main():
+    total_wins = 0
+    total_games = 0
+    
+    while True:
+        total_games += 1
+        if play_game():
+            total_wins += 1
+            
+        # Ask to play again
+        again = input("\nPlay again? (yes/no): ").lower()
+        if again != "yes":
+            break
+    
+    # Show stats
+    print("\n" + "=" * 40)
+    print("           GAME STATS")
+    print("=" * 40)
+    print(f"Games played: {total_games}")
+    print(f"Games won: {total_wins}")
+    if total_games > 0:
+        win_rate = (total_wins / total_games) * 100
+        print(f"Win rate: {win_rate:.1f}%")
+    print("Thanks for playing!")
+
+if __name__ == "__main__":
+    main()</div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of While Loops:</h4>
+                <ul>
+                    <li><strong>Always ensure the condition can become False.</strong> Update variables inside the loop to eventually stop it. Use a counter, wait for user input, or <code>break</code>.</li>
+                    <li><strong>Use <code>break</code> to exit loops immediately.</strong> Perfect for "quit" commands or finding a match. But don't overuse it—it can make code hard to follow.</li>
+                    <li><strong>Avoid infinite loops by checking your conditions carefully.</strong> Test your code with small values first. Add a safety counter or timeout if needed.</li>
+                    <li><strong>Import modules at the top of your file.</strong> Place <code>import</code> statements before your main code. It's a convention that makes your code cleaner.</li>
+                    <li><strong>Use <code>try/except</code> for user input to prevent crashes.</strong> Users make mistakes—handle them gracefully. Never assume input will be perfect.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Forgetting to update loop variables</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+num = 0
+while num < 10:
+    print(num)
+    # num never changes!
+
+# Correct - Update the variable
+while num < 10:
+    print(num)
+    num += 1  # Increment</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Incorrect condition logic</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This skips 0 and never prints it
+num = 0
+while num > 10:  # 0 > 10 is False, loop never runs!
+    print(num)
+
+# Correct - Use the right condition
+while num < 10:
+    print(num)
+    num += 1</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Using <code>break</code> when you could use the condition</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Overkill - Break not needed here
+num = 0
+while True:
+    if num >= 5:
+        break
+    print(num)
+    num += 1
+
+# Cleaner - Use the condition
+num = 0
+while num < 5:
+    print(num)
+    num += 1</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Forgetting to convert user input</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Comparing string to integer
+secret = 42
+guess = input("Guess: ")  # "42" (string)
+if guess == secret:       # False! "42" != 42
+    print("You win!")
+
+# Correct - Convert to integer
+guess = int(input("Guess: "))  # 42 (integer)
+if guess == secret:            # True!
+    print("You win!")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 5: Not handling invalid input</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Crashes - User types "abc"
+num = int(input("Enter a number: "))  # ValueError!
+
+# Handles errors - Try/except
+try:
+    num = int(input("Enter a number: "))
+except ValueError:
+    print("That's not a valid number!")</div>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> how to make your programs dynamic and interactive using <code>while</code> loops and randomness! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Use <code>while</code> loops for situations with unknown iterations</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Avoid and handle infinite loops safely</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Exit loops on command using <code>break</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Import external modules to add powerful functionality</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Build complete, interactive games with user input and computer AI</li>
+            </ul>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every interactive app you use—from your bank app asking for a PIN (limited attempts) to video games with random events—uses <code>while</code> loops and randomness!</p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Rock, Paper, Scissors"</strong> game with the following features:</p>
+            <ul>
+                <li><strong>The computer chooses randomly</strong> using <code>random.choice()</code>.</li>
+                <li><strong>The player inputs their choice</strong> (rock, paper, or scissors).</li>
+                <li><strong>The game uses while loops</strong> to:
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Keep playing until the player types "quit"</li>
+                        <li>• Validate input (handle typos, case sensitivity)</li>
+                        <li>• Track win/loss/tie statistics</li>
+                    </ul>
+                </li>
+                <li><strong>Display clear results</strong> for each round and overall statistics.</li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output:</span><br><br>
+                === ROCK, PAPER, SCISSORS ===<br>
+                Type 'rock', 'paper', or 'scissors'<br>
+                Type 'quit' to exit<br><br>
+                <span class="prompt">Round 1</span><br>
+                <span class="prompt">Your choice: rock</span><br>
+                Computer chose: paper<br>
+                You lose! Paper covers rock.<br><br>
+                <span class="prompt">Round 2</span><br>
+                <span class="prompt">Your choice: scissors</span><br>
+                Computer chose: scissors<br>
+                Tie! Both chose scissors.<br><br>
+                <span class="prompt">Round 3</span><br>
+                <span class="prompt">Your choice: paper</span><br>
+                Computer chose: rock<br>
+                You win! Paper covers rock.<br><br>
+                <span class="prompt">Your choice: quit</span><br>
+                === FINAL STATS ===<br>
+                Games played: 3<br>
+                Wins: 1<br>
+                Losses: 1<br>
+                Ties: 1<br>
+                Win rate: 33.3%<br><br>
+                Thanks for playing!
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">import random
+
+print("=== ROCK, PAPER, SCISSORS ===")
+print("Type 'rock', 'paper', or 'scissors'")
+print("Type 'quit' to exit\n")
+
+# Initialize variables
+choices = ["rock", "paper", "scissors"]
+wins = losses = ties = 0
+round_num = 1
+
+# Main game loop
+while True:
+    # Your code here...
+    
+    # Get player's choice
+    # Get computer's choice
+    # Compare and determine winner
+    # Update statistics
+    # Display results
+    
+# Print final stats
+print("\n=== FINAL STATS ===")
+# Your code here...</div>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e3f2fd; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #1565c0;">
+                <p><strong>Sample implementation for the rock-paper-scissors logic:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;"># Determine winner
+if player_choice == computer_choice:
+    print("Tie!")
+    ties += 1
+elif (player_choice == "rock" and computer_choice == "scissors") or \
+     (player_choice == "scissors" and computer_choice == "paper") or \
+     (player_choice == "paper" and computer_choice == "rock"):
+    print("You win!")
+    wins += 1
+else:
+    print("You lose!")
+    losses += 1</div>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus Challenges:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Add a "best of 5" mode where the first to 3 wins.</li>
+                    <li>• Add a score multiplier for winning streaks.</li>
+                    <li>• Add a "cheat" mode where the computer shows its choice before you choose.</li>
+                    <li>• Implement the "Rock, Paper, Scissors, Lizard, Spock" version.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section5-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've unlocked the power of dynamic, interactive programming! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use <code>while</code> loops for situations where you don't know how many iterations you'll need</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Avoid and handle infinite loops safely</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Exit loops on command using <code>break</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Import external modules to add powerful functionality</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build complete, interactive games with user input and computer AI</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about every interactive app you use</strong>—from your bank app asking for a PIN (limited attempts) to video games with random events. They all use <code>while</code> loops and randomness!</p>
+            <p style="color: #0d47a1; margin-top: 0.5rem;"><strong>Where to go next:</strong> Combine <code>for</code> and <code>while</code> loops for even more complex patterns. Store multiple pieces of data in lists and dictionaries. Write functions to organize your code into reusable blocks. You're no longer just running code—you're building experiences!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section4-for-loops.html" class="back">← Back: For Loops &amp; range()</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section6-lists.html" class="next">Next: Introduction to Lists →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 5 · While Loops &amp; Randomness</span>
+            <span>while loops · break · import random · games</span>
+        </div>
+    </div>
+</body>
+</html>

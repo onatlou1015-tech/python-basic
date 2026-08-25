@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 4 – For Loops & range() | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .range-visual {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .range-visual .highlight {
+            color: #a6e22e;
+        }
+        .range-visual .arrow {
+            color: #f0c674;
+        }
+        .range-visual .bracket {
+            color: #8ab4d6;
+        }
+        .pattern-box {
+            background: #f4faff;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border: 1px solid #d2e2f2;
+            margin: 0.8rem 0;
+        }
+        .pattern-box h4 {
+            color: #0e314b;
+            margin-bottom: 0.3rem;
+        }
+        .nested-demo {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .nested-demo .outer { color: #f0c674; }
+        .nested-demo .inner { color: #8ab4d6; }
+        .nested-demo .result { color: #a6e22e; }
+        .nested-demo .comment { color: #8aaec9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section3-conditional-statements.html">Section 3</a> &gt; Section 4
+            </div>
+            <span class="section-badge">Section 4 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🔄 Section 4 · Repeating Patterns – For Loops &amp; range()</h1>
+            <div class="subtitle">Iteration. The range() function (one, two, and three arguments). Looping through strings (characters).</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>Teaching Your Computer to Repeat</strong></p>
+            <p>Imagine you're a teacher with 30 students. You need to take attendance. Do you call each name individually, one at a time? Yes! But you don't write 30 separate instructions—you follow a pattern: <em>"For each student in the class, call their name and mark them present."</em></p>
+            <p style="margin-top: 0.6rem;">Computers excel at repetitive tasks. They never get bored, tired, or distracted. A loop is your way of saying: <strong>"Do this thing, and keep doing it until I tell you to stop."</strong></p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">understand iteration</span>
+            <span class="pill">use for loops</span>
+            <span class="pill">master range() with 1-3 args</span>
+            <span class="pill">loop through strings</span>
+        </div>
+
+        <!-- Part A: What is Iteration -->
+        <div class="part">
+            <h2><span class="part-label">A</span> What is Iteration?</h2>
+            <p><strong>Iteration</strong> is the fancy computer science term for <em>"repeating a block of code multiple times."</em></p>
+
+            <p><strong>Without loops (the painful way):</strong></p>
+            <div class="code-block">print("Student 1")
+print("Student 2")
+print("Student 3")
+print("Student 4")
+print("Student 5")
+# ... imagine doing this for 100 students!</div>
+
+            <p><strong>With loops (the smart way):</strong></p>
+            <div class="code-block">for i in range(1, 6):
+    print(f"Student {i}")
+# This prints Student 1 through Student 5</div>
+
+            <div class="success-box">
+                <p><strong>Why loops matter:</strong></p>
+                <ul>
+                    <li><strong>Efficiency:</strong> Write once, run many times.</li>
+                    <li><strong>Scalability:</strong> Handle 10 items or 10 million with the same code.</li>
+                    <li><strong>Automation:</strong> Process data, generate reports, handle user input—all automatically.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Part B: The for Loop -->
+        <div class="part">
+            <h2><span class="part-label">B</span> The for Loop – Your Repetition Tool</h2>
+            <p>The <code>for</code> loop is used to iterate over a sequence (like a list, a string, or a range of numbers). It runs the code block once for each item in the sequence.</p>
+
+            <div class="example-box">
+                <p><strong>Basic syntax:</strong></p>
+                <div class="code-block">for variable in sequence:
+    # Code to run for each item
+    # This runs once per item in the sequence</div>
+            </div>
+
+            <p><strong>How it works:</strong></p>
+            <ul>
+                <li>Python takes the first item from the sequence.</li>
+                <li>It assigns it to the variable.</li>
+                <li>It runs the indented code block.</li>
+                <li>It takes the next item from the sequence.</li>
+                <li>Repeat until there are no more items.</li>
+            </ul>
+
+            <div class="example-box">
+                <p><strong>Simple example:</strong></p>
+                <div class="code-block">for number in [1, 2, 3, 4, 5]:
+    print(number)
+
+# Output:
+# 1
+# 2
+# 3
+# 4
+# 5</div>
+            </div>
+
+            <p><strong>The variable name can be anything:</strong></p>
+            <div class="example-box">
+                <div class="code-block">for x in [10, 20, 30]:
+    print(x * 2)
+
+# Output:
+# 20
+# 40
+# 60</div>
+            </div>
+        </div>
+
+        <!-- Part C: The range() Function -->
+        <div class="part">
+            <h2><span class="part-label">C</span> The range() Function – Creating Number Sequences</h2>
+            <p>The <code>range()</code> function generates a sequence of numbers. It's the most common way to control how many times a loop runs.</p>
+
+            <h3 style="margin-top: 1.2rem; font-size: 1.1rem; color: #0e314b;">Three ways to use <code>range()</code>:</h3>
+
+            <!-- One Argument -->
+            <div style="background: #e8f0fe; border-radius: 16px; padding: 1rem 1.5rem; margin: 1rem 0; border-left: 4px solid #1d6b9b;">
+                <h4 style="color: #0e314b;">1. One Argument: <code>range(stop)</code></h4>
+                <p>Generates numbers from <strong>0</strong> to <strong>stop - 1</strong>.</p>
+                <div class="code-block" style="margin-top: 0.3rem;">for i in range(5):  # 0, 1, 2, 3, 4
+    print(i)
+# Output:
+# 0
+# 1
+# 2
+# 3
+# 4</div>
+                <div class="range-visual">range(5) → <span class="bracket">[</span><span class="highlight">0</span>, <span class="highlight">1</span>, <span class="highlight">2</span>, <span class="highlight">3</span>, <span class="highlight">4</span><span class="bracket">]</span>
+<span class="comment">          ↑                         ↑</span>
+<span class="comment">        Start                    Stop - 1</span></div>
+                <p><strong>Common use case: Repeat something N times:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem;">for i in range(3):
+    print("Hello!")
+
+# Output:
+# Hello!
+# Hello!
+# Hello!</div>
+            </div>
+
+            <!-- Two Arguments -->
+            <div style="background: #e8f5e9; border-radius: 16px; padding: 1rem 1.5rem; margin: 1rem 0; border-left: 4px solid #2e7d32;">
+                <h4 style="color: #0e314b;">2. Two Arguments: <code>range(start, stop)</code></h4>
+                <p>Generates numbers from <strong>start</strong> to <strong>stop - 1</strong>.</p>
+                <div class="code-block" style="margin-top: 0.3rem;">for i in range(2, 7):  # 2, 3, 4, 5, 6
+    print(i)
+
+# Output:
+# 2
+# 3
+# 4
+# 5
+# 6</div>
+                <div class="range-visual">range(2, 7) → <span class="bracket">[</span><span class="highlight">2</span>, <span class="highlight">3</span>, <span class="highlight">4</span>, <span class="highlight">5</span>, <span class="highlight">6</span><span class="bracket">]</span>
+<span class="comment">               ↑                 ↑</span>
+<span class="comment">             Start            Stop - 1</span></div>
+                <p><strong>Practical example:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem;">for year in range(2020, 2026):
+    print(f"Year: {year}")
+
+# Output:
+# Year: 2020
+# Year: 2021
+# Year: 2022
+# Year: 2023
+# Year: 2024
+# Year: 2025</div>
+            </div>
+
+            <!-- Three Arguments -->
+            <div style="background: #fce4ec; border-radius: 16px; padding: 1rem 1.5rem; margin: 1rem 0; border-left: 4px solid #c62828;">
+                <h4 style="color: #0e314b;">3. Three Arguments: <code>range(start, stop, step)</code></h4>
+                <p>Generates numbers from <strong>start</strong> to <strong>stop - 1</strong>, jumping by <strong>step</strong>.</p>
+                <div class="code-block" style="margin-top: 0.3rem;">for i in range(0, 10, 2):  # 0, 2, 4, 6, 8
+    print(i)
+
+# Output:
+# 0
+# 2
+# 4
+# 6
+# 8</div>
+                <div class="range-visual">range(0, 10, 2) → <span class="bracket">[</span><span class="highlight">0</span>, <span class="highlight">2</span>, <span class="highlight">4</span>, <span class="highlight">6</span>, <span class="highlight">8</span><span class="bracket">]</span>
+<span class="comment">                    ↑  ↑  ↑  ↑  ↑</span>
+<span class="comment">                  Start  +2  +2  Stop - 1</span></div>
+                <p><strong>Counting backwards with a negative step:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem;">for i in range(10, 0, -1):  # 10, 9, 8, ..., 1
+    print(i)
+
+# Output: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
+print("Blast off!")</div>
+                <p><strong>All three arguments in action:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem;"># Even numbers between 20 and 50
+for num in range(20, 51, 2):
+    print(num)
+
+# Odd numbers between 1 and 20
+for num in range(1, 20, 2):
+    print(num)
+
+# Multiples of 5 from 50 down to 5
+for num in range(50, 0, -5):
+    print(num)</div>
+            </div>
+        </div>
+
+        <!-- Part D: Looping Through Strings -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Looping Through Strings – Character by Character</h2>
+            <p>A string is a sequence of characters. You can loop through each character individually!</p>
+
+            <div class="example-box">
+                <p><strong>Basic string iteration:</strong></p>
+                <div class="code-block">word = "Python"
+for letter in word:
+    print(letter)
+
+# Output:
+# P
+# y
+# t
+# h
+# o
+# n</div>
+            </div>
+
+            <p><strong>Real-world examples:</strong></p>
+
+            <div class="pattern-box">
+                <h4>1. Counting vowels in a word:</h4>
+                <div class="code-block">word = "Mississippi"
+vowel_count = 0
+
+for letter in word:
+    if letter in "aeiouAEIOU":
+        vowel_count += 1
+
+print(f"'{word}' has {vowel_count} vowels.")
+# Output: 'Mississippi' has 4 vowels.</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>2. Reversing a string:</h4>
+                <div class="code-block">word = "Python"
+reverse = ""
+for letter in word:
+    reverse = letter + reverse
+
+print(f"Original: {word}")
+print(f"Reversed: {reverse}")
+# Output: Reversed: nohtyP</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>3. Checking for specific characters:</h4>
+                <div class="code-block">password = "Secure123!"
+has_number = False
+has_uppercase = False
+
+for char in password:
+    if char.isdigit():
+        has_number = True
+    if char.isupper():
+        has_uppercase = True
+
+print(f"Contains number: {has_number}")
+print(f"Contains uppercase: {has_uppercase}")</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>4. Using <code>len()</code> and <code>range()</code> together:</h4>
+                <div class="code-block">name = "Alice"
+
+for i in range(len(name)):
+    print(f"{name[i]} at position {i}")
+
+# Output:
+# A at position 0
+# l at position 1
+# i at position 2
+# c at position 3
+# e at position 4</div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>💡 Common pattern:</strong> Using <code>len()</code> and <code>range()</code> together</p>
+                <div class="code-block" style="margin-top: 0.3rem;">word = "Hello"
+# Method 1: Direct iteration (simpler)
+for letter in word:
+    print(letter)
+
+# Method 2: Using index (when you need position)
+for i in range(len(word)):
+    print(f"Index {i}: {word[i]}")</div>
+            </div>
+        </div>
+
+        <!-- Part E: Nested Loops -->
+        <div class="part">
+            <h2><span class="part-label">E</span> Nested Loops – Loops Inside Loops</h2>
+            <p>Sometimes you need a loop inside another loop. This is called <strong>nesting</strong>.</p>
+
+            <p><strong>Example: Multiplication table:</strong></p>
+            <div class="nested-demo"><span class="outer">for i in range(1, 4):      <span class="comment"># Outer loop</span></span>
+<span class="inner">    for j in range(1, 4):  <span class="comment"># Inner loop</span></span>
+<span class="result">        print(f"{i} × {j} = {i * j}")</span>
+<span class="result">    print("---")           <span class="comment"># Separator</span></span>
+
+<span class="comment"># Output:</span>
+<span class="result">1 × 1 = 1</span>
+<span class="result">1 × 2 = 2</span>
+<span class="result">1 × 3 = 3</span>
+<span class="result">---</span>
+<span class="result">2 × 1 = 2</span>
+<span class="result">2 × 2 = 4</span>
+<span class="result">2 × 3 = 6</span>
+<span class="result">---</span>
+<span class="result">3 × 1 = 3</span>
+<span class="result">3 × 2 = 6</span>
+<span class="result">3 × 3 = 9</span>
+<span class="result">---</span></div>
+
+            <p><strong>Visualizing nested loops:</strong></p>
+            <ul>
+                <li>For each <strong>i</strong> (outer loop):</li>
+                <li style="padding-left: 1.5rem;">For each <strong>j</strong> (inner loop):</li>
+                <li style="padding-left: 3rem;">Do something</li>
+            </ul>
+
+            <p><strong>Building a pyramid pattern:</strong></p>
+            <div class="nested-demo"><span class="outer">height = 5</span>
+
+<span class="outer">for i in range(1, height + 1):</span>
+<span class="inner">    # Print spaces</span>
+<span class="inner">    for j in range(height - i):</span>
+<span class="result">        print(" ", end="")</span>
+<span class="inner">    # Print stars</span>
+<span class="inner">    for k in range(2 * i - 1):</span>
+<span class="result">        print("*", end="")</span>
+<span class="result">    print()  # New line</span>
+
+<span class="comment"># Output:</span>
+<span class="result">    *</span>
+<span class="result">   ***</span>
+<span class="result">  *****</span>
+<span class="result"> *******</span>
+<span class="result">*********</span></div>
+        </div>
+
+        <!-- Part F: Common Patterns -->
+        <div class="part">
+            <h2><span class="part-label">F</span> Common Patterns with Loops</h2>
+
+            <div class="pattern-box">
+                <h4>Pattern 1: Accumulating a total (summing)</h4>
+                <div class="code-block">total = 0
+
+for i in range(1, 101):
+    total += i  # Add each number
+
+print(f"Sum of 1 to 100: {total}")  # 5050</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>Pattern 2: Finding the maximum/minimum</h4>
+                <div class="code-block">numbers = [23, 45, 12, 67, 34, 89, 5]
+max_num = numbers[0]
+
+for num in numbers:
+    if num > max_num:
+        max_num = num
+
+print(f"Maximum: {max_num}")</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>Pattern 3: Building a list of results</h4>
+                <div class="code-block">squares = []
+for i in range(1, 11):
+    squares.append(i ** 2)
+
+print(squares)  # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>Pattern 4: Counting with conditions</h4>
+                <div class="code-block"># Count even numbers between 1 and 50
+even_count = 0
+
+for num in range(1, 51):
+    if num % 2 == 0:
+        even_count += 1
+
+print(f"Even numbers between 1 and 50: {even_count}")</div>
+            </div>
+
+            <div class="pattern-box">
+                <h4>Pattern 5: Using <code>break</code> and <code>continue</code></h4>
+                <div class="code-block"># break: Exit the loop early
+for i in range(10):
+    if i == 5:
+        break  # Stops at 5
+    print(i)
+# Output: 0, 1, 2, 3, 4
+
+# continue: Skip the current iteration
+for i in range(10):
+    if i % 2 == 0:
+        continue  # Skip even numbers
+    print(i)
+# Output: 1, 3, 5, 7, 9</div>
+            </div>
+        </div>
+
+        <!-- Part G: Real-World Application -->
+        <div class="part">
+            <h2><span class="part-label">G</span> Real-World Application – Grade Analyzer</h2>
+            <p>Let's build a practical program that uses everything we've learned:</p>
+
+            <div class="code-block" style="font-size: 0.85rem;"># Grade Analyzer - Processes multiple student grades
+
+print("=== GRADE ANALYZER ===")
+num_students = int(input("How many students? "))
+
+grades = []  # Store all grades
+total = 0
+
+# Input phase
+for i in range(num_students):
+    grade = float(input(f"Enter grade for student {i+1}: "))
+    grades.append(grade)
+    total += grade
+
+# Analysis phase
+average = total / num_students
+
+# Find highest and lowest
+highest = grades[0]
+lowest = grades[0]
+for grade in grades:
+    if grade > highest:
+        highest = grade
+    if grade < lowest:
+        lowest = grade
+
+# Count grade ranges
+a_count = b_count = c_count = d_count = f_count = 0
+for grade in grades:
+    if grade >= 90:
+        a_count += 1
+    elif grade >= 80:
+        b_count += 1
+    elif grade >= 70:
+        c_count += 1
+    elif grade >= 60:
+        d_count += 1
+    else:
+        f_count += 1
+
+# Display results with stars for visual representation
+print(f"\n=== RESULTS ===")
+print(f"Total Students: {num_students}")
+print(f"Average Grade: {average:.2f}")
+print(f"Highest Grade: {highest}")
+print(f"Lowest Grade: {lowest}")
+
+print("\n=== GRADE DISTRIBUTION ===")
+print(f"A (90-100): {a_count} " + "★" * a_count)
+print(f"B (80-89):  {b_count} " + "★" * b_count)
+print(f"C (70-79):  {c_count} " + "★" * c_count)
+print(f"D (60-69):  {d_count} " + "★" * d_count)
+print(f"F (<60):    {f_count} " + "★" * f_count)</div>
+
+            <div style="background: #f3e5f5; border-radius: 16px; padding: 1rem 1.5rem; border-left: 4px solid #7b1fa2;">
+                <p><strong>Sample run:</strong></p>
+                <div class="code-block" style="background: #1a1a2e; margin-top: 0.5rem; font-size: 0.85rem;">=== GRADE ANALYZER ===
+How many students? 5
+Enter grade for student 1: 92
+Enter grade for student 2: 78
+Enter grade for student 3: 88
+Enter grade for student 4: 65
+Enter grade for student 5: 45
+
+=== RESULTS ===
+Total Students: 5
+Average Grade: 73.60
+Highest Grade: 92.0
+Lowest Grade: 45.0
+
+=== GRADE DISTRIBUTION ===
+A (90-100): 1 ★
+B (80-89):  1 ★
+C (70-79):  1 ★
+D (60-69):  1 ★
+F (<60):    1 ★</div>
+            </div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of For Loops:</h4>
+                <ul>
+                    <li><strong>The loop variable is created each iteration.</strong> You can name it anything, but <code>i</code> (for index) is common.
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">for i in range(5):  # i takes values 0, 1, 2, 3, 4</div>
+                    </li>
+                    <li><strong><code>range()</code> is exclusive on the stop value.</strong>
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">range(5)    → 0, 1, 2, 3, 4
+range(2, 5) → 2, 3, 4
+range(1, 10, 2) → 1, 3, 5, 7, 9</div>
+                    </li>
+                    <li><strong>Indentation matters!</strong> Everything inside the loop must be indented.
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">for i in range(3):
+    print(i)     # ✓ Inside loop
+print("Done")    # ✓ Outside loop</div>
+                    </li>
+                    <li><strong>Strings are sequences too.</strong> You can loop through characters directly.
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">for char in "Python":  # Iterates P, y, t, h, o, n</div>
+                    </li>
+                    <li><strong>Nested loops run completely for each outer iteration.</strong> The inner loop completes all its cycles before the outer loop moves on.
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">for i in range(3):      # Runs 3 times
+    for j in range(2):  # Runs 2 times for EACH i
+        # This runs 6 times total (3 × 2)</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Off-by-one errors</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - stops too early
+for i in range(10):  # 0 to 9
+    print(i)
+# Last number printed is 9, not 10
+
+# ✓ Correct - go to 11 to get 10
+for i in range(11):  # 0 to 10
+    print(i)</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Modifying a string while iterating</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Strings are immutable - can't change them
+word = "Hello"
+for char in word:
+    char = "X"  # This does nothing to the original string
+
+# ✓ Correct - build a new string
+new_word = ""
+for char in word:
+    new_word += "X"</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Forgetting to indent</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">for i in range(3):
+print(i)  # IndentationError!</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Using a variable after the loop (it still exists!)</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">for i in range(5):
+    print(i)
+# i still exists with value 4! (last value from loop)
+print(i)  # 4</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 5: Infinite loops</strong> (don't happen with <code>for</code> loops, but with <code>while</code> loops!)</p>
+                <p><code>for</code> loops are safe - they always stop. <code>while</code> loops can be infinite if you're not careful. We'll cover <code>while</code> loops next!</p>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> how to make your computer repeat tasks efficiently using <code>for</code> loops and <code>range()</code>! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Use <code>for</code> loops to iterate over sequences</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Master <code>range()</code> with 1, 2, and 3 arguments</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Loop through strings character by character</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Build practical programs like the Grade Analyzer</li>
+            </ul>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Password Strength Checker"</strong> program that:</p>
+            <ul>
+                <li><strong>Asks the user for a password</strong> (string).</li>
+                <li><strong>Analyzes the password using loops and conditions:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Check length (minimum 8 characters)</li>
+                        <li>• Count uppercase letters</li>
+                        <li>• Count lowercase letters</li>
+                        <li>• Count digits</li>
+                        <li>• Count special characters (<code>!@#$%^&*()</code>)</li>
+                    </ul>
+                </li>
+                <li><strong>Based on the analysis, assign a strength rating:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• <strong>Weak:</strong> Less than 8 characters OR missing either letters or numbers</li>
+                        <li>• <strong>Medium:</strong> 8+ characters AND has both letters AND numbers</li>
+                        <li>• <strong>Strong:</strong> 8+ characters AND has uppercase, lowercase, numbers, AND special characters</li>
+                    </ul>
+                </li>
+                <li><strong>Display a detailed report with checkmarks (✓) and crosses (✗).</strong></li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output format:</span><br><br>
+                === PASSWORD ANALYSIS ===<br>
+                Password: ********<br>
+                Length: 12 characters<br>
+                Uppercase: 3<br>
+                Lowercase: 5<br>
+                Digits: 2<br>
+                Special: 2<br><br>
+                Strength: STRONG<br>
+                Feedback:<br>
+                ✓ Good length<br>
+                ✓ Has uppercase letters<br>
+                ✓ Has lowercase letters<br>
+                ✓ Has numbers<br>
+                ✓ Has special characters<br><br>
+                Recommendation: Your password is strong!
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Password Strength Checker
+print("=== PASSWORD STRENGTH CHECKER ===")
+password = input("Enter your password: ")
+
+# Initialize counters
+length = len(password)
+uppercase = 0
+lowercase = 0
+digits = 0
+special = 0
+
+# Loop through each character
+for char in password:
+    # Check character types
+    if char.isupper():
+        uppercase += 1
+    elif char.islower():
+        lowercase += 1
+    elif char.isdigit():
+        digits += 1
+    else:
+        special += 1  # Assume any non-alphanumeric is special
+
+# Determine strength (your code here)
+# Print report (your code here)</div>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus Challenges:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Create a "Password Generator" that creates random passwords based on user preferences (length, include special chars, etc.) using loops.</li>
+                    <li>• Add a "Crack Time Estimator" that estimates how long it would take to crack the password.</li>
+                    <li>• Add a "Common Password Checker" that checks against a list of 100 most common passwords.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem; background: #f3e5f5; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #7b1fa2;">
+                <p><strong>Sample Report for a weak password:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">=== PASSWORD ANALYSIS ===
+Password: password123
+Length: 10 characters
+Uppercase: 0
+Lowercase: 7
+Digits: 3
+Special: 0
+
+Strength: WEAK
+
+Feedback:
+✓ Good length
+✗ No uppercase letters
+✓ Has lowercase letters
+✓ Has numbers
+✗ No special characters
+
+Recommendation: Add uppercase letters and special characters like !@#$%
+Example: Password123!@#</div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section4-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've unlocked the power of automation with loops! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Write <code>for</code> loops to automate repetitive tasks</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use <code>range()</code> with one, two, and three arguments</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Loop through strings character by character</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build practical applications like the Grade Analyzer</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Apply common loop patterns (summing, finding max, counting)</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every time you see data being processed in bulk—from analyzing grades to processing user data—loops are doing the heavy lifting!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section3-conditional-statements.html" class="back">← Back: Conditional Statements</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section5-while-loops-random.html" class="next">Next: While Loops &amp; Randomness →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 4 · For Loops &amp; range()</span>
+            <span>iteration · range() · string looping</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 6 – Introduction to Lists | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .list-visual {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .list-visual .bracket { color: #8ab4d6; }
+        .list-visual .item { color: #a6e22e; }
+        .list-visual .index { color: #f0c674; }
+        .list-visual .negative { color: #f7768e; }
+        .list-visual .arrow { color: #8ab4d6; }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .method-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dce8f5;
+        }
+        .method-card h4 {
+            color: #0e314b;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        .method-card .syntax {
+            background: #eaf0f7;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #1a4c72;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+        .method-card .example {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            overflow-x: auto;
+        }
+        .method-card .example .comment {
+            color: #8aaec9;
+        }
+
+        .index-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .index-table th,
+        .index-table td {
+            border: 1px solid #dce8f5;
+            padding: 0.4rem 0.6rem;
+        }
+        .index-table th {
+            background: #e8f0fe;
+            color: #0e314b;
+            font-weight: 600;
+        }
+        .index-table .highlight {
+            background: #fff3e0;
+        }
+        .index-table .negative-row {
+            background: #fce4ec;
+        }
+        .index-table .positive-row {
+            background: #e8f5e9;
+        }
+
+        .playlist-demo {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #d6e8f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .playlist-demo .prompt {
+            color: #f0c674;
+        }
+        .playlist-demo .output {
+            color: #a6e22e;
+        }
+        .playlist-demo .highlight {
+            color: #f7768e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section5-while-loops-random.html">Section 5</a> &gt; Section 6
+            </div>
+            <span class="section-badge">Section 6 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🎵 Section 6 · My Playlist – Introduction to Lists</h1>
+            <div class="subtitle">Creating lists. Indexing (starting at 0). Slicing basics ([start:end]). Appending, inserting, and removing items. Finding the length (len()).</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>Your Digital Backpack</strong></p>
+            <p>Imagine you have a backpack. You can put items in it, take items out, check what's inside, and even organize things in a specific order. A list in Python is exactly like that—a container that can hold multiple items in a specific sequence.</p>
+            <p style="margin-top: 0.6rem;">Think of your music playlist. You add songs, remove songs, reorder them, and skip to specific tracks. Lists give you this same power for any type of data.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">create and name lists</span>
+            <span class="pill">access items with indexing</span>
+            <span class="pill">extract portions with slicing</span>
+            <span class="pill">add and remove items</span>
+            <span class="pill">find length with len()</span>
+        </div>
+
+        <!-- Part A: What is a List -->
+        <div class="part">
+            <h2><span class="part-label">A</span> What is a List?</h2>
+            <p>A <strong>list</strong> is a collection of items stored in a specific order. You can put any type of data in a list—strings, numbers, even other lists!</p>
+
+            <p><strong>Creating a list:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Empty list
+playlist = []
+
+# List of strings
+songs = ["Bohemian Rhapsody", "Imagine", "Hotel California"]
+
+# List of numbers
+ages = [25, 30, 18, 42]
+
+# Mixed types (allowed but not recommended)
+mixed = ["Hello", 42, 3.14, True]
+
+# List of lists (nested lists)
+matrix = [[1, 2], [3, 4], [5, 6]]</div>
+            </div>
+
+            <p><strong>Visual representation:</strong></p>
+            <div class="list-visual">songs = <span class="bracket">[</span><span class="item">"Bohemian Rhapsody"</span>, <span class="item">"Imagine"</span>, <span class="item">"Hotel California"</span><span class="bracket">]</span>
+<span class="arrow">          ↑                    ↑                      ↑</span>
+<span class="index">       Index 0              Index 1              Index 2</span></div>
+
+            <p><strong>Real-world example:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Creating your music playlist
+my_playlist = ["Shape of You", "Blinding Lights", "Dance Monkey", "Levitating"]
+print(my_playlist)
+
+# Output: ['Shape of You', 'Blinding Lights', 'Dance Monkey', 'Levitating']</div>
+            </div>
+        </div>
+
+        <!-- Part B: Indexing -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Indexing – Finding Items by Position</h2>
+            <p>Each item in a list has a position number called an <strong>index</strong>. <span style="color: #c62828; font-weight: 700;">Important: Indexing starts at 0, not 1!</span></p>
+
+            <p><strong>Basic indexing:</strong></p>
+            <div class="example-box">
+                <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D", "Song E"]
+# Positive indexing (from the start)
+first = playlist[0]    # "Song A"
+second = playlist[1]   # "Song B"
+third = playlist[2]    # "Song C"
+last = playlist[4]     # "Song E"
+
+# Negative indexing (from the end)
+last = playlist[-1]      # "Song E"
+second_last = playlist[-2]  # "Song D"
+first = playlist[-5]     # "Song A"</div>
+            </div>
+
+            <p><strong>Visual guide to indexing:</strong></p>
+            <div class="list-visual"><span class="index">Index:</span>    <span class="index">0</span>        <span class="index">1</span>        <span class="index">2</span>        <span class="index">3</span>        <span class="index">4</span>
+<span class="item">List:</span>   <span class="bracket">[</span><span class="item">"A"</span>,   <span class="item">"B"</span>,    <span class="item">"C"</span>,    <span class="item">"D"</span>,    <span class="item">"E"</span><span class="bracket">]</span>
+<span class="negative">Negative:</span> <span class="negative">-5</span>      <span class="negative">-4</span>      <span class="negative">-3</span>      <span class="negative">-2</span>      <span class="negative">-1</span></div>
+
+            <p><strong>Common indexing mistakes:</strong></p>
+            <div class="warning-box">
+                <div class="code-block" style="font-size: 0.85rem;">playlist = ["A", "B", "C"]
+
+# Wrong - Index out of range (list has no index 3)
+song = playlist[3]  # IndexError!
+
+# Wrong - Index out of range (list has no index -4)
+song = playlist[-4]  # IndexError!
+
+# Correct - Valid indices are 0, 1, 2 and -1, -2, -3
+song = playlist[2]   # "C"
+song = playlist[-1]  # "C"</div>
+            </div>
+
+            <p><strong>Practical example:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Creating a student roster
+students = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+
+print(f"First student: {students[0]}")
+print(f"Last student: {students[-1]}")
+print(f"Middle student: {students[2]}")
+
+# Output:
+# First student: Alice
+# Last student: Eve
+# Middle student: Charlie</div>
+            </div>
+        </div>
+
+        <!-- Part C: Slicing -->
+        <div class="part">
+            <h2><span class="part-label">C</span> Slicing – Getting Subsets of a List</h2>
+            <p><strong>Slicing</strong> lets you extract a portion of a list, creating a new list with those items.</p>
+
+            <div class="info-box">
+                <p><strong>Syntax:</strong> <code>list[start:end]</code> – starts at <code>start</code>, stops <strong>before</strong> <code>end</code></p>
+            </div>
+
+            <div class="example-box">
+                <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
+
+# Basic slicing
+first_three = playlist[0:3]  # ["A", "B", "C"]
+middle = playlist[2:5]        # ["C", "D", "E"]
+last_two = playlist[5:7]      # ["F", "G"]
+
+# Omitting start (starts from beginning)
+first_three = playlist[:3]    # ["A", "B", "C"]
+
+# Omitting end (goes to end)
+last_three = playlist[4:]     # ["E", "F", "G"]
+
+# Negative indices in slicing
+last_two = playlist[-2:]      # ["F", "G"]
+middle_three = playlist[2:-2] # ["C", "D", "E"]
+
+# Copying an entire list
+full_copy = playlist[:]       # ["A", "B", "C", "D", "E", "F", "G"]</div>
+            </div>
+
+            <p><strong>Visual guide to slicing:</strong></p>
+            <div class="list-visual"><span class="item">List:</span>    <span class="bracket">[</span><span class="item">"A"</span>,   <span class="item">"B"</span>,   <span class="item">"C"</span>,   <span class="item">"D"</span>,   <span class="item">"E"</span>,   <span class="item">"F"</span>,   <span class="item">"G"</span><span class="bracket">]</span>
+<span class="index">Index:</span>     <span class="index">0</span>       <span class="index">1</span>       <span class="index">2</span>       <span class="index">3</span>       <span class="index">4</span>       <span class="index">5</span>       <span class="index">6</span>
+<span class="index">Slices:</span>
+[0:3] →   <span class="bracket">[</span><span class="item">A</span>, <span class="item">B</span>, <span class="item">C</span><span class="bracket">]</span>
+[2:5] →         <span class="bracket">[</span><span class="item">C</span>, <span class="item">D</span>, <span class="item">E</span><span class="bracket">]</span>
+[4:] →                 <span class="bracket">[</span><span class="item">E</span>, <span class="item">F</span>, <span class="item">G</span><span class="bracket">]</span>
+[:3] →   <span class="bracket">[</span><span class="item">A</span>, <span class="item">B</span>, <span class="item">C</span><span class="bracket">]</span>
+[-3:] →                 <span class="bracket">[</span><span class="item">E</span>, <span class="item">F</span>, <span class="item">G</span><span class="bracket">]</span></div>
+
+            <p><strong>Slicing with step (skip items):</strong></p>
+            <div class="example-box">
+                <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
+
+# Every other item
+every_other = playlist[0:7:2]  # ["A", "C", "E", "G"]
+
+# Reverse the list
+reversed_list = playlist[::-1]  # ["G", "F", "E", "D", "C", "B", "A"]
+
+# Every second item from index 1 to 6
+step_slice = playlist[1:6:2]   # ["B", "D", "F"]</div>
+            </div>
+
+            <p><strong>Practical example:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Getting top 3 songs from a playlist
+songs = ["Song 1", "Song 2", "Song 3", "Song 4", "Song 5"]
+top_3 = songs[0:3]
+print(f"Top 3 songs: {top_3}")
+
+# Getting the last 2 songs
+recent = songs[-2:]
+print(f"Recently added: {recent}")
+
+# Getting songs 2 through 4 (index 1 to 3)
+middle = songs[1:4]
+print(f"Middle songs: {middle}")</div>
+            </div>
+        </div>
+
+        <!-- Part D: Modifying Lists -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Modifying Lists – Adding and Removing Items</h2>
+            <p>Lists are <strong>mutable</strong>, meaning you can change them after creation.</p>
+
+            <h3 style="margin-top: 1.2rem; font-size: 1.1rem; color: #0e314b;">Adding Items:</h3>
+
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>append()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Adds an item to the end</p>
+                    <span class="syntax">list.append(item)</span>
+                    <div class="example">playlist = ["A", "B"]
+playlist.append("C")
+<span class="comment"># ["A", "B", "C"]</span></div>
+                </div>
+                <div class="method-card">
+                    <h4>insert()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Adds an item at a specific position</p>
+                    <span class="syntax">list.insert(index, item)</span>
+                    <div class="example">playlist = ["A", "C"]
+playlist.insert(1, "B")
+<span class="comment"># ["A", "B", "C"]</span>
+
+playlist.insert(0, "Intro")
+<span class="comment"># ["Intro", "A", "B", "C"]</span></div>
+                </div>
+                <div class="method-card">
+                    <h4>extend()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Adds multiple items from another list</p>
+                    <span class="syntax">list.extend(iterable)</span>
+                    <div class="example">playlist = ["A", "B"]
+new_songs = ["C", "D"]
+playlist.extend(new_songs)
+<span class="comment"># ["A", "B", "C", "D"]</span></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Removing Items:</h3>
+
+            <div class="method-grid">
+                <div class="method-card">
+                    <h4>remove()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Removes the first occurrence of a value</p>
+                    <span class="syntax">list.remove(value)</span>
+                    <div class="example">playlist = ["A", "B", "C", "B"]
+playlist.remove("B")
+<span class="comment"># ["A", "C", "B"]</span></div>
+                </div>
+                <div class="method-card">
+                    <h4>pop()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Removes and returns an item by index</p>
+                    <span class="syntax">list.pop(index)</span>
+                    <div class="example">playlist = ["A", "B", "C"]
+last = playlist.pop()
+<span class="comment"># last = "C", playlist = ["A", "B"]</span>
+
+first = playlist.pop(0)
+<span class="comment"># first = "A", playlist = ["B"]</span></div>
+                </div>
+                <div class="method-card">
+                    <h4>del</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Deletes items or the entire list</p>
+                    <span class="syntax">del list[index]</span>
+                    <div class="example">playlist = ["A", "B", "C", "D"]
+del playlist[0]
+<span class="comment"># ["B", "C", "D"]</span>
+
+del playlist[1:3]
+<span class="comment"># ["B"]</span>
+
+del playlist
+<span class="comment"># NameError: list not defined</span></div>
+                </div>
+                <div class="method-card">
+                    <h4>clear()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Removes all items (keeps the list)</p>
+                    <span class="syntax">list.clear()</span>
+                    <div class="example">playlist = ["A", "B", "C"]
+playlist.clear()
+<span class="comment"># []</span></div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Important notes:</strong></p>
+                <ul>
+                    <li><code>remove()</code> raises <code>ValueError</code> if the item doesn't exist.</li>
+                    <li><code>pop()</code> with no index removes the last item.</li>
+                    <li><code>del</code> can delete slices or the entire list.</li>
+                    <li><code>clear()</code> removes all items but keeps the list variable.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Part E: Finding Length -->
+        <div class="part">
+            <h2><span class="part-label">E</span> Finding the Length – The len() Function</h2>
+            <p><code>len()</code> tells you how many items are in a list.</p>
+
+            <div class="example-box">
+                <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D"]
+count = len(playlist)
+print(f"Number of songs: {count}")  # Number of songs: 4
+
+# Useful for loops
+for i in range(len(playlist)):
+    print(f"Track {i+1}: {playlist[i]}")
+
+# Output:
+# Track 1: Song A
+# Track 2: Song B
+# Track 3: Song C
+# Track 4: Song D</div>
+            </div>
+
+            <p><strong>Common <code>len()</code> patterns:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Check if list is empty
+if len(playlist) == 0:
+    print("Your playlist is empty!")
+
+# Get the last item safely
+if len(playlist) > 0:
+    last = playlist[-1]
+    print(f"Last song: {last}")
+
+# Create a range based on list length
+for i in range(len(playlist) - 1, -1, -1):  # Reverse order
+    print(playlist[i])</div>
+            </div>
+        </div>
+
+        <!-- Part F: Other Useful Operations -->
+        <div class="part">
+            <h2><span class="part-label">F</span> Other Useful List Operations</h2>
+
+            <p><strong>Checking if an item exists:</strong></p>
+            <div class="example-box">
+                <div class="code-block">playlist = ["Song A", "Song B", "Song C"]
+
+if "Song B" in playlist:
+    print("Song B is in the playlist!")
+if "Song Z" not in playlist:
+    print("Song Z is not in the playlist!")</div>
+            </div>
+
+            <p><strong>Finding the index of an item:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Finding the index of an item
+index = playlist.index("Song B")
+print(f"Song B is at position {index}")  # 1</div>
+            </div>
+
+            <p><strong>Counting occurrences:</strong></p>
+            <div class="example-box">
+                <div class="code-block">playlist = ["Song A", "Song B", "Song A", "Song C", "Song A"]
+count_a = playlist.count("Song A")
+print(f"Song A appears {count_a} times")  # 3</div>
+            </div>
+
+            <p><strong>Sorting and reversing:</strong></p>
+            <div class="example-box">
+                <div class="code-block">numbers = [3, 1, 4, 1, 5, 9, 2]
+
+# Sort in place (modifies the list)
+numbers.sort()
+print(numbers)  # [1, 1, 2, 3, 4, 5, 9]
+
+# Sort in reverse
+numbers.sort(reverse=True)
+print(numbers)  # [9, 5, 4, 3, 2, 1, 1]
+
+# Reverse the list (reverses order)
+numbers.reverse()
+print(numbers)  # [1, 1, 2, 3, 4, 5, 9]
+
+# Get a sorted copy without modifying original
+original = [3, 1, 4]
+sorted_copy = sorted(original)
+print(sorted_copy)  # [1, 3, 4]
+print(original)     # [3, 1, 4] (unchanged)</div>
+            </div>
+        </div>
+
+        <!-- Part G: Playlist Manager -->
+        <div class="part">
+            <h2><span class="part-label">G</span> Practical Application – Building a Music Playlist System</h2>
+            <p>Let's build a complete playlist manager:</p>
+
+            <div class="code-block" style="font-size: 0.8rem;"># Music Playlist Manager
+import time
+
+def display_menu():
+    print("\n=== MUSIC PLAYLIST MANAGER ===")
+    print("1. View playlist")
+    print("2. Add a song")
+    print("3. Remove a song")
+    print("4. Insert a song at position")
+    print("5. Move a song")
+    print("6. Get song info")
+    print("7. Clear playlist")
+    print("8. Exit")
+    return input("Choose an option (1-8): ")
+
+def view_playlist(playlist):
+    if len(playlist) == 0:
+        print("Playlist is empty!")
+        return
+    
+    print(f"\nPlaylist ({len(playlist)} songs):")
+    print("-" * 40)
+    for i, song in enumerate(playlist, 1):
+        print(f"{i}. {song}")
+
+def add_song(playlist):
+    song = input("Enter song name: ")
+    playlist.append(song)
+    print(f"Added: {song}")
+    print(f"Playlist now has {len(playlist)} songs.")
+
+def remove_song(playlist):
+    view_playlist(playlist)
+    if len(playlist) == 0:
+        return
+    
+    try:
+        choice = int(input("Enter song number to remove: ")) - 1
+        if 0 <= choice < len(playlist):
+            removed = playlist.pop(choice)
+            print(f"Removed: {removed}")
+        else:
+            print("Invalid song number!")
+    except ValueError:
+        print("Please enter a valid number!")
+
+def insert_song(playlist):
+    view_playlist(playlist)
+    if len(playlist) == 0:
+        print("Playlist is empty. Adding as first song.")
+        add_song(playlist)
+        return
+    
+    try:
+        song = input("Enter song name to insert: ")
+        position = int(input(f"Enter position (1-{len(playlist)}): ")) - 1
+        if 0 <= position <= len(playlist):
+            playlist.insert(position, song)
+            print(f"Inserted: {song} at position {position + 1}")
+        else:
+            print("Invalid position!")
+    except ValueError:
+        print("Please enter a valid number!")
+
+def move_song(playlist):
+    view_playlist(playlist)
+    if len(playlist) < 2:
+        print("Need at least 2 songs to move!")
+        return
+    
+    try:
+        current = int(input("Enter current position: ")) - 1
+        new = int(input(f"Enter new position (1-{len(playlist)}): ")) - 1
+        
+        if 0 <= current < len(playlist) and 0 <= new < len(playlist):
+            song = playlist.pop(current)
+            playlist.insert(new, song)
+            print(f"Moved '{song}' to position {new + 1}")
+        else:
+            print("Invalid positions!")
+    except ValueError:
+        print("Please enter valid numbers!")
+
+def get_song_info(playlist):
+    if len(playlist) == 0:
+        print("Playlist is empty!")
+        return
+    
+    song_name = input("Enter song name to search: ")
+    try:
+        index = playlist.index(song_name)
+        print(f"'{song_name}' found at position {index + 1}")
+        print(f"Occurrences: {playlist.count(song_name)}")
+    except ValueError:
+        print(f"'{song_name}' not found in playlist.")
+
+def clear_playlist(playlist):
+    confirm = input("Are you sure you want to clear the playlist? (yes/no): ")
+    if confirm.lower() == "yes":
+        playlist.clear()
+        print("Playlist cleared!")
+    else:
+        print("Operation cancelled.")
+
+# Main program
+def main():
+    playlist = []
+    print("Welcome to the Music Playlist Manager!")
+    print("Create and manage your custom playlist.\n")
+    
+    while True:
+        choice = display_menu()
+        
+        if choice == "1":
+            view_playlist(playlist)
+        elif choice == "2":
+            add_song(playlist)
+        elif choice == "3":
+            remove_song(playlist)
+        elif choice == "4":
+            insert_song(playlist)
+        elif choice == "5":
+            move_song(playlist)
+        elif choice == "6":
+            get_song_info(playlist)
+        elif choice == "7":
+            clear_playlist(playlist)
+        elif choice == "8":
+            print("\nSaving playlist...")
+            time.sleep(1)
+            print(f"Final playlist ({len(playlist)} songs):")
+            view_playlist(playlist)
+            print("\nThanks for using the Music Playlist Manager!")
+            print("Happy listening!")
+            break
+        else:
+            print("Invalid option! Please choose 1-8.")
+        
+        time.sleep(1)
+
+if __name__ == "__main__":
+    main()</div>
+
+            <div class="playlist-demo"><span class="prompt">Welcome to the Music Playlist Manager!</span>
+<span class="prompt">Create and manage your custom playlist.</span>
+
+<span class="prompt">=== MUSIC PLAYLIST MANAGER ===</span>
+<span class="prompt">1. View playlist</span>
+<span class="prompt">2. Add a song</span>
+<span class="prompt">3. Remove a song</span>
+<span class="prompt">4. Insert a song at position</span>
+<span class="prompt">5. Move a song</span>
+<span class="prompt">6. Get song info</span>
+<span class="prompt">7. Clear playlist</span>
+<span class="prompt">8. Exit</span>
+<span class="prompt">Choose an option (1-8): 2</span>
+<span class="output">Enter song name: Bohemian Rhapsody</span>
+<span class="output">Added: Bohemian Rhapsody</span>
+<span class="output">Playlist now has 1 songs.</span>
+
+<span class="prompt">Choose an option (1-8): 2</span>
+<span class="output">Enter song name: Imagine</span>
+<span class="output">Added: Imagine</span>
+<span class="output">Playlist now has 2 songs.</span>
+
+<span class="prompt">Choose an option (1-8): 1</span>
+<span class="output">Playlist (2 songs):</span>
+<span class="output">----------------------------------------</span>
+<span class="output">1. Bohemian Rhapsody</span>
+<span class="output">2. Imagine</span>
+
+<span class="prompt">Choose an option (1-8): 4</span>
+<span class="output">Enter song name to insert: Stairway to Heaven</span>
+<span class="output">Enter position (1-2): 2</span>
+<span class="output">Inserted: Stairway to Heaven at position 2</span>
+
+<span class="prompt">Choose an option (1-8): 1</span>
+<span class="output">Playlist (3 songs):</span>
+<span class="output">----------------------------------------</span>
+<span class="output">1. Bohemian Rhapsody</span>
+<span class="output">2. Stairway to Heaven</span>
+<span class="output">3. Imagine</span>
+
+<span class="prompt">Choose an option (1-8): 8</span>
+<span class="output">Saving playlist...</span>
+<span class="output">Final playlist (3 songs):</span>
+<span class="output">Playlist (3 songs):</span>
+<span class="output">----------------------------------------</span>
+<span class="output">1. Bohemian Rhapsody</span>
+<span class="output">2. Stairway to Heaven</span>
+<span class="output">3. Imagine</span>
+<span class="output">Thanks for using the Music Playlist Manager!</span>
+<span class="output">Happy listening!</span></div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of Lists:</h4>
+                <ul>
+                    <li><strong>Indexing starts at 0.</strong> The first item is at <code>list[0]</code>, not <code>list[1]</code>. The last item is at <code>list[-1]</code> or <code>list[len(list) - 1]</code>.</li>
+                    <li><strong>Slicing stops before the end index.</strong> <code>list[0:3]</code> gives items at indices 0, 1, 2 (not 3). Omitting start or end gives the default boundaries.</li>
+                    <li><strong>Lists are mutable.</strong> You can change, add, and remove items after creation. Operations like <code>append()</code>, <code>insert()</code>, and <code>pop()</code> modify the original list.</li>
+                    <li><strong><code>len()</code> is your friend.</strong> Always use <code>len(list)</code> to find the number of items. Use it for safe indexing and loop control.</li>
+                    <li><strong>Be careful with indices.</strong> Accessing an index that doesn't exist raises an <code>IndexError</code>. Always check that your index is within <code>0</code> to <code>len(list) - 1</code>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Off-by-one errors with indexing</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Expecting last item at index len(list)
+playlist = ["A", "B", "C"]
+last = playlist[3]  # IndexError!
+
+# Correct - Last item is at len(list) - 1
+last = playlist[2]   # "C"
+last = playlist[-1]  # "C"</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Modifying a list while iterating over it</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - This will skip items
+playlist = ["A", "B", "C", "D"]
+for song in playlist:
+    if song == "B":
+        playlist.remove(song)  # Modifying while iterating!
+
+# Safer - Create a copy or use list comprehension
+playlist = ["A", "B", "C", "D"]
+for song in playlist[:]:  # Iterate over a copy
+    if song == "B":
+        playlist.remove(song)</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Confusing <code>append()</code> with <code>extend()</code></strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Adds the list itself as one item
+playlist = ["A", "B"]
+playlist.append(["C", "D"])
+print(playlist)  # ["A", "B", ["C", "D"]]
+
+# Correct - Adds each item individually
+playlist = ["A", "B"]
+playlist.extend(["C", "D"])
+print(playlist)  # ["A", "B", "C", "D"]</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Using <code>remove()</code> when item might not exist</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if item not found
+playlist = ["A", "B", "C"]
+playlist.remove("Z")  # ValueError!
+
+# Correct - Check first
+if "Z" in playlist:
+    playlist.remove("Z")
+else:
+    print("Item not found")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 5: Slicing with out-of-range indices</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Slicing is forgiving - it just returns whatever exists
+playlist = ["A", "B", "C"]
+result = playlist[1:10]  # ["B", "C"] - no error!
+result = playlist[-10:3]  # ["A", "B", "C"] - no error!</div>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> how to work with collections of data using lists! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Create and organize lists to store collections of data</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Access specific items using index positions (remember: start at 0!)</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Extract subsets of lists using slicing</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Add items with <code>append()</code> and <code>insert()</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Remove items with <code>remove()</code>, <code>pop()</code>, and <code>del</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Get the size of a list with <code>len()</code></li>
+            </ul>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Lists are everywhere in programming. Every time you see a collection of items—songs in a playlist, tasks in a todo list, products in a shopping cart—you're looking at a list. You now have the power to work with any collection of data!</p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Todo List Manager"</strong> with the following features:</p>
+            <ul>
+                <li><strong>Store tasks in a list</strong> with the following information for each task:
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Task description (string)</li>
+                        <li>• Priority (integer 1-5, where 1 is highest)</li>
+                        <li>• Status (string: "pending" or "complete")</li>
+                    </ul>
+                </li>
+                <li><strong>Implement these functions:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Add a new task</li>
+                        <li>• View all tasks (sorted by priority)</li>
+                        <li>• View pending tasks only</li>
+                        <li>• Complete a task (mark as done)</li>
+                        <li>• Delete a task</li>
+                        <li>• Search for a task</li>
+                    </ul>
+                </li>
+                <li><strong>Use list operations</strong> including:
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• <code>append()</code> to add tasks</li>
+                        <li>• <code>remove()</code> or <code>pop()</code> to delete tasks</li>
+                        <li>• Slicing to view subsets</li>
+                        <li>• <code>len()</code> for counts</li>
+                        <li>• <code>index()</code> to find tasks</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output:</span><br><br>
+                === TODO LIST MANAGER ===<br>
+                1. Add task<br>
+                2. View all tasks<br>
+                3. View pending tasks<br>
+                4. Complete a task<br>
+                5. Delete a task<br>
+                6. Search for a task<br>
+                7. Exit<br>
+                Choose an option (1-7): 1<br>
+                Task description: Buy groceries<br>
+                Priority (1-5, 1=highest): 1<br>
+                Task added!<br><br>
+                Choose an option (1-7): 2<br><br>
+                === ALL TASKS ===<br>
+                Total tasks: 2<br>
+                1. [HIGH] Buy groceries - Pending<br>
+                2. [MEDIUM] Clean room - Pending<br><br>
+                Choose an option (1-7): 4<br>
+                Enter task number to complete: 1<br>
+                Completed: Buy groceries<br><br>
+                Choose an option (1-7): 2<br><br>
+                === ALL TASKS ===<br>
+                Total tasks: 2<br>
+                1. [HIGH] Buy groceries - Complete<br>
+                2. [MEDIUM] Clean room - Pending
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Todo List Manager
+
+def display_menu():
+    print("\n=== TODO LIST MANAGER ===")
+    print("1. Add task")
+    print("2. View all tasks")
+    print("3. View pending tasks")
+    print("4. Complete a task")
+    print("5. Delete a task")
+    print("6. Search for a task")
+    print("7. Exit")
+    return input("Choose an option (1-7): ")
+
+def add_task(tasks):
+    # Your code here
+    pass
+
+def view_all(tasks):
+    # Your code here
+    pass
+
+def view_pending(tasks):
+    # Your code here
+    pass
+
+def complete_task(tasks):
+    # Your code here
+    pass
+
+def delete_task(tasks):
+    # Your code here
+    pass
+
+def search_task(tasks):
+    # Your code here
+    pass
+
+def main():
+    tasks = []  # Each task is a dictionary with description, priority, status
+    print("Welcome to the Todo List Manager!")
+    
+    while True:
+        choice = display_menu()
+        # Your code here...
+
+if __name__ == "__main__":
+    main()</div>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus Challenges:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Sort tasks by priority automatically.</li>
+                    <li>• Add a due date to each task.</li>
+                    <li>• Implement a "undo" feature for the last action.</li>
+                    <li>• Save tasks to a file and load them when the program starts.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section6-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've mastered one of the most fundamental data structures in programming! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Create and organize lists to store collections of data</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Access specific items using index positions (remember: start at 0!)</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Extract subsets of lists using slicing</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Add items with <code>append()</code> and <code>insert()</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Remove items with <code>remove()</code>, <code>pop()</code>, and <code>del</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build practical applications like the Music Playlist Manager</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Lists are everywhere in programming. Every time you see a collection of items—songs in a playlist, tasks in a todo list, products in a shopping cart—you're looking at a list. You now have the power to work with any collection of data!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section5-while-loops-random.html" class="back">← Back: While Loops &amp; Randomness</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section7-string-methods.html" class="next">Next: String Methods &amp; Slicing →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 6 · Introduction to Lists</span>
+            <span>lists · indexing · slicing · append · pop · len()</span>
+        </div>
+    </div>
+</body>
+</html>

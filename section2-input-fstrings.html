@@ -66,7 +66,7 @@
 
                 <div class="example-box">
                     <p><strong>Syntax example:</strong></p>
-                    <div class="code-block">
+                    <div class="code-block">                        
                         # Syntax example
                         name = input("What is your name? ")
                         print(name)</div>
@@ -89,10 +89,9 @@
                     <p style="font-weight: 600; color: #a04000;">⚠️ Important:
                         <code>input()</code> ALWAYS returns a string. Even if
                         the user types a number, Python treats it as text.</p>
-                    <div class="code-block" style="margin-top: 0.5rem;">age =
-                        input("Enter your age: ") # User types: 25
-                        print(age + 5) # ERROR! You can't add a string and a
-                        number.</div>
+                    <div class="code-block" style="margin-top: 0.5rem;">
+                    age = input("Enter your age: ") # User types: 25
+                    print(age + 5) # ERROR! You can't add a string and a number.</div>
                 </div>
             </div>
 
@@ -105,34 +104,36 @@
 
                 <div class="example-box">
                     <p><strong>Converting to an Integer:</strong></p>
-                    <div class="code-block"># Converting to an Integer
-                        age = input("Enter your age: ") # "25" (string)
-                        age = int(age) # 25 (integer)
-                        print(age + 5) # Outputs: 30</div>
+                    <div class="code-block">
+                    # Converting to an Integer
+                    age = input("Enter your age: ") # "25" (string)
+                    age = int(age) # 25 (integer)
+                    print(age + 5) # Outputs: 30</div>
                 </div>
 
                 <div class="example-box">
                     <p><strong>Converting to a Float:</strong></p>
-                    <div class="code-block"># Converting to a Float
-                        price = input("Enter the price: ") # "19.99" (string)
-                        price = float(price) # 19.99 (float)
-                        print(price * 2) # Outputs: 39.98</div>
+                    <div class="code-block">
+                    # Converting to a Float
+                    price = input("Enter the price: ") # "19.99" (string)
+                    price = float(price) # 19.99 (float)
+                    print(price * 2) # Outputs: 39.98</div>
                 </div>
 
                 <div class="example-box">
                     <p><strong>Converting to a String (rarely needed but good to
                             know):</strong></p>
-                    <div class="code-block"># Converting to a String
-                        number = 42
-                        text = str(number) # "42"</div>
+                    <div class="code-block">
+                    # Converting to a String
+                    number = 42
+                    text = str(number) # "42"</div>
                 </div>
 
                 <div
                     style="background: #e8f5e9; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #2e7d32;">
                     <p><strong>💡 You can combine input and conversion in one
                             line:</strong></p>
-                    <div class="code-block" style="margin-top: 0.5rem;">age =
-                        int(input("Enter your age: "))</div>
+                    <div class="code-block" style="margin-top: 0.5rem;">age = int(input("Enter your age: "))</div>
                     <p style="margin-top: 0.5rem; color: #c62828;">⚠️ But be
                         careful! If the user types letters when you expect a
                         number, your program will crash. We'll learn how to
@@ -154,11 +155,11 @@
                         class="inline-code">+</span> operator.</p>
 
                 <div class="example-box">
-                    <div class="code-block">name = "Alice"
-                        age = 30
-                        print("Hello, " + name + "! You are " + str(age) +
-                        " years old.")
-                        # Outputs: Hello, Alice! You are 30 years old.</div>
+                    <div class="code-block">
+                    name = "Alice"
+                    age = 30
+                    print("Hello, " + name + "! You are " + str(age) + " years old.")
+                    # Outputs: Hello, Alice! You are 30 years old.</div>
                     <ul>
                         <li><strong>Problems with concatenation:</strong></li>
                         <li>You must convert non-strings manually (<span
@@ -178,10 +179,11 @@
                     braces.</p>
 
                 <div class="example-box">
-                    <div class="code-block">name = "Alice"
-                        age = 30
-                        print(f"Hello, {name}! You are {age} years old.")
-                        # Outputs: Hello, Alice! You are 30 years old.</div>
+                    <div class="code-block">
+                    name = "Alice"
+                    age = 30
+                    print(f"Hello, {name}! You are {age} years old.")
+                    # Outputs: Hello, Alice! You are 30 years old.</div>
                     <ul>
                         <li><strong>Why f-strings are better:</strong></li>
                         <li>✅ No need to convert numbers—Python does it
@@ -193,23 +195,21 @@
 
                 <div class="example-box">
                     <p><strong>Example with math inside f-string:</strong></p>
-                    <div class="code-block">price = 19.99
-                        quantity = 3
-                        print(f"Total cost: ${price * quantity}")
-                        # Outputs: Total cost: $59.97</div>
+                    <div class="code-block">
+                    price = 19.99
+                    quantity = 3
+                    print(f"Total cost: ${price * quantity}")
+                    # Outputs: Total cost: $59.97</div>
                 </div>
 
                 <div
                     style="background: #e3f2fd; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #1565c0;">
                     <p><strong>Real-world comparison:</strong></p>
-                    <div class="code-block" style="margin-top: 0.5rem;">#
-                        Without f-strings (messy)
-                        print("Welcome, " + name + ". Your score is " +
-                        str(score) + " out of " + str(total) + ".")
-
-                        # With f-strings (clean!)
-                        print(f"Welcome, {name}. Your score is {score} out of
-                        {total}.")</div>
+                    <div class="code-block" style="margin-top: 0.5rem;">
+                    # Without f-strings (messy)
+                    print("Welcome, " + name + ". Your score is " +  str(score) + " out of " + str(total) + ".")
+                    # With f-strings (clean!)
+                    print(f"Welcome, {name}. Your score is {score} out of {total}.")</div>
                 </div>
             </div>
 
@@ -222,7 +222,8 @@
 
                 <div class="example-box">
                     <p><strong>Interactive Chatbot:</strong></p>
-                    <div class="code-block"># Ask for user input
+                    <div class="code-block">
+                        # Ask for user input
                         name = input("What is your name? ")
                         age = int(input("How old are you? "))
 
@@ -240,8 +241,8 @@
                     style="background: #f3e5f5; border-radius: 16px; padding: 1rem 1.5rem; border-left: 4px solid #7b1fa2;">
                     <p><strong>Sample run:</strong></p>
                     <div class="code-block"
-                        style="background: #1a1a2e; margin-top: 0.5rem;">What is
-                        your name? Alex
+                        style="background: #1a1a2e; margin-top: 0.5rem;">
+                        What is your name? Alex
                         How old are you? 25
                         Hello, Alex! Nice to meet you.
                         You are currently 25 years old.
@@ -252,7 +253,8 @@
                     style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Now
                     with multiple data types:</h3>
                 <div class="example-box">
-                    <div class="code-block"># Collect information
+                    <div class="code-block">
+                        # Collect information
                         name = input("Enter student name: ")
                         grade = float(input("Enter grade average: "))
                         classes = int(input("Enter number of classes: "))
@@ -283,8 +285,8 @@
                                 string.</strong> If you need a number, convert
                             it immediately.
                             <div class="code-block"
-                                style="margin-top: 0.3rem; font-size: 0.8rem;">age
-                                = int(input("Age: ")) # Good
+                                style="margin-top: 0.3rem; font-size: 0.8rem;">
+                                age = int(input("Age: ")) # Good
                                 price = float(input("Price: ")) # Good</div>
                         </li>
                         <li><strong>f-strings start with <span
@@ -293,10 +295,9 @@
                                 variables.</strong> Don't forget the <span
                                 class="inline-code">f</span>!
                             <div class="code-block"
-                                style="margin-top: 0.3rem; font-size: 0.8rem;">print(f"Hello
-                                {name}") # Correct
-                                print("Hello {name}") # Wrong - prints literally
-                                "{name}"</div>
+                                style="margin-top: 0.3rem; font-size: 0.8rem;">
+                                print(f"Hello {name}") # Correct
+                                print("Hello {name}") # Wrong - prints literally "{name}"</div>
                         </li>
                         <li><strong>Be careful with user errors.</strong> If
                             someone types "twenty" instead of "20",
@@ -384,8 +385,8 @@
                     style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                     <p><strong>💡 Starter Code:</strong></p>
                     <div class="code-block"
-                        style="margin-top: 0.3rem; font-size: 0.85rem;">#
-                        Student Profile Generator
+                        style="margin-top: 0.3rem; font-size: 0.85rem;">
+                        # Student Profile Generator
                         print("=== STUDENT PROFILE GENERATOR ===")
 
                         # Get user input

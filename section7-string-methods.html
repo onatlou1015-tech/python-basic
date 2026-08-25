@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 7 – String Methods & Slicing | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .string-visual {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        .string-visual .arrow { color: #f0c674; }
+        .string-visual .bracket { color: #8ab4d6; }
+        .string-visual .char { color: #a6e22e; }
+        .string-visual .immutable { color: #f7768e; }
+
+        .method-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .method-card-2 {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dce8f5;
+        }
+        .method-card-2 h4 {
+            color: #0e314b;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        .method-card-2 .syntax {
+            background: #eaf0f7;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #1a4c72;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+        .method-card-2 .example {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            overflow-x: auto;
+        }
+        .method-card-2 .example .comment {
+            color: #8aaec9;
+        }
+
+        .vs-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 700px) {
+            .vs-box {
+                grid-template-columns: 1fr;
+            }
+        }
+        .vs-box .mutable {
+            background: #e8f5e9;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border-left: 4px solid #2e7d32;
+        }
+        .vs-box .immutable-box {
+            background: #ffebee;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border-left: 4px solid #c62828;
+        }
+        .vs-box .mutable code, .vs-box .immutable-box code {
+            background: rgba(0,0,0,0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .encoder-output {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #d6e8f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .encoder-output .prompt {
+            color: #f0c674;
+        }
+        .encoder-output .output {
+            color: #a6e22e;
+        }
+        .encoder-output .highlight {
+            color: #f7768e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section6-lists.html">Section 6</a> &gt; Section 7
+            </div>
+            <span class="section-badge">Section 7 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🔐 Section 7 · Message Encoder – String Methods &amp; Slicing</h1>
+            <div class="subtitle">Strings are immutable lists of characters. Methods like .upper(), .lower(), .replace(), .strip(). Finding substrings (.find()).</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>The Secret Language of Strings</strong></p>
+            <p>Imagine you're a spy sending secret messages. You need to transform your text—change case, replace words, remove extra spaces, or encode it in a special way. Strings in Python give you these superpowers.</p>
+            <p style="margin-top: 0.6rem;">You already know strings are sequences of characters, just like lists. But strings have special abilities too. They come with built-in tools (methods) that let you manipulate text in powerful ways. By the end of this lesson, you'll be able to transform any text into exactly what you need.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">understand string immutability</span>
+            <span class="pill">use case conversion methods</span>
+            <span class="pill">clean text with strip()</span>
+            <span class="pill">find substrings with find()</span>
+            <span class="pill">build a message encoder</span>
+        </div>
+
+        <!-- Part A: Strings Are Immutable -->
+        <div class="part">
+            <h2><span class="part-label">A</span> Strings Are Immutable Lists of Characters</h2>
+            <p>A string is like a list of characters, but with one crucial difference: <strong>strings are immutable</strong>. This means you cannot change individual characters after the string is created.</p>
+
+            <div class="vs-box">
+                <div class="mutable">
+                    <h4 style="color: #1b5e20;">✅ Lists are mutable (changeable)</h4>
+                    <div class="code-block" style="font-size: 0.8rem;">my_list = ["A", "B", "C"]
+my_list[0] = "X"  # Works! List is changed
+print(my_list)    # ["X", "B", "C"]</div>
+                </div>
+                <div class="immutable-box">
+                    <h4 style="color: #b71c1c;">❌ Strings are immutable (unchangeable)</h4>
+                    <div class="code-block" style="font-size: 0.8rem;">my_string = "ABC"
+# my_string[0] = "X"  # ERROR! Strings don't support item assignment</div>
+                </div>
+            </div>
+
+            <p><strong>Why does this matter?</strong></p>
+            <p>When you "modify" a string, you're actually creating a <strong>new string</strong>. The original stays the same.</p>
+
+            <div class="example-box">
+                <div class="code-block">name = "Alice"
+upper_name = name.upper()  # Creates a NEW string
+print(name)       # "Alice" (unchanged)
+print(upper_name) # "ALICE" (new string)
+
+# You must reassign if you want to update the variable
+name = name.upper()  # Now name becomes "ALICE"</div>
+            </div>
+
+            <p><strong>Visual representation:</strong></p>
+            <div class="string-visual"><span class="char">Original string: "HELLO"</span>
+<span class="arrow">                    ↑</span>
+<span class="immutable">              Immutable - can't change 'H' to 'J'</span>
+
+<span class="char">Instead, create new string: "JELLO"</span></div>
+
+            <p><strong>Accessing characters like a list:</strong></p>
+            <div class="example-box">
+                <div class="code-block">message = "Hello World!"
+
+# Indexing works just like lists
+first_char = message[0]    # "H"
+last_char = message[-1]    # "!"
+fifth_char = message[4]    # "o"
+
+# Slicing works just like lists
+first_five = message[0:5]  # "Hello"
+last_five = message[-6:]   # "World!"
+reversed_msg = message[::-1]  # "!dlroW olleH"
+
+# Looping through characters
+for char in message:
+    print(char)
+
+# len() works too
+print(len(message))  # 12</div>
+            </div>
+        </div>
+
+        <!-- Part B: Case Conversion -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Case Conversion – Upper and Lower</h2>
+            <p>These methods change the case of your text.</p>
+
+            <div class="method-grid-2">
+                <div class="method-card-2">
+                    <h4>.upper()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Convert all characters to uppercase</p>
+                    <span class="syntax">string.upper()</span>
+                    <div class="example">message = "Hello World!"
+uppercase = message.upper()
+<span class="comment"># "HELLO WORLD!"</span>
+
+<span class="comment"># Useful for case-insensitive comparisons</span>
+user_input = "Yes"
+if user_input.upper() == "YES":
+    print("User said yes")</div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.lower()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Convert all characters to lowercase</p>
+                    <span class="syntax">string.lower()</span>
+                    <div class="example">message = "Hello World!"
+lowercase = message.lower()
+<span class="comment"># "hello world!"</span>
+
+<span class="comment"># Common pattern: normalize user input</span>
+user_input = "YES"
+if user_input.lower() == "yes":
+    print("User said yes")</div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.capitalize()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Capitalize first letter only</p>
+                    <span class="syntax">string.capitalize()</span>
+                    <div class="example">message = "hello world!"
+capitalized = message.capitalize()
+<span class="comment"># "Hello world!"</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.title()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Capitalize first letter of each word</p>
+                    <span class="syntax">string.title()</span>
+                    <div class="example">message = "hello world! how are you?"
+title = message.title()
+<span class="comment"># "Hello World! How Are You?"</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.swapcase()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Swap uppercase and lowercase</p>
+                    <span class="syntax">string.swapcase()</span>
+                    <div class="example">message = "Hello World!"
+swapped = message.swapcase()
+<span class="comment"># "hELLO wORLD!"</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part C: Cleaning Text -->
+        <div class="part">
+            <h2><span class="part-label">C</span> Cleaning Text – Strip, Lstrip, Rstrip</h2>
+            <p>User input often comes with extra spaces, newlines, or tabs. These methods clean it up.</p>
+
+            <div class="method-grid-2">
+                <div class="method-card-2">
+                    <h4>.strip()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from both ends</p>
+                    <span class="syntax">string.strip()</span>
+                    <div class="example">message = "   Hello World!   \n"
+cleaned = message.strip()
+<span class="comment"># "'Hello World!'"</span>
+
+<span class="comment"># Remove specific characters</span>
+message = "###Hello World!###"
+cleaned = message.strip("#")
+<span class="comment"># "Hello World!"</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.lstrip()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from the left (start)</p>
+                    <span class="syntax">string.lstrip()</span>
+                    <div class="example">message = "   Hello World!"
+cleaned = message.lstrip()
+<span class="comment"># "'Hello World!'"</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.rstrip()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from the right (end)</p>
+                    <span class="syntax">string.rstrip()</span>
+                    <div class="example">message = "Hello World!   \n"
+cleaned = message.rstrip()
+<span class="comment"># "'Hello World!'"</span></div>
+                </div>
+            </div>
+
+            <p><strong>Real-world example: Cleaning user input:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Typical user input with extra spaces and newlines
+user_input = "   Alice   "
+username = user_input.strip()
+print(f"Welcome, {username}!")  # "Welcome, Alice!"
+
+# Email cleaning
+email = "  user@example.com  "
+clean_email = email.strip().lower()
+print(clean_email)  # "user@example.com"</div>
+            </div>
+        </div>
+
+        <!-- Part D: Replacing Text -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Replacing Text – The Power of .replace()</h2>
+            <p><code>.replace()</code> finds and replaces occurrences of a substring.</p>
+
+            <div class="method-card-2" style="margin-bottom: 1rem;">
+                <h4>.replace()</h4>
+                <p style="font-size: 0.9rem; color: #4d6f8b;">Replace occurrences of a substring</p>
+                <span class="syntax">string.replace(old, new, count)</span>
+                <div class="example">message = "Hello World!"
+new_message = message.replace("World", "Python")
+<span class="comment"># "Hello Python!"</span>
+
+<span class="comment"># Multiple replacements</span>
+message = "cat dog cat bird"
+new_message = message.replace("cat", "mouse")
+<span class="comment"># "mouse dog mouse bird"</span>
+
+<span class="comment"># Limit the number of replacements</span>
+message = "apple apple apple apple"
+new_message = message.replace("apple", "orange", 2)
+<span class="comment"># "orange orange apple apple"</span></div>
+            </div>
+
+            <p><strong>Practical examples:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Correcting common misspellings
+text = "I like progranmming in Pyton"
+text = text.replace("progranmming", "programming")
+text = text.replace("Pyton", "Python")
+print(text)  # "I like programming in Python"
+
+# Masking sensitive information
+credit_card = "1234-5678-9012-3456"
+masked = credit_card.replace("1234", "XXXX")
+print(masked)  # "XXXX-5678-9012-XXXX"</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Important: <code>.replace()</code> doesn't modify the original string:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">text = "Hello World"
+text.replace("World", "Python")  # Creates a new string, but doesn't assign it
+print(text)  # "Hello World" (unchanged!)
+
+# Must assign the result back
+text = text.replace("World", "Python")  # Now text is changed
+print(text)  # "Hello Python"</div>
+            </div>
+        </div>
+
+        <!-- Part E: Finding Substrings -->
+        <div class="part">
+            <h2><span class="part-label">E</span> Finding Substrings – .find() and in</h2>
+            <p>These methods help you locate text within a string.</p>
+
+            <div class="method-grid-2">
+                <div class="method-card-2">
+                    <h4>.find()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Returns the index of the first occurrence</p>
+                    <span class="syntax">string.find(sub[, start[, end]])</span>
+                    <div class="example">message = "Hello World!"
+position = message.find("World")
+<span class="comment"># 6 (where "World" starts)</span>
+
+position = message.find("e")
+<span class="comment"># 1 (first "e")</span>
+
+<span class="comment"># Find returns -1 if not found</span>
+position = message.find("Python")
+<span class="comment"># -1</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.rfind()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Find from the right (last occurrence)</p>
+                    <span class="syntax">string.rfind(sub)</span>
+                    <div class="example">message = "Hello World! Hello Python!"
+position = message.rfind("Hello")
+<span class="comment"># 14 (the second "Hello")</span></div>
+                </div>
+            </div>
+
+            <p><strong>Using <code>in</code> operator (simpler check):</strong></p>
+            <div class="example-box">
+                <div class="code-block">message = "Hello World!"
+
+if "World" in message:
+    print("Found 'World'!")
+else:
+    print("Not found")
+
+if "Python" not in message:
+    print("'Python' not found")</div>
+            </div>
+
+            <p><strong>Practical example: Finding and extracting:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Email validation
+email = "user@example.com"
+if "@" in email and "." in email:
+    # Find the username
+    at_position = email.find("@")
+    username = email[:at_position]
+    print(f"Username: {username}")
+    
+    # Find the domain
+    dot_position = email.find(".")
+    domain = email[at_position + 1:dot_position]
+    print(f"Domain: {domain}")</div>
+            </div>
+        </div>
+
+        <!-- Part F: Other Useful Methods -->
+        <div class="part">
+            <h2><span class="part-label">F</span> Other Useful String Methods</h2>
+
+            <div class="method-grid-2">
+                <div class="method-card-2">
+                    <h4>.startswith() / .endswith()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Check beginnings and endings</p>
+                    <div class="example">message = "Hello World!"
+
+if message.startswith("Hello"):
+    print("Starts with Hello")
+
+if message.endswith("!"):
+    print("Ends with exclamation mark")</div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.count()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Count occurrences</p>
+                    <div class="example">message = "Hello World! Hello Python!"
+count = message.count("Hello")
+<span class="comment"># 2</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.split()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Split into a list of substrings</p>
+                    <div class="example">message = "apple,banana,orange"
+fruits = message.split(",")
+<span class="comment"># ["apple", "banana", "orange"]</span>
+
+<span class="comment"># Split on whitespace by default</span>
+message = "Hello World! How are you?"
+words = message.split()
+<span class="comment"># ["Hello", "World!", "How", "are", "you?"]</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.join()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Join a list into a string</p>
+                    <div class="example">fruits = ["apple", "banana", "orange"]
+message = ", ".join(fruits)
+<span class="comment"># "apple, banana, orange"</span>
+
+<span class="comment"># Common pattern: reverse a string</span>
+text = "Hello"
+reversed_text = "".join(reversed(text))
+<span class="comment"># "olleH"</span></div>
+                </div>
+                <div class="method-card-2">
+                    <h4>.isdigit() / .isalpha() / .isalnum()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Check character types</p>
+                    <div class="example"><span class="comment"># Check if string contains only digits</span>
+print("123".isdigit())    # True
+print("123a".isdigit())   # False
+
+<span class="comment"># Check if string contains only letters</span>
+print("Hello".isalpha())  # True
+print("Hello123".isalpha())  # False
+
+<span class="comment"># Check if string contains only letters and digits</span>
+print("Hello123".isalnum())  # True
+print("Hello 123".isalnum())  # False (has space)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part G: Message Encoder -->
+        <div class="part">
+            <h2><span class="part-label">G</span> Building a Message Encoder</h2>
+            <p>Let's build a program that can encode and decode messages using various transformations:</p>
+
+            <div class="code-block" style="font-size: 0.8rem;"># Message Encoder/Decoder System
+
+def display_menu():
+    print("\n=== MESSAGE ENCODER SYSTEM ===")
+    print("1. Encode message (simple transform)")
+    print("2. Encode message (advanced transform)")
+    print("3. Decode message")
+    print("4. Show message stats")
+    print("5. Exit")
+    return input("Choose an option (1-5): ")
+
+def encode_simple(message):
+    """Simple encoding: uppercase, remove spaces, add special chars"""
+    print("\n--- SIMPLE ENCODE ---")
+    print(f"Original: {message}")
+    
+    # Remove leading/trailing spaces
+    cleaned = message.strip()
+    
+    # Convert to uppercase
+    upper = cleaned.upper()
+    
+    # Replace spaces with underscores
+    encoded = upper.replace(" ", "_")
+    
+    # Add secret prefix and suffix
+    final = "SECRET:" + encoded + ":TOP"
+    
+    print(f"Encoded: {final}")
+    return final
+
+def encode_advanced(message, shift=3):
+    """Advanced encoding: Caesar cipher with character shifting"""
+    print(f"\n--- ADVANCED ENCODE (shift: {shift}) ---")
+    print(f"Original: {message}")
+    
+    result = ""
+    for char in message.upper():
+        if char.isalpha():  # Only shift letters
+            # Shift character by 'shift' positions
+            new_ord = ord(char) + shift
+            if new_ord > ord('Z'):
+                new_ord -= 26
+            result += chr(new_ord)
+        elif char.isspace():
+            result += "_"  # Replace spaces with underscores
+        else:
+            result += char  # Keep numbers and symbols
+    
+    print(f"Encoded: {result}")
+    return result
+
+def decode_advanced(message, shift=3):
+    """Decode a Caesar cipher message"""
+    print(f"\n--- DECODE (shift: {shift}) ---")
+    print(f"Encoded: {message}")
+    
+    result = ""
+    for char in message:
+        if char == "_":
+            result += " "
+        elif char.isalpha():
+            # Shift back by 'shift' positions
+            new_ord = ord(char) - shift
+            if new_ord < ord('A'):
+                new_ord += 26
+            result += chr(new_ord)
+        else:
+            result += char
+    
+    print(f"Decoded: {result}")
+    return result
+
+def show_stats(message):
+    """Display statistics about the message"""
+    print(f"\n=== MESSAGE STATS ===")
+    print(f"Original: {message}")
+    print(f"Length: {len(message)} characters")
+    
+    # Count different character types
+    uppercase = sum(1 for c in message if c.isupper())
+    lowercase = sum(1 for c in message if c.islower())
+    digits = sum(1 for c in message if c.isdigit())
+    spaces = message.count(" ")
+    punctuation = len(message) - uppercase - lowercase - digits - spaces
+    
+    print(f"Uppercase letters: {uppercase}")
+    print(f"Lowercase letters: {lowercase}")
+    print(f"Digits: {digits}")
+    print(f"Spaces: {spaces}")
+    print(f"Punctuation/symbols: {punctuation}")
+    
+    # Word count
+    words = message.split()
+    print(f"Words: {len(words)}")
+    
+    # Most common character
+    if len(message) > 0:
+        char_counts = {}
+        for char in message.lower():
+            if char.isalnum():
+                char_counts[char] = char_counts.get(char, 0) + 1
+        
+        if char_counts:
+            most_common = max(char_counts, key=char_counts.get)
+            print(f"Most common character: '{most_common}' ({char_counts[most_common]} times)")
+
+def main():
+    print("=" * 50)
+    print("   WELCOME TO THE MESSAGE ENCODER SYSTEM")
+    print("=" * 50)
+    print("Transform your messages into secret code!")
+    
+    current_message = ""
+    
+    while True:
+        choice = display_menu()
+        
+        if choice == "1":
+            message = input("Enter your message: ")
+            current_message = encode_simple(message)
+        
+        elif choice == "2":
+            message = input("Enter your message: ")
+            try:
+                shift = int(input("Enter shift value (1-25, default 3): ") or "3")
+                shift = max(1, min(25, shift))
+                current_message = encode_advanced(message, shift)
+            except ValueError:
+                print("Invalid shift! Using default of 3.")
+                current_message = encode_advanced(message, 3)
+        
+        elif choice == "3":
+            if not current_message:
+                print("No encoded message to decode!")
+                continue
+            
+            decode_type = input("Decode simple (1) or advanced (2)? ")
+            if decode_type == "1":
+                # Simple decode: remove prefix/suffix and restore spaces
+                decoded = current_message
+                if decoded.startswith("SECRET:") and decoded.endswith(":TOP"):
+                    decoded = decoded[7:-4]  # Remove prefix and suffix
+                    decoded = decoded.replace("_", " ")
+                    decoded = decoded.lower()
+                print(f"Decoded: {decoded}")
+            elif decode_type == "2":
+                shift = int(input("Enter shift value used for encoding: ") or "3")
+                decode_advanced(current_message, shift)
+            else:
+                print("Invalid choice!")
+        
+        elif choice == "4":
+            if not current_message:
+                print("No message to analyze!")
+                continue
+            show_stats(current_message)
+        
+        elif choice == "5":
+            print("\nThanks for using the Message Encoder System!")
+            print("Keep your messages secret!")
+            break
+        
+        else:
+            print("Invalid option! Please choose 1-5.")
+
+if __name__ == "__main__":
+    main()</div>
+
+            <div class="encoder-output"><span class="prompt">==================================================</span>
+<span class="prompt">   WELCOME TO THE MESSAGE ENCODER SYSTEM</span>
+<span class="prompt">==================================================</span>
+<span class="prompt">Transform your messages into secret code!</span>
+
+<span class="prompt">=== MESSAGE ENCODER SYSTEM ===</span>
+<span class="prompt">1. Encode message (simple transform)</span>
+<span class="prompt">2. Encode message (advanced transform)</span>
+<span class="prompt">3. Decode message</span>
+<span class="prompt">4. Show message stats</span>
+<span class="prompt">5. Exit</span>
+<span class="prompt">Choose an option (1-5): 1</span>
+<span class="output">Enter your message:   Hello World! This is a secret message.  </span>
+
+<span class="output">--- SIMPLE ENCODE ---</span>
+<span class="output">Original:   Hello World! This is a secret message.  </span>
+<span class="output">Encoded: SECRET:HELLO_WORLD!_THIS_IS_A_SECRET_MESSAGE.:TOP</span>
+
+<span class="prompt">=== MESSAGE ENCODER SYSTEM ===</span>
+<span class="prompt">1. Encode message (simple transform)</span>
+<span class="prompt">2. Encode message (advanced transform)</span>
+<span class="prompt">3. Decode message</span>
+<span class="prompt">4. Show message stats</span>
+<span class="prompt">5. Exit</span>
+<span class="prompt">Choose an option (1-5): 4</span>
+
+<span class="output">=== MESSAGE STATS ===</span>
+<span class="output">Original: SECRET:HELLO_WORLD!_THIS_IS_A_SECRET_MESSAGE.:TOP</span>
+<span class="output">Length: 50 characters</span>
+<span class="output">Uppercase letters: 37</span>
+<span class="output">Lowercase letters: 0</span>
+<span class="output">Digits: 0</span>
+<span class="output">Spaces: 0</span>
+<span class="output">Punctuation/symbols: 13</span>
+<span class="output">Words: 0</span>
+
+<span class="prompt">=== MESSAGE ENCODER SYSTEM ===</span>
+<span class="prompt">1. Encode message (simple transform)</span>
+<span class="prompt">2. Encode message (advanced transform)</span>
+<span class="prompt">3. Decode message</span>
+<span class="prompt">4. Show message stats</span>
+<span class="prompt">5. Exit</span>
+<span class="prompt">Choose an option (1-5): 2</span>
+<span class="output">Enter your message: Hello World! This is a secret message.</span>
+<span class="output">Enter shift value (1-25, default 3): 5</span>
+
+<span class="output">--- ADVANCED ENCODE (shift: 5) ---</span>
+<span class="output">Original: Hello World! This is a secret message.</span>
+<span class="output">Encoded: MJQQT_BTWQI!_YMJNX_FX_F_XJHWJY_RJXXF NJ.</span></div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of String Methods:</h4>
+                <ul>
+                    <li><strong>Strings are immutable.</strong> Methods create new strings—they don't modify the original. Always assign the result back to a variable if you want to keep changes.</li>
+                    <li><strong>String methods are case-sensitive.</strong> <code>.upper()</code> and <code>.lower()</code> are your friends for normalization. Use them before comparisons to avoid case issues.</li>
+                    <li><strong><code>.find()</code> returns -1 when not found.</strong> Check for -1 before using the result as an index. The <code>in</code> operator is simpler for existence checks.</li>
+                    <li><strong><code>.strip()</code> removes whitespace by default.</strong> Use it to clean user input. Specify characters to remove for custom cleaning.</li>
+                    <li><strong>Chain methods for powerful transformations.</strong> <code>text.strip().lower().replace(" ", "_")</code> works left to right. Each method returns a string for the next method to use.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Forgetting to assign the result</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - string methods return new strings
+text = "hello"
+text.upper()  # Creates "HELLO" but doesn't store it
+print(text)   # "hello" (unchanged!)
+
+# Correct - assign the result
+text = text.upper()
+print(text)   # "HELLO"</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Using <code>.find()</code> without checking for -1</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - crashes if not found
+text = "Hello World"
+position = text.find("Python")
+print(text[position:])  # TypeError if position is -1
+
+# Correct - check first
+position = text.find("Python")
+if position != -1:
+    print(text[position:])
+else:
+    print("Substring not found")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Confusing <code>.strip()</code> with <code>.replace()</code></strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strip only removes from ends, not middle
+text = "  Hello  World  "
+result = text.strip()
+print(result)  # "Hello  World" (middle spaces remain)
+
+# Correct - use replace for all spaces
+result = text.replace(" ", "")
+print(result)  # "HelloWorld"</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Case-sensitive comparisons</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - fails if case doesn't match
+user_input = "Yes"
+if user_input == "yes":  # False!
+    print("User said yes")
+
+# Correct - normalize case
+if user_input.lower() == "yes":
+    print("User said yes")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 5: Trying to modify a string like a list</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strings are immutable
+text = "Hello"
+text[0] = "J"  # TypeError!
+
+# Correct - create a new string
+text = "J" + text[1:]  # "Jello"
+# Or use replace
+text = text.replace("H", "J")  # "Jello"</div>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> how to manipulate text with string methods! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Understand that strings are immutable sequences of characters</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Transform text case with <code>.upper()</code>, <code>.lower()</code>, and more</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Clean messy input with <code>.strip()</code>, <code>.lstrip()</code>, and <code>.rstrip()</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Replace text with <code>.replace()</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Find substrings with <code>.find()</code> and the <code>in</code> operator</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Build practical applications like the Message Encoder</li>
+            </ul>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every program that processes text—from word processors to search engines to social media apps—uses these string methods. You now have the tools to handle any text processing task!</p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Text Formatter and Analyzer"</strong> program that:</p>
+            <ul>
+                <li><strong>Accepts a block of text</strong> from the user.</li>
+                <li><strong>Provides the following operations using string methods:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Convert to uppercase or lowercase</li>
+                        <li>• Capitalize each word</li>
+                        <li>• Remove extra spaces (trim, collapse multiple spaces)</li>
+                        <li>• Count characters, words, and sentences</li>
+                        <li>• Find all occurrences of a specific word</li>
+                        <li>• Replace a word with another word</li>
+                        <li>• Extract the first and last character of each word</li>
+                    </ul>
+                </li>
+                <li><strong>Create a "secret message" encoder:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Replace every vowel with a number (a=1, e=2, i=3, o=4, u=5)</li>
+                        <li>• Remove all punctuation</li>
+                        <li>• Reverse the entire message</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output:</span><br><br>
+                === TEXT FORMATTER & ANALYZER ===<br>
+                1. View text stats<br>
+                2. Convert to uppercase<br>
+                3. Convert to lowercase<br>
+                4. Capitalize each word<br>
+                5. Clean up spaces<br>
+                6. Find and replace<br>
+                7. Create secret message<br>
+                8. Exit<br>
+                Choose an option (1-8): 1<br><br>
+                === TEXT STATS ===<br>
+                Characters: 38<br>
+                Characters (no spaces): 28<br>
+                Words: 6<br>
+                Sentences: 2<br>
+                Average word length: 4.7<br>
+                Uppercase: 2<br>
+                Lowercase: 26<br>
+                Digits: 0<br>
+                Punctuation: 2
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Text Formatter and Analyzer
+
+def display_menu():
+    print("\n=== TEXT FORMATTER & ANALYZER ===")
+    print("1. View text stats")
+    print("2. Convert to uppercase")
+    print("3. Convert to lowercase")
+    print("4. Capitalize each word")
+    print("5. Clean up spaces")
+    print("6. Find and replace")
+    print("7. Create secret message")
+    print("8. Exit")
+    return input("Choose an option (1-8): ")
+
+def show_stats(text):
+    # Your code here - show length, word count, character counts, etc.
+    pass
+
+def to_uppercase(text):
+    # Your code here
+    pass
+
+def to_lowercase(text):
+    # Your code here
+    pass
+
+def capitalize_words(text):
+    # Your code here
+    pass
+
+def clean_spaces(text):
+    # Remove leading/trailing spaces and collapse multiple spaces
+    pass
+
+def find_replace(text):
+    # Find a word and replace it with another
+    pass
+
+def create_secret(text):
+    # Encode the message - replace vowels with numbers, remove punctuation, reverse
+    pass
+
+def main():
+    print("=" * 50)
+    print("   WELCOME TO THE TEXT FORMATTER & ANALYZER")
+    print("=" * 50)
+    
+    text = input("\nEnter your text: ")
+    
+    while True:
+        choice = display_menu()
+        
+        if choice == "1":
+            show_stats(text)
+        elif choice == "2":
+            text = to_uppercase(text)
+        # Your other options here...
+        elif choice == "8":
+            print("\nThanks for using the Text Formatter & Analyzer!")
+            break
+        else:
+            print("Invalid option!")
+
+if __name__ == "__main__":
+    main()</div>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus Challenges:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Add a "word cloud" feature that shows the most common words.</li>
+                    <li>• Detect if the text is a palindrome (reads the same backward).</li>
+                    <li>• Count the number of sentences (periods, question marks, exclamation points).</li>
+                    <li>• Implement a "censorship" feature that replaces bad words with symbols.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section7-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've become a master of text manipulation! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Understand that strings are immutable sequences of characters</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Transform text case with <code>.upper()</code>, <code>.lower()</code>, and more</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Clean messy input with <code>.strip()</code> methods</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Replace text with <code>.replace()</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Find substrings with <code>.find()</code> and the <code>in</code> operator</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use powerful methods like <code>.split()</code>, <code>.join()</code>, and character checks</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build practical applications like the Message Encoder</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every program that processes text—from word processors to search engines to social media apps—uses these string methods. You now have the tools to handle any text processing task!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section6-lists.html" class="back">← Back: Introduction to Lists</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section8-functions.html" class="next">Next: Writing Your Own Functions →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 7 · String Methods &amp; Slicing</span>
+            <span>.upper() · .strip() · .replace() · .find() · Message Encoder</span>
+        </div>
+    </div>
+</body>
+</html>

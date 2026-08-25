@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 3 – The Decision Maker | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for this section */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #dce8f5;
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #e8f0fe;
+            color: #0e314b;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8faff;
+        }
+        .comparison-table .true {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        .comparison-table .false {
+            color: #c62828;
+            font-weight: 600;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+        .success-box {
+            background: #e8f5e9;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #2e7d32;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+        .indent-demo {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .indent-demo .l0 { color: #e4f0fb; }
+        .indent-demo .l1 { color: #8ab4d6; padding-left: 1.5rem; }
+        .indent-demo .l2 { color: #a6e22e; padding-left: 3rem; }
+        .indent-demo .l1-else { color: #f0c674; padding-left: 1.5rem; }
+        .indent-demo .comment { color: #8aaec9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section2-input-fstrings.html">Section 2</a> &gt; Section 3
+            </div>
+            <span class="section-badge">Section 3 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🧠 Section 3 · The Decision Maker – Conditional Statements</h1>
+            <div class="subtitle">Boolean logic (True/False). Comparison operators (==, !=, >, <). if, elif, and else blocks. Indentation rules.</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>Giving Your Program a Brain</strong></p>
+            <p>Imagine you're a bouncer at an exclusive club. You check each person: "Are you over 21? Do you have an ID? Are you on the guest list?" Based on the answers, you make a decision—let them in or turn them away.</p>
+            <p style="margin-top: 0.6rem;">Your program needs this same ability. Without decisions, every program runs the same way every time—like a movie that plays the same scenes repeatedly. With decisions, your program becomes interactive and intelligent, responding differently based on the situation.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">understand Boolean values</span>
+            <span class="pill">use comparison operators</span>
+            <span class="pill">write if/elif/else statements</span>
+            <span class="pill">master indentation rules</span>
+        </div>
+
+        <!-- Part A: Boolean Logic -->
+        <div class="part">
+            <h2><span class="part-label">A</span> Boolean Logic – The Language of Decisions</h2>
+            <p>At the heart of every decision is a simple question with only two possible answers: <strong>Yes (True)</strong> or <strong>No (False)</strong>.</p>
+            <p>In Python, these are called <strong>Booleans</strong> (named after George Boole, a mathematician who invented this logic system).</p>
+
+            <div class="example-box">
+                <div class="code-block">is_raining = True
+is_sunny = False
+print(is_raining)  # Outputs: True
+print(is_sunny)    # Outputs: False</div>
+            </div>
+
+            <p><strong>Where Booleans come from:</strong></p>
+            <p>Booleans usually come from <strong>comparisons</strong>—asking Python to compare two values.</p>
+
+            <div class="example-box">
+                <div class="code-block">age = 25
+is_adult = age >= 18    # True (25 is greater than 18)
+can_retire = age >= 65  # False (25 is not greater than 65)
+print(is_adult)    # True
+print(can_retire)  # False</div>
+            </div>
+
+            <div class="success-box">
+                <p><strong>💡 Think of it like this:</strong> Every question you ask the computer returns either <code>True</code> or <code>False</code>.</p>
+                <p><code>age >= 18</code> is like asking: <em>"Is age greater than or equal to 18?"</em></p>
+                <p>The computer answers: <strong>"True!"</strong> or <strong>"False!"</strong></p>
+            </div>
+        </div>
+
+        <!-- Part B: Comparison Operators -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Comparison Operators – Asking Questions</h2>
+            <p>These are the tools you use to ask questions in Python.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>==</code></td>
+                        <td>Equal to</td>
+                        <td><code>5 == 5</code></td>
+                        <td class="true">True</td>
+                    </tr>
+                    <tr>
+                        <td><code>!=</code></td>
+                        <td>Not equal to</td>
+                        <td><code>5 != 3</code></td>
+                        <td class="true">True</td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;</code></td>
+                        <td>Greater than</td>
+                        <td><code>10 &gt; 5</code></td>
+                        <td class="true">True</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;</code></td>
+                        <td>Less than</td>
+                        <td><code>10 &lt; 5</code></td>
+                        <td class="false">False</td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;=</code></td>
+                        <td>Greater than or equal to</td>
+                        <td><code>10 &gt;= 10</code></td>
+                        <td class="true">True</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;=</code></td>
+                        <td>Less than or equal to</td>
+                        <td><code>10 &lt;= 9</code></td>
+                        <td class="false">False</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><strong>⚠️ WARNING: <code>=</code> vs <code>==</code></strong></p>
+                <ul>
+                    <li><code>=</code> is for <strong>assignment</strong> (putting a value in a variable).</li>
+                    <li><code>==</code> is for <strong>comparison</strong> (asking if two things are equal).</li>
+                </ul>
+                <div class="code-block" style="margin-top: 0.5rem; font-size: 0.85rem;"># WRONG - This assigns 18 to age (always True in a condition!)
+if age = 18:
+    print("You're 18")
+
+# CORRECT - This asks if age equals 18
+if age == 18:
+    print("You're 18")</div>
+            </div>
+
+            <p><strong>Real-world comparison examples:</strong></p>
+            <div class="example-box">
+                <div class="code-block">score = 85
+grade = "A"
+
+print(score > 70)      # True
+print(score == 100)    # False
+print(grade != "F")    # True
+print(grade == "A")    # True
+
+# You can even compare strings!
+name = "Alice"
+print(name == "Alice")   # True (case-sensitive!)
+print(name == "alice")   # False (different case)</div>
+            </div>
+        </div>
+
+        <!-- Part C: The if Statement -->
+        <div class="part">
+            <h2><span class="part-label">C</span> The if Statement – Making the First Decision</h2>
+            <p>The <code>if</code> statement is the most basic decision-maker. It checks a condition. If it's <code>True</code>, it runs the code block. If it's <code>False</code>, it skips it.</p>
+
+            <div class="example-box">
+                <p><strong>Syntax:</strong></p>
+                <div class="code-block">if condition:
+    # Code to run if condition is True
+    # This must be INDENTED!</div>
+            </div>
+
+            <p><strong>Simple example:</strong></p>
+            <div class="example-box">
+                <div class="code-block">age = 18
+if age >= 18:
+    print("You can vote!")  # This runs because age >= 18 is True</div>
+            </div>
+
+            <p><strong>What if the condition is False?</strong></p>
+            <div class="example-box">
+                <div class="code-block">age = 16
+if age >= 18:
+    print("You can vote!")  # This is SKIPPED (nothing runs)</div>
+            </div>
+
+            <p><strong>Multiple if statements (each checked separately):</strong></p>
+            <div class="example-box">
+                <div class="code-block">temperature = 75
+if temperature > 80:
+    print("It's hot outside!")
+
+if temperature > 60:
+    print("It's warm outside!")  # This runs
+
+if temperature < 40:
+    print("It's cold outside!")
+
+# Output:
+# It's warm outside!</div>
+            </div>
+        </div>
+
+        <!-- Part D: The else Statement -->
+        <div class="part">
+            <h2><span class="part-label">D</span> The else Statement – The Alternative Path</h2>
+            <p><code>else</code> gives you a fallback option. If the <code>if</code> condition is <code>False</code>, the <code>else</code> block runs.</p>
+
+            <div class="example-box">
+                <p><strong>Syntax:</strong></p>
+                <div class="code-block">if condition:
+    # Runs if True
+else:
+    # Runs if False</div>
+            </div>
+
+            <p><strong>Example:</strong></p>
+            <div class="example-box">
+                <div class="code-block">age = 16
+if age >= 18:
+    print("You can vote!")
+else:
+    print("You're too young to vote.")
+    print("Wait", 18 - age, "more years.")
+
+# Output:
+# You're too young to vote.
+# Wait 2 more years.</div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>💡 Important:</strong> <code>else</code> has NO condition—it's the "catch-all" for everything that doesn't match the <code>if</code>.</p>
+            </div>
+        </div>
+
+        <!-- Part E: The elif Statement -->
+        <div class="part">
+            <h2><span class="part-label">E</span> The elif Statement – Multiple Choices</h2>
+            <p>What if you have more than two possibilities? That's where <code>elif</code> (short for "else if") comes in. It lets you check multiple conditions in order.</p>
+
+            <div class="example-box">
+                <p><strong>Syntax:</strong></p>
+                <div class="code-block">if condition1:
+    # Runs if condition1 is True
+elif condition2:
+    # Runs if condition1 is False AND condition2 is True
+elif condition3:
+    # Runs if condition1 and condition2 are False AND condition3 is True
+else:
+    # Runs if ALL conditions are False</div>
+            </div>
+
+            <p><strong>Example – The Grading System:</strong></p>
+            <div class="example-box">
+                <div class="code-block">score = 85
+if score >= 90:
+    grade = "A"
+    print("Excellent!")
+elif score >= 80:
+    grade = "B"
+    print("Good job!")
+elif score >= 70:
+    grade = "C"
+    print("Not bad.")
+elif score >= 60:
+    grade = "D"
+    print("You need to study more.")
+else:
+    grade = "F"
+    print("You failed. Seek help!")
+
+print(f"Your grade is: {grade}")
+
+# Output:
+# Good job!
+# Your grade is: B</div>
+            </div>
+
+            <p><strong>How Python processes this:</strong></p>
+            <ul>
+                <li>Checks <code>score >= 90</code> → <strong>False</strong> (85 is not >= 90) → Move on</li>
+                <li>Checks <code>score >= 80</code> → <strong>True</strong> (85 is >= 80) → <strong>RUNS THIS BLOCK</strong>, then <strong>SKIPS everything else</strong></li>
+                <li>The remaining <code>elif</code> and <code>else</code> are ignored</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>⚠️ CRITICAL: Order matters!</strong></p>
+                <div class="code-block" style="margin-top: 0.5rem; font-size: 0.85rem;"># WRONG ORDER - This never reaches "A"
+score = 95
+
+if score >= 70:      # This is True!
+    grade = "C"
+elif score >= 80:    # This is never checked
+    grade = "B"
+elif score >= 90:    # This is never checked
+    grade = "A"
+
+print(grade)  # Outputs: C (WRONG!)
+
+# CORRECT ORDER - Check highest first
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"</div>
+            </div>
+        </div>
+
+        <!-- Part F: Indentation -->
+        <div class="part">
+            <h2><span class="part-label">F</span> The Golden Rule of Python – INDENTATION</h2>
+            <p><strong>Indentation is NOT optional in Python.</strong> It's how Python knows which code belongs to which block.</p>
+
+            <div class="info-box">
+                <p><strong>The Rule:</strong> All code inside an <code>if</code>, <code>elif</code>, or <code>else</code> must be indented by <strong>4 spaces</strong> (or a Tab).</p>
+            </div>
+
+            <p><strong>Correct:</strong></p>
+            <div class="indent-demo"><span class="l0">if age >= 18:              <span class="comment"># ← Colon here</span></span>
+<span class="l1">print("Adult")         <span class="comment"># ← 4 spaces/Tab (inside the if)</span></span>
+<span class="l1">print("You can vote")  <span class="comment"># ← 4 spaces/Tab (still inside)</span></span>
+<span class="l0">print("Program ends")      <span class="comment"># ← No indent (outside the if)</span></span></div>
+
+            <p><strong>Wrong:</strong></p>
+            <div class="indent-demo"><span class="l0">if age >= 18:</span>
+<span class="l0" style="color: #e74c3c;">print("Adult")             <span class="comment"># ❌ IndentationError!</span></span>
+<span class="l0" style="color: #e74c3c;">print("You can vote")      <span class="comment"># ❌ IndentationError!</span></span></div>
+
+            <p><strong>Nested conditions (if inside an if):</strong></p>
+            <div class="indent-demo"><span class="l0">age = 25</span>
+<span class="l0">has_id = True</span>
+<span class="l0">if age >= 18:</span>
+<span class="l1">print("Age check passed.")</span>
+<span class="l1">if has_id:</span>
+<span class="l2">print("You may enter the club!")  <span class="comment"># Inside BOTH ifs</span></span>
+<span class="l1-else">else:</span>
+<span class="l2">print("You need an ID.") <span class="comment"># Inside first if, inside else</span></span>
+<span class="l1-else">else:</span>
+<span class="l2">print("Too young.")               <span class="comment"># Inside first if's else</span></span></div>
+
+            <p><strong>The indentation visually shows the structure:</strong></p>
+            <div class="indent-demo"><span class="l0">if age >= 18:           <span class="comment">← Level 0</span></span>
+<span class="l1">if has_id:          <span class="comment">← Level 1 (indented)</span></span>
+<span class="l2">print("Enter")  <span class="comment">← Level 2 (indented further)</span></span>
+<span class="l1-else">else:               <span class="comment">← Level 1 (same as inner if)</span></span>
+<span class="l2">print("No ID")  <span class="comment">← Level 2</span></span>
+<span class="l1-else">else:                   <span class="comment">← Level 0 (same as outer if)</span></span>
+<span class="l2">print("Too young")  <span class="comment">← Level 1</span></span></div>
+        </div>
+
+        <!-- Part G: Putting It All Together -->
+        <div class="part">
+            <h2><span class="part-label">G</span> Putting It All Together – The Complete Decision Maker</h2>
+            <p>Let's build a comprehensive program that uses everything we've learned:</p>
+
+            <div class="example-box">
+                <p><strong>The Interactive Movie Ticket System:</strong></p>
+                <div class="code-block" style="font-size: 0.85rem;"># The Interactive Movie Ticket System
+
+# Get user input
+age = int(input("Enter your age: "))
+has_student_id = input("Do you have a student ID? (yes/no): ").lower() == "yes"
+movie_time = int(input("Enter movie time (24-hour format, e.g., 14 for 2 PM): "))
+
+# Check movie availability
+if movie_time < 10 or movie_time > 22:
+    print("Sorry, we're closed. Showtimes are between 10 AM and 10 PM.")
+else:
+    # Check age restrictions
+    if age < 12:
+        print("You can only watch G-rated movies.")
+        price = 8
+    elif age < 18:
+        print("You can watch PG and PG-13 movies.")
+        price = 10
+    else:
+        print("You can watch any movie (including R-rated).")
+        price = 12
+    
+    # Apply student discount
+    if has_student_id and age >= 18:
+        price *= 0.8  # 20% discount
+        print("Student discount applied!")
+    
+    # Matinee discount (before 4 PM)
+    if movie_time < 16:
+        price -= 2
+        print("Matinee discount applied!")
+    
+    # Final output
+    print(f"Your ticket price is: ${price:.2f}")</div>
+            </div>
+
+            <div style="background: #f3e5f5; border-radius: 16px; padding: 1rem 1.5rem; border-left: 4px solid #7b1fa2;">
+                <p><strong>Sample runs:</strong></p>
+                <div class="code-block" style="background: #1a1a2e; margin-top: 0.5rem; font-size: 0.85rem;">Run 1:
+Enter your age: 20
+Do you have a student ID? (yes/no): yes
+Enter movie time (24-hour format, e.g., 14 for 2 PM): 13
+
+You can watch any movie (including R-rated).
+Student discount applied!
+Matinee discount applied!
+Your ticket price is: $7.60
+
+
+Run 2:
+Enter your age: 15
+Do you have a student ID? (yes/no): no
+Enter movie time (24-hour format, e.g., 14 for 2 PM): 20
+
+You can watch PG and PG-13 movies.
+Your ticket price is: $10.00
+
+
+Run 3:
+Enter your age: 9
+Do you have a student ID? (yes/no): no
+Enter movie time (24-hour format, e.g., 14 for 2 PM): 23
+
+Sorry, we're closed. Showtimes are between 10 AM and 10 PM.</div>
+            </div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of Conditional Statements:</h4>
+                <ul>
+                    <li><strong>Use <code>==</code> for comparison, <code>=</code> for assignment.</strong>
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">if age == 18:  # correct
+if age = 18:   # error!</div>
+                    </li>
+                    <li><strong>Always use a colon <code>:</code> at the end of <code>if</code>, <code>elif</code>, and <code>else</code>.</strong>
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">if condition:  # correct
+if condition   # error!</div>
+                    </li>
+                    <li><strong>Indent your code inside blocks with 4 spaces.</strong> Python uses indentation instead of <code>{ }</code> like other languages. Mixing tabs and spaces causes errors!</li>
+                    <li><strong>Check the most specific conditions first.</strong> Highest to lowest (e.g., >= 90, then >= 80, then >= 70).</li>
+                    <li><strong><code>elif</code> and <code>else</code> are optional,</strong> but always use <code>if</code> first. <code>if → elif → elif → else</code> (only one <code>if</code>, any number of <code>elif</code>s, one <code>else</code>).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Forgetting the colon</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">if age > 18    # ❌ SyntaxError: Missing colon
+    print("Adult")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Inconsistent indentation</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">if age > 18:
+    print("Adult")
+  print("Still inside?")  # ❌ IndentationError: Inconsistent</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Using <code>=</code> instead of <code>==</code></strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">if age = 18:  # ❌ This assigns, doesn't compare!
+    print("You're 18")</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Wrong order of conditions</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">score = 95
+if score >= 70:   # ❌ This catches everything above 70
+    grade = "C"
+elif score >= 90: # ❌ Never runs
+    grade = "A"</div>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> how to transform your program from a simple script into an intelligent decision-maker! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Ask questions that return True or False using comparison operators</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Make decisions using <code>if</code>, <code>elif</code>, and <code>else</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Write clean, properly indented code that Python can understand</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Handle multiple scenarios with complex decision trees</li>
+            </ul>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every app you've ever used—from Netflix suggesting movies to Google Maps finding routes—runs on decisions just like these. You're building the same logic that powers the digital world!</p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Personalized Fitness Recommendation"</strong> program that:</p>
+            <ul>
+                <li><strong>Asks the user for:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Age (integer)</li>
+                        <li>• Weight in kg (float)</li>
+                        <li>• Fitness goal (string: "lose", "maintain", or "gain")</li>
+                        <li>• Activity level (string: "sedentary", "moderate", or "active")</li>
+                    </ul>
+                </li>
+                <li><strong>Makes decisions to recommend:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Based on age:
+                            <ul style="list-style: none; padding-left: 1.5rem;">
+                                <li>• Under 18: "Focus on bodyweight exercises"</li>
+                                <li>• 18-50: "Mix of cardio and strength training"</li>
+                                <li>• Over 50: "Low-impact exercises recommended"</li>
+                            </ul>
+                        </li>
+                        <li>• Based on fitness goal:
+                            <ul style="list-style: none; padding-left: 1.5rem;">
+                                <li>• "lose": Recommended daily calories = weight * 22</li>
+                                <li>• "maintain": Recommended daily calories = weight * 28</li>
+                                <li>• "gain": Recommended daily calories = weight * 33</li>
+                            </ul>
+                        </li>
+                        <li>• Based on activity level (add to daily calories):
+                            <ul style="list-style: none; padding-left: 1.5rem;">
+                                <li>• "sedentary": +0</li>
+                                <li>• "moderate": +200</li>
+                                <li>• "active": +400</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Prints a complete report with f-strings:</strong></li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output format:</span><br><br>
+                === FITNESS REPORT ===<br>
+                Age: 25<br>
+                Weight: 70.5 kg<br>
+                Goal: maintain<br>
+                Activity: moderate<br><br>
+                Recommendation: Mix of cardio and strength training<br>
+                Daily calorie target: 70.5 * 28 + 200 = 2174 calories<br><br>
+                Tips:<br>
+                - Stay hydrated<br>
+                - Get 7-8 hours of sleep<br>
+                - Consistency &gt; intensity
+            </div>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus Requirements:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Handle invalid inputs gracefully (e.g., negative numbers, unknown goals)</li>
+                    <li>• Add a special message if someone is over 65 (the "Silver Fitness" program)</li>
+                    <li>• Include a "Are you sure?" confirmation for extreme goals (weight &lt; 40kg or &gt; 200kg)</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Your fitness recommendation program starts here!
+print("=== FITNESS RECOMMENDATION SYSTEM ===")
+print("Let's create your personalized fitness plan.\n")
+
+# Step 1: Get user input
+age = int(input("Enter your age: "))
+weight = float(input("Enter your weight in kg: "))
+goal = input("What's your goal? (lose/maintain/gain): ").lower()
+activity = input("What's your activity level? (sedentary/moderate/active): ").lower()
+
+# Step 2: Determine exercise recommendation based on age
+# Write your code here...
+
+# Step 3: Calculate calorie target based on goal
+# Write your code here...
+
+# Step 4: Adjust calories based on activity level
+# Write your code here...
+
+# Step 5: Print the final report
+# Write your code here...</div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section3-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've transformed your program from a simple script into an intelligent decision-maker! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Ask questions that return True or False using comparison operators</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Make decisions using <code>if</code>, <code>elif</code>, and <code>else</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Write clean, properly indented code that Python can understand</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Handle multiple scenarios with complex decision trees</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Every app you've ever used—from Netflix suggesting movies to Google Maps finding routes—runs on decisions just like these. You're building the same logic that powers the digital world!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section2-input-fstrings.html" class="back">← Back: Input &amp; f-Strings</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section4-for-loops.html" class="next">Next: For Loops &amp; range() →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 3 · The Decision Maker</span>
+            <span>if/elif/else · Booleans · comparison operators</span>
+        </div>
+    </div>
+</body>
+</html>
