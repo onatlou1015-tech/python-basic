@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 9 – Digital Phonebook – Dictionaries | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dict-visual {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        .dict-visual .bracket { color: #8ab4d6; }
+        .dict-visual .key { color: #e5c07b; }
+        .dict-visual .colon { color: #abb2bf; }
+        .dict-visual .value { color: #98c379; }
+        .dict-visual .arrow { color: #f0c674; }
+
+        .dict-method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .dict-method-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dce8f5;
+        }
+        .dict-method-card h4 {
+            color: #0e314b;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        .dict-method-card .syntax {
+            background: #eaf0f7;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #1a4c72;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+        .dict-method-card .example {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            overflow-x: auto;
+        }
+        .dict-method-card .example .comment {
+            color: #8aaec9;
+        }
+
+        .phonebook-output {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #d6e8f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .phonebook-output .prompt {
+            color: #f0c674;
+        }
+        .phonebook-output .output {
+            color: #a6e22e;
+        }
+        .phonebook-output .highlight {
+            color: #f7768e;
+        }
+
+        .nested-dict-demo {
+            background: #0e1f2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #e4f0fb;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .nested-dict-demo .outer { color: #e5c07b; }
+        .nested-dict-demo .inner { color: #98c379; }
+        .nested-dict-demo .key { color: #61afef; }
+        .nested-dict-demo .value { color: #a6e22e; }
+        .nested-dict-demo .comment { color: #5c6370; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section8-functions.html">Section 8</a> &gt; Section 9
+            </div>
+            <span class="section-badge">Section 9 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>📖 Section 9 · Digital Phonebook – Dictionaries</h1>
+            <div class="subtitle">Key-Value pairs. Creating dictionaries. Accessing values via keys. Adding/updating entries. Looping through dictionaries (.items()).</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>The Ultimate Contact List</strong></p>
+            <p>Imagine you have a physical phonebook. You look up a person's name (the key) and find their phone number (the value). You don't need to know where the information is stored—just the name, and you get the number instantly. That's exactly how dictionaries work in Python.</p>
+            <p style="margin-top: 0.6rem;">A dictionary is like a real-world dictionary too. You look up a word (the key) and get its definition (the value). It's a collection of <strong>key-value pairs</strong> where each key maps to a value. Unlike lists where you use numbers to find items, dictionaries use meaningful labels.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">understand key-value pairs</span>
+            <span class="pill">create and manipulate dictionaries</span>
+            <span class="pill">access values via keys</span>
+            <span class="pill">add and update entries</span>
+            <span class="pill">loop through dictionaries</span>
+        </div>
+
+        <!-- Part A: What is a Dictionary -->
+        <div class="part">
+            <h2><span class="part-label">A</span> What is a Dictionary?</h2>
+            <p>A <strong>dictionary</strong> stores data in key-value pairs. Each key is unique and acts as a label for its associated value.</p>
+
+            <p><strong>Creating a dictionary:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Empty dictionary
+phonebook = {}
+
+# Dictionary with data
+phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678",
+    "Charlie": "555-9012"
+}
+
+# Dictionaries can store any data type
+student = {
+    "name": "Alice",
+    "age": 25,
+    "grades": [85, 92, 78],
+    "is_active": True
+}
+
+# Mixed keys (strings, numbers, tuples)
+mixed = {
+    "name": "Bob",
+    42: "The Answer",
+    (1, 2): "A tuple key"
+}</div>
+            </div>
+
+            <p><strong>Visual representation:</strong></p>
+            <div class="dict-visual"><span class="key">phonebook</span> = <span class="bracket">{</span>
+    <span class="key">"Alice"</span><span class="colon">:</span>    <span class="value">"555-1234"</span>,
+    <span class="key">"Bob"</span><span class="colon">:</span>      <span class="value">"555-5678"</span>,
+    <span class="key">"Charlie"</span><span class="colon">:</span>  <span class="value">"555-9012"</span>
+<span class="bracket">}</span>
+    <span class="arrow">↑            ↑</span>
+  <span class="key">Keys</span>        <span class="value">Values</span></div>
+
+            <div class="info-box">
+                <p><strong>Key characteristics:</strong></p>
+                <ul>
+                    <li>Keys must be <strong>immutable</strong> (strings, numbers, tuples)</li>
+                    <li>Keys must be <strong>unique</strong> (no duplicates)</li>
+                    <li>Values can be <strong>any data type</strong> (and can be duplicated)</li>
+                    <li>Dictionaries are <strong>ordered</strong> (Python 3.7+ remembers insertion order)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Part B: Accessing Values -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Accessing Values – The Key to Success</h2>
+            <p>You access dictionary values using keys in square brackets <code>[]</code> or the <code>.get()</code> method.</p>
+
+            <p><strong>Using square brackets (direct access):</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678",
+    "Charlie": "555-9012"
+}
+
+# Access by key
+alice_number = phonebook["Alice"]
+print(alice_number)  # "555-1234"
+
+bob_number = phonebook["Bob"]
+print(bob_number)    # "555-5678"
+
+# Warning: KeyError if key doesn't exist
+# diana_number = phonebook["Diana"]  # KeyError!</div>
+            </div>
+
+            <p><strong>Using <code>.get()</code> (safe access):</strong></p>
+            <div class="example-box">
+                <div class="code-block"># .get() returns None if key doesn't exist
+diana_number = phonebook.get("Diana")
+print(diana_number)  # None
+
+# Provide a default value if key doesn't exist
+diana_number = phonebook.get("Diana", "Not found")
+print(diana_number)  # "Not found"
+
+alice_number = phonebook.get("Alice", "Not found")
+print(alice_number)  # "555-1234"</div>
+            </div>
+
+            <p><strong>Getting all keys or values:</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678",
+    "Charlie": "555-9012"
+}
+
+# Get all keys
+names = phonebook.keys()
+print(names)  # dict_keys(['Alice', 'Bob', 'Charlie'])
+
+# Get all values
+numbers = phonebook.values()
+print(numbers)  # dict_values(['555-1234', '555-5678', '555-9012'])
+
+# Get all key-value pairs as tuples
+items = phonebook.items()
+print(items)  # dict_items([('Alice', '555-1234'), ...])</div>
+            </div>
+        </div>
+
+        <!-- Part C: Adding and Updating -->
+        <div class="part">
+            <h2><span class="part-label">C</span> Adding and Updating Entries</h2>
+            <p>Dictionaries are <strong>mutable</strong> – you can add, update, and delete entries.</p>
+
+            <p><strong>Adding new entries:</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678"
+}
+
+# Add a new entry
+phonebook["Charlie"] = "555-9012"
+print(phonebook)
+# {'Alice': '555-1234', 'Bob': '555-5678', 'Charlie': '555-9012'}
+
+# Add multiple entries with update()
+phonebook.update({
+    "Diana": "555-3456",
+    "Eve": "555-7890"
+})
+print(phonebook)
+# {'Alice': '555-1234', 'Bob': '555-5678', 'Charlie': '555-9012', 
+#  'Diana': '555-3456', 'Eve': '555-7890'}</div>
+            </div>
+
+            <p><strong>Updating existing entries:</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678"
+}
+
+# Update a value
+phonebook["Alice"] = "555-9999"
+print(phonebook)
+# {'Alice': '555-9999', 'Bob': '555-5678'}
+
+# Update with a new value
+phonebook["Bob"] = "555-0000"
+print(phonebook)
+# {'Alice': '555-9999', 'Bob': '555-0000'}</div>
+            </div>
+
+            <p><strong>Using <code>.setdefault()</code> (add only if key doesn't exist):</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234"
+}
+
+# Add if key doesn't exist
+phonebook.setdefault("Bob", "555-5678")
+print(phonebook)  # {'Alice': '555-1234', 'Bob': '555-5678'}
+
+# This doesn't change existing keys
+phonebook.setdefault("Alice", "555-9999")
+print(phonebook)  # {'Alice': '555-1234', 'Bob': '555-5678'}</div>
+            </div>
+        </div>
+
+        <!-- Part D: Removing Entries -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Removing Entries</h2>
+
+            <div class="dict-method-grid">
+                <div class="dict-method-card">
+                    <h4>del</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove by key</p>
+                    <span class="syntax">del dict[key]</span>
+                    <div class="example">phonebook = {"A": "123", "B": "456", "C": "789"}
+del phonebook["B"]
+<span class="comment"># {"A": "123", "C": "789"}</span>
+<span class="comment"># del raises KeyError if key doesn't exist</span></div>
+                </div>
+                <div class="dict-method-card">
+                    <h4>.pop()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove and return value</p>
+                    <span class="syntax">value = dict.pop(key)</span>
+                    <div class="example">phonebook = {"A": "123", "B": "456"}
+removed = phonebook.pop("B")
+<span class="comment"># removed = "456"</span>
+<span class="comment"># phonebook = {"A": "123"}</span>
+
+<span class="comment"># Provide default if key doesn't exist</span>
+removed = phonebook.pop("C", "Not found")
+<span class="comment"># "Not found"</span></div>
+                </div>
+                <div class="dict-method-card">
+                    <h4>.popitem()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove and return the last item</p>
+                    <span class="syntax">key, value = dict.popitem()</span>
+                    <div class="example">phonebook = {"A": "123", "B": "456"}
+last = phonebook.popitem()
+<span class="comment"># last = ("B", "456")</span>
+<span class="comment"># phonebook = {"A": "123"}</span></div>
+                </div>
+                <div class="dict-method-card">
+                    <h4>.clear()</h4>
+                    <p style="font-size: 0.9rem; color: #4d6f8b;">Remove all items</p>
+                    <span class="syntax">dict.clear()</span>
+                    <div class="example">phonebook = {"A": "123", "B": "456"}
+phonebook.clear()
+<span class="comment"># {}</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part E: Looping Through Dictionaries -->
+        <div class="part">
+            <h2><span class="part-label">E</span> Looping Through Dictionaries</h2>
+
+            <p><strong>Loop through keys:</strong></p>
+            <div class="example-box">
+                <div class="code-block">phonebook = {
+    "Alice": "555-1234",
+    "Bob": "555-5678",
+    "Charlie": "555-9012"
+}
+
+# Method 1: Direct iteration over keys
+for name in phonebook:
+    print(f"{name}: {phonebook[name]}")
+
+# Method 2: Using .keys() (explicit)
+for name in phonebook.keys():
+    print(f"{name}: {phonebook[name]}")
+
+# Output:
+# Alice: 555-1234
+# Bob: 555-5678
+# Charlie: 555-9012</div>
+            </div>
+
+            <p><strong>Loop through values:</strong></p>
+            <div class="example-box">
+                <div class="code-block"># Loop through values only
+for number in phonebook.values():
+    print(number)
+
+# Output:
+# 555-1234
+# 555-5678
+# 555-9012</div>
+            </div>
+
+            <p><strong>Loop through key-value pairs (using <code>.items()</code>):</strong></p>
+            <div class="example-box">
+                <div class="code-block"># This is the most common pattern
+for name, number in phonebook.items():
+    print(f"Name: {name}, Number: {number}")
+
+# Output:
+# Name: Alice, Number: 555-1234
+# Name: Bob, Number: 555-5678
+# Name: Charlie, Number: 555-9012</div>
+            </div>
+
+            <p><strong>Nested dictionaries and loops:</strong></p>
+            <div class="nested-dict-demo"><span class="outer">contacts</span> = <span class="bracket">{</span>
+    <span class="key">"Alice"</span><span class="colon">:</span> <span class="bracket">{</span>
+        <span class="key">"phone"</span><span class="colon">:</span> <span class="value">"555-1234"</span>,
+        <span class="key">"email"</span><span class="colon">:</span> <span class="value">"alice@example.com"</span>,
+        <span class="key">"age"</span><span class="colon">:</span> <span class="value">30</span>
+    <span class="bracket">}</span>,
+    <span class="key">"Bob"</span><span class="colon">:</span> <span class="bracket">{</span>
+        <span class="key">"phone"</span><span class="colon">:</span> <span class="value">"555-5678"</span>,
+        <span class="key">"email"</span><span class="colon">:</span> <span class="value">"bob@example.com"</span>,
+        <span class="key">"age"</span><span class="colon">:</span> <span class="value">25</span>
+    <span class="bracket">}</span>
+<span class="bracket">}</span>
+
+<span class="comment"># Loop through nested dictionary</span>
+<span class="keyword">for</span> <span class="key">name</span>, <span class="inner">info</span> <span class="keyword">in</span> <span class="outer">contacts</span>.<span class="inner">items()</span>:
+    <span class="inner">print(f"\nContact: {name}")</span>
+    <span class="keyword">for</span> <span class="key">key</span>, <span class="value">value</span> <span class="keyword">in</span> <span class="inner">info</span>.<span class="inner">items()</span>:
+        <span class="inner">print(f"  {key}: {value}")</span>
+
+<span class="comment"># Output:</span>
+<span class="comment"># Contact: Alice</span>
+<span class="comment">#   phone: 555-1234</span>
+<span class="comment">#   email: alice@example.com</span>
+<span class="comment">#   age: 30</span>
+<span class="comment"># Contact: Bob</span>
+<span class="comment">#   phone: 555-5678</span>
+<span class="comment">#   email: bob@example.com</span>
+<span class="comment">#   age: 25</span></div>
+        </div>
+
+        <!-- Part F: Digital Phonebook -->
+        <div class="part">
+            <h2><span class="part-label">F</span> Building a Digital Phonebook</h2>
+            <p>Let's build a complete phonebook application using dictionaries:</p>
+
+            <div class="code-block" style="font-size: 0.8rem;"># Digital Phonebook System
+
+def display_menu():
+    """Display the phonebook menu."""
+    print("\n=== DIGITAL PHONEBOOK ===")
+    print("1. View all contacts")
+    print("2. Add a contact")
+    print("3. Find a contact")
+    print("4. Update a contact")
+    print("5. Delete a contact")
+    print("6. Contact statistics")
+    print("7. Search by phone number")
+    print("8. Exit")
+    return input("Choose an option (1-8): ")
+
+def view_contacts(phonebook):
+    """View all contacts in alphabetical order."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n=== ALL CONTACTS ===")
+    print(f"Total contacts: {len(phonebook)}\n")
+    
+    # Sort alphabetically
+    for name in sorted(phonebook.keys()):
+        info = phonebook[name]
+        print(f"Name: {name}")
+        print(f"  Phone: {info['phone']}")
+        print(f"  Email: {info.get('email', 'No email')}")
+        print(f"  Age: {info.get('age', 'Not specified')}")
+        print()
+
+def add_contact(phonebook):
+    """Add a new contact to the phonebook."""
+    print("\n--- ADD CONTACT ---")
+    
+    name = input("Enter name: ").strip().title()
+    if not name:
+        print("Name cannot be empty!")
+        return
+    
+    # Check if contact already exists
+    if name in phonebook:
+        overwrite = input(f"Contact '{name}' already exists. Overwrite? (yes/no): ").lower()
+        if overwrite != "yes":
+            print("Operation cancelled.")
+            return
+    
+    # Get contact details
+    phone = input("Enter phone number: ").strip()
+    if not phone:
+        print("Phone number cannot be empty!")
+        return
+    
+    email = input("Enter email (optional): ").strip()
+    age_input = input("Enter age (optional): ").strip()
+    age = int(age_input) if age_input.isdigit() else None
+    
+    # Create contact dictionary
+    phonebook[name] = {
+        "phone": phone,
+        "email": email if email else None,
+        "age": age
+    }
+    
+    print(f"Contact '{name}' added successfully!")
+
+def find_contact(phonebook):
+    """Find and display a specific contact."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n--- FIND CONTACT ---")
+    name = input("Enter name to search: ").strip().title()
+    
+    if name in phonebook:
+        info = phonebook[name]
+        print(f"\nContact found:")
+        print(f"Name: {name}")
+        print(f"  Phone: {info['phone']}")
+        print(f"  Email: {info.get('email', 'No email')}")
+        print(f"  Age: {info.get('age', 'Not specified')}")
+    else:
+        print(f"Contact '{name}' not found!")
+        
+        # Suggest similar names
+        suggestions = [n for n in phonebook.keys() if name.lower() in n.lower()]
+        if suggestions:
+            print(f"Did you mean: {', '.join(suggestions)}?")
+
+def update_contact(phonebook):
+    """Update an existing contact."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n--- UPDATE CONTACT ---")
+    name = input("Enter name to update: ").strip().title()
+    
+    if name not in phonebook:
+        print(f"Contact '{name}' not found!")
+        return
+    
+    info = phonebook[name]
+    print(f"\nCurrent information for {name}:")
+    print(f"  Phone: {info['phone']}")
+    print(f"  Email: {info.get('email', 'No email')}")
+    print(f"  Age: {info.get('age', 'Not specified')}")
+    
+    print("\nLeave blank to keep current value.")
+    
+    # Update fields
+    new_phone = input(f"New phone number ({info['phone']}): ").strip()
+    if new_phone:
+        info['phone'] = new_phone
+    
+    new_email = input(f"New email ({info.get('email', 'No email')}): ").strip()
+    if new_email:
+        info['email'] = new_email
+    
+    new_age = input(f"New age ({info.get('age', 'Not specified')}): ").strip()
+    if new_age:
+        if new_age.isdigit():
+            info['age'] = int(new_age)
+        else:
+            print("Invalid age! Keeping current value.")
+    
+    print(f"Contact '{name}' updated successfully!")
+
+def delete_contact(phonebook):
+    """Delete a contact from the phonebook."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n--- DELETE CONTACT ---")
+    name = input("Enter name to delete: ").strip().title()
+    
+    if name not in phonebook:
+        print(f"Contact '{name}' not found!")
+        return
+    
+    # Confirm deletion
+    confirm = input(f"Are you sure you want to delete '{name}'? (yes/no): ").lower()
+    if confirm == "yes":
+        del phonebook[name]
+        print(f"Contact '{name}' deleted successfully!")
+    else:
+        print("Deletion cancelled.")
+
+def contact_stats(phonebook):
+    """Display statistics about the phonebook."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n=== PHONEBOOK STATISTICS ===")
+    print(f"Total contacts: {len(phonebook)}")
+    
+    # Count contacts with email
+    with_email = sum(1 for info in phonebook.values() if info.get('email'))
+    print(f"Contacts with email: {with_email}")
+    
+    # Count contacts with age
+    with_age = sum(1 for info in phonebook.values() if info.get('age'))
+    print(f"Contacts with age: {with_age}")
+    
+    # Average age
+    ages = [info['age'] for info in phonebook.values() if info.get('age')]
+    if ages:
+        avg_age = sum(ages) / len(ages)
+        print(f"Average age: {avg_age:.1f}")
+    
+    # Most common prefix (for fun)
+    if with_email:
+        domains = {}
+        for info in phonebook.values():
+            if info.get('email'):
+                domain = info['email'].split('@')[-1] if '@' in info['email'] else 'invalid'
+                domains[domain] = domains.get(domain, 0) + 1
+        if domains:
+            most_common = max(domains, key=domains.get)
+            print(f"Most common email domain: {most_common} ({domains[most_common]})")
+
+def search_by_phone(phonebook):
+    """Search for a contact by phone number."""
+    if not phonebook:
+        print("Phonebook is empty!")
+        return
+    
+    print("\n--- SEARCH BY PHONE ---")
+    phone = input("Enter phone number to search: ").strip()
+    
+    found = False
+    for name, info in phonebook.items():
+        if info['phone'] == phone:
+            print(f"\nFound: {name}")
+            print(f"  Phone: {info['phone']}")
+            print(f"  Email: {info.get('email', 'No email')}")
+            print(f"  Age: {info.get('age', 'Not specified')}")
+            found = True
+    
+    if not found:
+        print(f"No contact found with phone number: {phone}")
+
+def main():
+    """Main program loop."""
+    phonebook = {}
+    
+    print("=" * 50)
+    print("   WELCOME TO THE DIGITAL PHONEBOOK")
+    print("=" * 50)
+    print("Keep all your contacts organized in one place!")
+    
+    while True:
+        choice = display_menu()
+        
+        if choice == "1":
+            view_contacts(phonebook)
+        elif choice == "2":
+            add_contact(phonebook)
+        elif choice == "3":
+            find_contact(phonebook)
+        elif choice == "4":
+            update_contact(phonebook)
+        elif choice == "5":
+            delete_contact(phonebook)
+        elif choice == "6":
+            contact_stats(phonebook)
+        elif choice == "7":
+            search_by_phone(phonebook)
+        elif choice == "8":
+            print("\nThanks for using the Digital Phonebook!")
+            print(f"Final count: {len(phonebook)} contacts saved.")
+            break
+        else:
+            print("Invalid option! Please choose 1-8.")
+        
+        input("\nPress Enter to continue...")
+
+if __name__ == "__main__":
+    main()</div>
+
+            <div class="phonebook-output"><span class="prompt">==================================================</span>
+<span class="prompt">   WELCOME TO THE DIGITAL PHONEBOOK</span>
+<span class="prompt">==================================================</span>
+<span class="prompt">Keep all your contacts organized in one place!</span>
+
+<span class="prompt">=== DIGITAL PHONEBOOK ===</span>
+<span class="prompt">1. View all contacts</span>
+<span class="prompt">2. Add a contact</span>
+<span class="prompt">3. Find a contact</span>
+<span class="prompt">4. Update a contact</span>
+<span class="prompt">5. Delete a contact</span>
+<span class="prompt">6. Contact statistics</span>
+<span class="prompt">7. Search by phone number</span>
+<span class="prompt">8. Exit</span>
+<span class="prompt">Choose an option (1-8): 2</span>
+
+<span class="output">--- ADD CONTACT ---</span>
+<span class="output">Enter name: Alice Johnson</span>
+<span class="output">Enter phone number: 555-1234</span>
+<span class="output">Enter email (optional): alice@example.com</span>
+<span class="output">Enter age (optional): 30</span>
+<span class="output">Contact 'Alice Johnson' added successfully!</span>
+
+<span class="prompt">Choose an option (1-8): 2</span>
+<span class="output">Enter name: Bob Smith</span>
+<span class="output">Enter phone number: 555-5678</span>
+<span class="output">Enter email (optional): bob@example.com</span>
+<span class="output">Enter age (optional): 25</span>
+<span class="output">Contact 'Bob Smith' added successfully!</span>
+
+<span class="prompt">Choose an option (1-8): 1</span>
+
+<span class="output">=== ALL CONTACTS ===</span>
+<span class="output">Total contacts: 2</span>
+
+<span class="output">Name: Alice Johnson</span>
+<span class="output">  Phone: 555-1234</span>
+<span class="output">  Email: alice@example.com</span>
+<span class="output">  Age: 30</span>
+
+<span class="output">Name: Bob Smith</span>
+<span class="output">  Phone: 555-5678</span>
+<span class="output">  Email: bob@example.com</span>
+<span class="output">  Age: 25</span>
+
+<span class="prompt">Choose an option (1-8): 6</span>
+
+<span class="output">=== PHONEBOOK STATISTICS ===</span>
+<span class="output">Total contacts: 2</span>
+<span class="output">Contacts with email: 2</span>
+<span class="output">Contacts with age: 2</span>
+<span class="output">Average age: 27.5</span>
+<span class="output">Most common email domain: example.com (2)</span>
+
+<span class="prompt">Choose an option (1-8): 8</span>
+
+<span class="output">Thanks for using the Digital Phonebook!</span>
+<span class="output">Final count: 2 contacts saved.</span></div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of Dictionaries:</h4>
+                <ul>
+                    <li><strong>Keys must be unique and immutable.</strong> Use strings, numbers, or tuples as keys. Lists cannot be keys (they're mutable).</li>
+                    <li><strong>Access values using keys, not positions.</strong> <code>dict["key"]</code> or <code>dict.get("key", default)</code>. No such thing as "index 0" in a dictionary.</li>
+                    <li><strong>Use <code>.get()</code> for safe access.</strong> Avoids <code>KeyError</code> crashes. Provide a default for missing keys.</li>
+                    <li><strong>Loop with <code>.items()</code> for key-value pairs.</strong> <code>for key, value in dict.items():</code> Most readable and efficient.</li>
+                    <li><strong>Dictionaries are mutable.</strong> Add, update, and delete entries freely. Changes affect the original dictionary.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="part">
+            <h2>⚠️ Common Mistakes &amp; How to Avoid Them</h2>
+
+            <div class="warning-box">
+                <p><strong>Mistake 1: Using a list as a key</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Lists are mutable and can't be keys
+my_dict = {
+    ["name"]: "Alice"  # TypeError: unhashable type: 'list'
+}
+
+# Correct - Use strings, numbers, or tuples
+my_dict = {
+    "name": "Alice",
+    (1, 2): "Value"
+}</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 2: Assuming dictionary order (pre-Python 3.7)</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Dictionaries are ordered in Python 3.7+, but don't rely on it
+my_dict = {"a": 1, "b": 2, "c": 3}
+# Items are in insertion order, but this is not guaranteed in older versions
+
+# Use sorted() if order matters
+for key in sorted(my_dict.keys()):
+    print(key, my_dict[key])</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 3: Not using <code>.get()</code> and causing crashes</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if key doesn't exist
+my_dict = {"name": "Alice"}
+age = my_dict["age"]  # KeyError!
+
+# Correct - Safe access
+age = my_dict.get("age", 0)  # Returns 0 if key doesn't exist</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 4: Modifying a dictionary while iterating</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - Changing size while iterating
+my_dict = {"a": 1, "b": 2, "c": 3}
+for key in my_dict:
+    if key == "b":
+        del my_dict[key]  # RuntimeError!
+
+# Correct - Iterate over a copy
+for key in list(my_dict.keys()):
+    if key == "b":
+        del my_dict[key]</div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Mistake 5: Confusing <code>.update()</code> with assignment</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This creates a new key called "update"
+my_dict = {"name": "Alice"}
+my_dict.update = {"age": 30}  # Overwrites the method!
+
+# Correct - Use the method properly
+my_dict.update({"age": 30})  # Adds the key
+# Or assign directly
+my_dict["age"] = 30</div>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today, you learned</strong> one of Python's most powerful and versatile data structures! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Create dictionaries to store key-value pairs</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Access values using keys (the right way)</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Add, update, and delete entries dynamically</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Loop through dictionaries using <code>.items()</code></li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Build practical applications like phonebooks</li>
+                <li style="padding: 0.2rem 0; color: #1b5e20;">✅ Understand when to use dictionaries vs. lists</li>
+            </ul>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Dictionaries are everywhere in real-world programming. Every time you see a JSON response from an API, a user profile in a database, or a configuration file—you're looking at dictionaries. You now have the power to work with structured, labeled data!</p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create a <strong>"Student Gradebook"</strong> system using dictionaries with the following features:</p>
+            <ul>
+                <li><strong>Store student information:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Student name (key)</li>
+                        <li>• Dictionary with: grades (list), attendance (integer), email</li>
+                    </ul>
+                </li>
+                <li><strong>Implement functions for:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Add a student</li>
+                        <li>• Add a grade for a student</li>
+                        <li>• View all students and their averages</li>
+                        <li>• View a student's report card</li>
+                        <li>• Update attendance</li>
+                        <li>• Generate class statistics (average grade, attendance rate, etc.)</li>
+                    </ul>
+                </li>
+                <li><strong>Advanced features:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Find the student with the highest average</li>
+                        <li>• Generate a list of students who are failing (below 70)</li>
+                        <li>• Show students sorted by grade</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.85rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output:</span><br><br>
+                === STUDENT GRADEBOOK ===<br>
+                1. Add student<br>
+                2. Add grade<br>
+                3. View all students<br>
+                4. View student report<br>
+                5. Update attendance<br>
+                6. Class statistics<br>
+                7. Highest achiever<br>
+                8. Failing students<br>
+                9. Exit<br>
+                Choose an option (1-9): 1<br><br>
+                --- ADD STUDENT ---<br>
+                Student name: Alice Johnson<br>
+                Email: alice@example.com<br>
+                Student 'Alice Johnson' added successfully!<br><br>
+                Choose an option (1-9): 2<br><br>
+                --- ADD GRADE ---<br>
+                Student name: Alice Johnson<br>
+                Enter grade (0-100): 92<br>
+                Grade added!<br><br>
+                Choose an option (1-9): 3<br><br>
+                === ALL STUDENTS ===<br>
+                1. Alice Johnson<br>
+                   Average: 90.0 (2 grades)<br>
+                   Attendance: 0<br>
+                2. Bob Smith<br>
+                   Average: N/A<br>
+                   Attendance: 0<br><br>
+                Choose an option (1-9): 6<br><br>
+                === CLASS STATISTICS ===<br>
+                Total students: 2<br>
+                Overall average: 90.0<br>
+                Attendance rate: 0.0%<br>
+                Highest achiever: Alice Johnson (90.0)<br>
+                Failing students: None
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Student Gradebook System
+
+def display_menu():
+    # Your code here
+    pass
+
+def add_student(gradebook):
+    # Add a new student to the gradebook
+    # Student data should include: grades list, attendance, email
+    pass
+
+def add_grade(gradebook):
+    # Add a grade (0-100) for a specific student
+    pass
+
+def view_all_students(gradebook):
+    # Display all students with their average grades
+    pass
+
+def view_student_report(gradebook):
+    # Show full report for a specific student
+    # Include: name, grades, average, attendance, email
+    pass
+
+def update_attendance(gradebook):
+    # Increment attendance for a student
+    pass
+
+def class_statistics(gradebook):
+    # Show overall class stats
+    # Include: average grade, attendance rate, highest/lowest students
+    pass
+
+def highest_achiever(gradebook):
+    # Find and display the student with the highest average
+    pass
+
+def failing_students(gradebook):
+    # List all students with average below 70
+    pass
+
+def main():
+    # Your code here
+    pass
+
+if __name__ == "__main__":
+    main()</div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section9-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've mastered one of Python's most powerful and versatile data structures! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Create dictionaries to store key-value pairs</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Access values using keys (the right way)</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Add, update, and delete entries dynamically</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Loop through dictionaries using <code>.items()</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build practical applications like phonebooks and gradebooks</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Understand when to use dictionaries vs. lists</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Think about it:</strong> Dictionaries are everywhere in real-world programming. Every time you see a JSON response from an API, a user profile in a database, or a configuration file—you're looking at dictionaries. You now have the power to work with structured, labeled data!</p>
+            <p style="color: #0d47a1; margin-top: 0.5rem;"><strong>Looking ahead:</strong> Next, we'll combine everything you've learned to build complete, end-to-end applications!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section8-functions.html" class="back">← Back: Writing Your Own Functions</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section10-final-project-debugging.html" class="next">Next: Final Project &amp; Debugging →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 9 · Digital Phonebook – Dictionaries</span>
+            <span>key-value · .get() · .items() · nested dictionaries</span>
+        </div>
+    </div>
+</body>
+</html>

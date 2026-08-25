@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 10 – Final Project & Debugging | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .debug-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 700px) {
+            .debug-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .debug-card {
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+        }
+        .debug-card.syntax {
+            background: #ffebee;
+            border: 1px solid #ef9a9a;
+        }
+        .debug-card.logic {
+            background: #fff3e0;
+            border: 1px solid #ffcc80;
+        }
+        .debug-card.syntax h4 { color: #c62828; }
+        .debug-card.logic h4 { color: #e65100; }
+        .debug-card .code {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            overflow-x: auto;
+        }
+        .debug-card .code .error {
+            color: #f7768e;
+        }
+
+        .strategy-box {
+            background: #e8f5e9;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #2e7d32;
+            margin: 1rem 0;
+        }
+        .strategy-box h4 {
+            color: #1b5e20;
+        }
+        .strategy-box .code {
+            background: #0e1f2e;
+            color: #e4f0fb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            overflow-x: auto;
+        }
+        .strategy-box .code .debug {
+            color: #f0c674;
+        }
+        .strategy-box .code .comment {
+            color: #8aaec9;
+        }
+
+        .game-output {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: #d6e8f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .game-output .prompt {
+            color: #f0c674;
+        }
+        .game-output .output {
+            color: #a6e22e;
+        }
+        .game-output .highlight {
+            color: #f7768e;
+        }
+
+        .review-checklist {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        @media (max-width: 600px) {
+            .review-checklist {
+                grid-template-columns: 1fr;
+            }
+        }
+        .review-checklist .item {
+            background: #f8faff;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #dce8f5;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .review-checklist .item .check {
+            color: #2e7d32;
+            font-weight: 700;
+        }
+
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+        .rubric-table th,
+        .rubric-table td {
+            border: 1px solid #dce8f5;
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+        .rubric-table th {
+            background: #e8f0fe;
+            color: #0e314b;
+            font-weight: 600;
+        }
+        .rubric-table tr:nth-child(even) {
+            background: #f8faff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section9-dictionaries.html">Section 9</a> &gt; Section 10
+            </div>
+            <span class="section-badge">Section 10 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🎮 Section 10 · Game Jam – Final Project &amp; Debugging</h1>
+            <div class="subtitle">Syntax errors vs. Logic errors. Debugging strategies (print statements). Code review.</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>From Student to Creator</strong></p>
+            <p>Imagine you've been learning to play the piano for months. You've practiced scales, learned chords, and studied music theory. Now it's time to perform your first complete song. You might hit some wrong notes, lose your rhythm, or forget a section. But with practice and careful review, you'll create something beautiful.</p>
+            <p style="margin-top: 0.6rem;">That's exactly where you are now. You've learned all the building blocks of Python—variables, conditionals, loops, lists, functions, dictionaries. Now it's time to build something complete. Something that shows off everything you've learned. Something that's truly yours.</p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you will:</span>
+            <span class="pill">understand syntax vs logic errors</span>
+            <span class="pill">develop debugging strategies</span>
+            <span class="pill">apply code review techniques</span>
+            <span class="pill">build a complete game project</span>
+        </div>
+
+        <!-- Part A: Syntax vs Logic Errors -->
+        <div class="part">
+            <h2><span class="part-label">A</span> Syntax Errors vs. Logic Errors – The Two Types of Bugs</h2>
+            <p>All errors fall into two categories: <strong>syntax errors</strong> (the computer can't understand you) and <strong>logic errors</strong> (the computer does what you said, but it's not what you meant).</p>
+
+            <div class="debug-grid">
+                <div class="debug-card syntax">
+                    <h4>❌ Syntax Errors (Compile-time errors)</h4>
+                    <p style="font-size: 0.9rem;">These are like grammar mistakes in human language. The computer can't even start your program because it doesn't understand what you wrote.</p>
+                    <div class="code"><span class="error"># Missing colon</span>
+if age > 18   <span class="error"># SyntaxError: Expected ':'</span>
+    print("Adult")
+
+<span class="error"># Missing closing quote</span>
+print("Hello)   <span class="error"># SyntaxError: EOL while scanning string literal</span>
+
+<span class="error"># Using a keyword as a variable</span>
+if = 5   <span class="error"># SyntaxError: invalid syntax</span>
+
+<span class="error"># Missing parenthesis</span>
+print "Hello"   <span class="error"># SyntaxError: Missing parentheses</span>
+
+<span class="error"># Incorrect indentation</span>
+def greet():
+    print("Hello")
+  print("World")   <span class="error"># IndentationError: unexpected indent</span></div>
+                </div>
+                <div class="debug-card logic">
+                    <h4>🐛 Logic Errors (Runtime errors)</h4>
+                    <p style="font-size: 0.9rem;">These are much trickier. Your program runs perfectly—no syntax errors, no crashes—but it produces the wrong answer. The computer is doing exactly what you told it to do, but what you told it isn't what you meant.</p>
+                    <div class="code"><span class="error"># Mistake 1: Wrong calculation</span>
+def calculate_rectangle_area(length, width):
+    return length + width  <span class="error"># Should be * not +</span>
+
+print(calculate_rectangle_area(5, 3))  <span class="error"># Returns 8, should be 15</span>
+
+<span class="error"># Mistake 2: Off-by-one error</span>
+numbers = [1, 2, 3, 4, 5]
+total = 0
+for i in range(1, len(numbers)):  <span class="error"># Wrong! Starts at index 1</span>
+    total += numbers[i]
+print(total)  <span class="error"># Wrong: 14 (missing the first number)</span>
+
+<span class="error"># Mistake 3: Wrong condition</span>
+def is_eligible_for_senior_discount(age):
+    return age > 65  <span class="error"># Should be >= 65</span>
+
+print(is_eligible_for_senior_discount(65))  <span class="error"># Returns False, should be True</span>
+
+<span class="error"># Mistake 4: Using = instead of ==</span>
+def check_password(password):
+    if password = "secret":  <span class="error"># Assignment, not comparison!</span>
+        return True
+    return False</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>The difference at a glance:</strong></p>
+                <table class="rubric-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Syntax Error</th>
+                            <th>Logic Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Program runs?</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Computer understands?</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Easy to find?</td>
+                            <td>Usually</td>
+                            <td>Can be very hard</td>
+                        </tr>
+                        <tr>
+                            <td>Error message?</td>
+                            <td>Yes, clear</td>
+                            <td>No, just wrong output</td>
+                        </tr>
+                        <tr>
+                            <td>Example</td>
+                            <td>Missing colon</td>
+                            <td>Adding instead of multiplying</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Part B: Debugging Strategies -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Debugging Strategies – Finding the Invisible</h2>
+            <p>Debugging is the art of finding and fixing errors. It's a skill that takes practice, but there are proven strategies that work.</p>
+
+            <div class="strategy-box">
+                <h4>Strategy 1: The Print Statement Method (Your Best Friend)</h4>
+                <p>The simplest and most powerful debugging tool is <code>print()</code>. Insert print statements to see what's happening inside your code.</p>
+                <div class="code"><span class="comment"># With print statements - Finding the bug</span>
+def calculate_average(grades):
+    <span class="debug">print(f"Debug: Starting calculation with {grades}")</span>
+    total = 0
+    <span class="debug">print(f"Debug: Initial total = {total}")</span>
+    
+    for grade in grades:
+        <span class="debug">print(f"Debug: Adding {grade} to total")</span>
+        total + grade  <span class="comment"># This is the bug! Should be +=</span>
+        <span class="debug">print(f"Debug: Current total = {total}")</span>
+    
+    <span class="debug">print(f"Debug: Final total = {total}")</span>
+    result = total / len(grades)
+    <span class="debug">print(f"Debug: Result = {result}")</span>
+    return result
+
+<span class="comment"># Output shows total never changes → Aha! The bug is found!</span></div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 2: Rubber Duck Debugging</h4>
+                <p>Explain your code, line by line, to an inanimate object (like a rubber duck). Often, just verbalizing what the code should do reveals the problem.</p>
+                <div class="code"><span class="comment"># "Duck, I'm going to explain what this code does..."</span>
+def is_palindrome(text):
+    reversed_text = text
+    <span class="comment"># Wait... I'm assigning reversed_text to the original text!</span>
+    <span class="comment"># Then I'm modifying text? No, I'm modifying reversed_text?</span>
+    <span class="comment"># Actually, text[::-1] is what I need!</span>
+    
+    <span class="comment"># The fix:</span>
+    return text == text[::-1]</div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 3: The "Divide and Conquer" Method</h4>
+                <p>When you have a large program and don't know where the bug is, use print statements to narrow it down.</p>
+                <div class="code"><span class="comment"># Use print statements between each step</span>
+def complex_processing(data):
+    <span class="debug">print("DEBUG: Entering complex_processing")</span>
+    
+    result1 = step_one(data)
+    <span class="debug">print(f"DEBUG: After step_one: {result1}")</span>
+    
+    result2 = step_two(result1)
+    <span class="debug">print(f"DEBUG: After step_two: {result2}")</span>
+    
+    result3 = step_three(result2)
+    <span class="debug">print(f"DEBUG: After step_three: {result3}")</span>
+    
+    return result3
+
+<span class="comment"># The last print that shows the expected value identifies where things go wrong</span></div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 4: The "Simplest Case" Method</h4>
+                <p>Test your code with the simplest possible data. If it works, gradually make it more complex until it breaks.</p>
+                <div class="code"><span class="comment"># Test with simplest case</span>
+print(calculate_average([10, 10]))  <span class="comment"># Should be 10</span>
+
+<span class="comment"># Then add more cases</span>
+print(calculate_average([10, 20, 30]))  <span class="comment"># Should be 20</span>
+
+<span class="comment"># Then edge cases</span>
+print(calculate_average([]))  <span class="comment"># What should this return?</span></div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 5: Check Your Assumptions</h4>
+                <p>Often, bugs come from false assumptions about what data looks like.</p>
+                <div class="code"><span class="comment"># Assumption: User will always enter a number</span>
+age = int(input("Enter your age: "))  <span class="comment"># User enters "twenty" → ValueError!</span>
+
+<span class="comment"># Better: Validate and handle errors</span>
+try:
+    age = int(input("Enter your age: "))
+except ValueError:
+    print("Please enter a valid number!")
+    age = 0
+
+<span class="comment"># Assumption: List has items</span>
+grades = []
+average = sum(grades) / len(grades)  <span class="comment"># ZeroDivisionError!</span>
+
+<span class="comment"># Better: Check first</span>
+if grades:
+    average = sum(grades) / len(grades)
+else:
+    average = 0</div>
+            </div>
+        </div>
+
+        <!-- Part C: Final Project - Adventure Game -->
+        <div class="part">
+            <h2><span class="part-label">C</span> The Final Project – Adventure Game</h2>
+            <p>Now let's build a complete, polished game that uses everything you've learned:</p>
+
+            <div class="code-block" style="font-size: 0.75rem; max-height: 600px; overflow-y: auto;"># ================================================
+#  THE TEXT ADVENTURE GAME - FINAL PROJECT
+# ================================================
+# This game combines everything you've learned:
+# - Variables and data types
+# - Lists and dictionaries
+# - Functions
+# - Loops and conditionals
+# - Input handling
+# - Debugging techniques
+# ================================================
+
+import random
+import time
+
+# ============ GAME DATA ============
+
+# Player inventory and stats
+player = {
+    "name": "",
+    "health": 100,
+    "max_health": 100,
+    "inventory": [],
+    "gold": 0,
+    "location": "start",
+    "score": 0
+}
+
+# Game locations with descriptions and actions
+locations = {
+    "start": {
+        "description": "You are standing at the entrance of an ancient castle. The gate is slightly open. A dark forest surrounds you.",
+        "actions": {
+            "enter": "castle_entrance",
+            "forest": "dark_forest",
+            "look": "You see a castle gate, a dark forest, and a path leading into the unknown."
+        }
+    },
+    "castle_entrance": {
+        "description": "You're inside the castle entrance. Torches flicker on the walls. You see a grand staircase and three doors.",
+        "actions": {
+            "upstairs": "library",
+            "left": "kitchen",
+            "right": "treasury",
+            "back": "start",
+            "look": "The hall is magnificent. Tapestries hang on the walls showing ancient battles."
+        }
+    },
+    "library": {
+        "description": "You're in a vast library. Books line every wall from floor to ceiling. A mysterious book glows on a pedestal.",
+        "actions": {
+            "read": "You open the glowing book and learn a spell! +10 health!",
+            "downstairs": "castle_entrance",
+            "look": "The books are ancient. Some are in languages you've never seen."
+        }
+    },
+    "kitchen": {
+        "description": "The kitchen is warm and smells of herbs. A potion sits on the table.",
+        "actions": {
+            "drink": "You drink the potion and feel energized! +20 health!",
+            "back": "castle_entrance",
+            "look": "You see fresh bread, hanging herbs, and a bubbling cauldron."
+        }
+    },
+    "treasury": {
+        "description": "Gold coins and jewels glitter everywhere. A dragon statue stands in the corner.",
+        "actions": {
+            "take": "You take some gold! +50 gold!",
+            "back": "castle_entrance",
+            "look": "The treasure is magnificent. The dragon statue's eyes seem to follow you."
+        }
+    },
+    "dark_forest": {
+        "description": "The forest is dark and full of mysterious sounds. You hear rustling in the bushes.",
+        "actions": {
+            "explore": "You find a hidden treasure! +30 gold!",
+            "back": "start",
+            "look": "Shadows move between the trees. You feel watched."
+        }
+    }
+}
+
+# Monsters
+monsters = {
+    "goblin": {"health": 30, "damage": 10, "gold": 15},
+    "skeleton": {"health": 25, "damage": 15, "gold": 20},
+    "orc": {"health": 50, "damage": 20, "gold": 30},
+    "dragon": {"health": 80, "damage": 25, "gold": 100}
+}
+
+# ============ GAME FUNCTIONS ============
+
+def display_welcome():
+    """Display the game welcome screen."""
+    print("=" * 60)
+    print("    WELCOME TO THE TEXT ADVENTURE")
+    print("    A Journey Through the Ancient Castle")
+    print("=" * 60)
+    print("\nYou are an adventurer seeking fame and fortune.")
+    print("Navigate through the castle, collect treasures,")
+    print("and discover ancient secrets!")
+    print("\nType your commands to interact with the world.")
+    print("Commands: enter, forest, look, back, take, drink, read, explore")
+    print("=" * 60)
+
+def get_player_name():
+    """Get and validate the player's name."""
+    while True:
+        name = input("\nWhat is your name, adventurer? ").strip().title()
+        if name:
+            player["name"] = name
+            print(f"\nWelcome, {player['name']}! Your adventure begins now.\n")
+            return name
+        else:
+            print("Please enter a valid name!")
+
+def display_health():
+    """Display the player's current health with a bar."""
+    health_percentage = player["health"] / player["max_health"]
+    
+    # Create health bar
+    bar_length = 20
+    filled = int(health_percentage * bar_length)
+    bar = "█" * filled + "░" * (bar_length - filled)
+    
+    # Color the health based on amount
+    if player["health"] > 70:
+        color = "✅"
+    elif player["health"] > 40:
+        color = "⚠️"
+    else:
+        color = "🔴"
+    
+    print(f"\nHealth: {color} [{bar}] {player['health']}/{player['max_health']}")
+    print(f"Gold: 💰 {player['gold']}  |  Score: 🏆 {player['score']}")
+
+def display_inventory():
+    """Display the player's inventory."""
+    if player["inventory"]:
+        print("\nInventory:")
+        for i, item in enumerate(player["inventory"], 1):
+            print(f"  {i}. {item}")
+    else:
+        print("\nInventory: Empty")
+
+def display_location():
+    """Display the current location description."""
+    location_name = player["location"]
+    location_data = locations.get(location_name)
+    
+    if not location_data:
+        print("Error: Location not found!")
+        return
+    
+    print("\n" + "-" * 60)
+    print(f"📍 {location_name.replace('_', ' ').upper()}")
+    print("-" * 60)
+    print(location_data["description"])
+    
+    print("\nAvailable actions:")
+    for action in location_data["actions"].keys():
+        print(f"  - {action}")
+
+def combat(monster_name):
+    """Handle combat with a monster."""
+    monster = monsters[monster_name]
+    monster_health = monster["health"]
+    monster_damage = monster["damage"]
+    
+    print(f"\n⚔️ A {monster_name} appears! ⚔️")
+    print(f"The {monster_name} has {monster_health} health and deals {monster_damage} damage!")
+    
+    while monster_health > 0 and player["health"] > 0:
+        display_health()
+        print(f"\n{monster_name}: {monster_health} health")
+        
+        action = input("\nAttack (a) or Run (r)? ").lower()
+        
+        if action == "a":
+            # Player attacks
+            attack_power = random.randint(5, 20)
+            monster_health -= attack_power
+            print(f"You hit the {monster_name} for {attack_power} damage!")
+            
+            if monster_health <= 0:
+                print(f"\n🎉 You defeated the {monster_name}! 🎉")
+                gold_won = monster["gold"]
+                player["gold"] += gold_won
+                player["score"] += 50
+                print(f"You found {gold_won} gold!")
+                return True
+            
+            # Monster attacks
+            monster_attack = random.randint(monster_damage - 5, monster_damage + 5)
+            player["health"] -= monster_attack
+            print(f"The {monster_name} hits you for {monster_attack} damage!")
+            
+        elif action == "r":
+            # Try to run away
+            if random.random() < 0.5:
+                print("You escaped safely!")
+                return False
+            else:
+                print("You couldn't escape!")
+                monster_attack = random.randint(monster_damage - 5, monster_damage + 5)
+                player["health"] -= monster_attack
+                print(f"The {monster_name} hits you for {monster_attack} damage while you flee!")
+    
+    if player["health"] <= 0:
+        print(f"\n💀 You have been defeated by the {monster_name}! 💀")
+        return False
+
+def process_action(action):
+    """Process the player's action."""
+    location_name = player["location"]
+    location_data = locations.get(location_name)
+    
+    if not location_data:
+        print("Error: Location not found!")
+        return
+    
+    # Check if action exists in current location
+    if action in location_data["actions"]:
+        result = location_data["actions"][action]
+        
+        # Handle special cases
+        if result.startswith("You open") or result.startswith("You drink") or result.startswith("You find"):
+            # Health and gold rewards
+            if "health" in result:
+                health_gain = random.randint(10, 20)
+                player["health"] = min(player["health"] + health_gain, player["max_health"])
+                print(f"\n{result}")
+                print(f"❤️ You gained {health_gain} health!")
+                player["score"] += 10
+            elif "gold" in result:
+                gold_gain = random.randint(20, 50)
+                player["gold"] += gold_gain
+                print(f"\n{result}")
+                print(f"💰 You gained {gold_gain} gold!")
+                player["score"] += 15
+            else:
+                print(f"\n{result}")
+        
+        # Handle inventory items
+        elif action == "take":
+            item = random.choice(["Golden Key", "Ancient Coin", "Silver Ring", "Magic Scroll"])
+            player["inventory"].append(item)
+            print(f"\nYou take the {item}!")
+            print(f"Added to inventory.")
+            player["score"] += 10
+        
+        # Handle navigation
+        elif result in locations:
+            # Random monster encounter when moving
+            if random.random() < 0.3:  # 30% chance
+                monster_name = random.choice(list(monsters.keys()))
+                print("\n👹 A monster appears! 👹")
+                combat_result = combat(monster_name)
+                if not combat_result:
+                    player["health"] = 0
+                    return
+            
+            player["location"] = result
+            print(f"\nYou move to {result.replace('_', ' ')}.")
+        
+        # Handle regular actions
+        else:
+            print(f"\n{result}")
+            player["score"] += 5
+    
+    else:
+        print(f"\nYou can't do that here. Try: {', '.join(location_data['actions'].keys())}")
+
+def check_game_over():
+    """Check if the game should end."""
+    if player["health"] <= 0:
+        print("\n" + "=" * 60)
+        print("    GAME OVER")
+        print("=" * 60)
+        print(f"Your adventure has ended, {player['name']}.")
+        print(f"Final Score: {player['score']}")
+        print(f"Gold Collected: {player['gold']}")
+        print(f"Items Found: {len(player['inventory'])}")
+        display_inventory()
+        return True
+    
+    # Win condition: If player collects 200 gold
+    if player["gold"] >= 200:
+        print("\n" + "=" * 60)
+        print("    🎉 VICTORY! 🎉")
+        print("=" * 60)
+        print(f"Congratulations, {player['name']}!")
+        print("You have collected enough treasure to become rich!")
+        print(f"Final Score: {player['score']}")
+        print(f"Gold Collected: {player['gold']}")
+        display_inventory()
+        return True
+    
+    return False
+
+def display_help():
+    """Display game help."""
+    print("\n=== COMMAND HELP ===")
+    print("Navigation:")
+    print("  - enter, forest, back, upstairs, left, right")
+    print("  - downstairs")
+    print("\nActions:")
+    print("  - look: Examine your surroundings")
+    print("  - take: Pick up an item")
+    print("  - drink: Drink a potion")
+    print("  - read: Read a book or scroll")
+    print("  - explore: Search the area")
+    print("\nGame Commands:")
+    print("  - inventory: View your inventory")
+    print("  - health: Check your health")
+    print("  - help: Show this help")
+    print("  - quit: Exit the game")
+
+# ============ MAIN GAME LOOP ============
+
+def main():
+    """Main game function."""
+    # Welcome player
+    display_welcome()
+    get_player_name()
+    
+    # Game loop
+    game_running = True
+    while game_running:
+        # Display current location
+        display_location()
+        display_health()
+        display_inventory()
+        
+        # Get player input
+        action = input("\nWhat do you do? ").strip().lower()
+        
+        # Handle special commands
+        if action == "quit":
+            print("\nThanks for playing!")
+            print(f"Final Score: {player['score']}")
+            break
+        
+        elif action == "help":
+            display_help()
+            continue
+        
+        elif action == "inventory":
+            display_inventory()
+            continue
+        
+        elif action == "health":
+            display_health()
+            continue
+        
+        # Process the action
+        process_action(action)
+        
+        # Check for game over
+        if check_game_over():
+            game_running = False
+            
+        # Add a small delay for atmosphere
+        time.sleep(0.5)
+
+# ============ RUN THE GAME ============
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\nThanks for playing! Goodbye!")
+    except Exception as e:
+        print(f"\nAn error occurred: {e}")
+        print("The game encountered a bug. Please restart.")</div>
+
+            <div class="game-output"><span class="prompt">============================================================</span>
+<span class="prompt">    WELCOME TO THE TEXT ADVENTURE</span>
+<span class="prompt">    A Journey Through the Ancient Castle</span>
+<span class="prompt">============================================================</span>
+
+<span class="output">You are an adventurer seeking fame and fortune.</span>
+<span class="output">Navigate through the castle, collect treasures,</span>
+<span class="output">and discover ancient secrets!</span>
+
+<span class="output">Commands: enter, forest, look, back, take, drink, read, explore</span>
+<span class="prompt">============================================================</span>
+
+<span class="prompt">What is your name, adventurer? Alex</span>
+<span class="output">Welcome, Alex! Your adventure begins now.</span>
+
+<span class="prompt">------------------------------------------------------------</span>
+<span class="prompt">📍 START</span>
+<span class="prompt">------------------------------------------------------------</span>
+<span class="output">You are standing at the entrance of an ancient castle. The gate is slightly open. A dark forest surrounds you.</span>
+
+<span class="output">Available actions:</span>
+<span class="output">  - enter</span>
+<span class="output">  - forest</span>
+<span class="output">  - look</span>
+
+<span class="output">Health: ✅ [████████████████████] 100/100</span>
+<span class="output">Gold: 💰 0  |  Score: 🏆 0</span>
+
+<span class="output">Inventory: Empty</span>
+
+<span class="prompt">What do you do? enter</span>
+
+<span class="output">------------------------------------------------------------</span>
+<span class="prompt">📍 CASTLE_ENTRANCE</span>
+<span class="prompt">------------------------------------------------------------</span>
+<span class="output">You're inside the castle entrance. Torches flicker on the walls. You see a grand staircase and three doors.</span>
+
+<span class="output">Available actions:</span>
+<span class="output">  - upstairs</span>
+<span class="output">  - left</span>
+<span class="output">  - right</span>
+<span class="output">  - back</span>
+<span class="output">  - look</span></div>
+        </div>
+
+        <!-- Part D: Code Review -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Code Review – The Power of Fresh Eyes</h2>
+            <p>Code review is the process of having another person (or yourself after a break) look at your code to find bugs, suggest improvements, and ensure quality.</p>
+
+            <div class="info-box">
+                <p><strong>Self-Review Checklist:</strong></p>
+                <div class="review-checklist">
+                    <div class="item"><span class="check">✅</span> Does the code work?</div>
+                    <div class="item"><span class="check">✅</span> Is the code readable?</div>
+                    <div class="item"><span class="check">✅</span> Is the code DRY?</div>
+                    <div class="item"><span class="check">✅</span> Is the code efficient?</div>
+                    <div class="item"><span class="check">✅</span> Is the code robust?</div>
+                    <div class="item"><span class="check">✅</span> Are variables named clearly?</div>
+                    <div class="item"><span class="check">✅</span> Is there appropriate whitespace?</div>
+                    <div class="item"><span class="check">✅</span> Are comments helpful?</div>
+                </div>
+            </div>
+
+            <p><strong>Before and After Code Review:</strong></p>
+            <div class="code-block" style="font-size: 0.85rem;"><span class="comment"># BEFORE REVIEW - Hard to understand, buggy</span>
+def p(n):
+    r=1
+    for x in range(1,n+1):
+        r=r*x
+    return r
+def c(l):
+    t=0
+    for i in l:
+        t=t+i
+    a=t/len(l)
+    return a
+
+<span class="comment"># AFTER REVIEW - Clear, organized, documented</span>
+def factorial(n):
+    """
+    Calculate the factorial of n.
+    
+    Args:
+        n (int): Non-negative integer
+    
+    Returns:
+        int: n! (n * (n-1) * ... * 1)
+    
+    Example:
+        >>> factorial(5)
+        120
+    """
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers")
+    
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+def calculate_average(numbers):
+    """
+    Calculate the average of a list of numbers.
+    
+    Args:
+        numbers (list): List of numbers
+    
+    Returns:
+        float: The average, or 0 if list is empty
+    
+    Example:
+        >>> calculate_average([10, 20, 30])
+        20.0
+    """
+    if not numbers:
+        return 0
+    return sum(numbers) / len(numbers)</div>
+        </div>
+
+        <!-- Golden Rules Summary -->
+        <div class="part">
+            <h2>📌 Golden Rules Summary</h2>
+            <div class="golden-rules">
+                <h4>The 5 Golden Rules of Debugging:</h4>
+                <ul>
+                    <li><strong>Read the error message carefully.</strong> It tells you what's wrong and where. Don't panic—error messages are your friends.</li>
+                    <li><strong>Use print statements to track variables.</strong> Print values at key points. Print before and after operations to see what changed.</li>
+                    <li><strong>Test in small pieces.</strong> Build incrementally, test often. Break complex problems into smaller parts.</li>
+                    <li><strong>Check your assumptions.</strong> What do you think is true? Prove it. Print data types and contents.</li>
+                    <li><strong>Take a break.</strong> Step away for 5 minutes. Fresh eyes find fresh bugs.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Challenge - Game Jam -->
+        <div class="challenge-box">
+            <h3>Challenge – The Game Jam</h3>
+            <p>Create your own complete game using everything you've learned! Here are some ideas:</p>
+            <ul>
+                <li><strong>Dungeon Crawler</strong> – Navigate through rooms, fight monsters, collect treasure</li>
+                <li><strong>Quiz Adventure</strong> – Answer questions to progress through a story</li>
+                <li><strong>Hangman Game</strong> – Classic word guessing game with categories</li>
+                <li><strong>Number Guessing Game</strong> – Enhanced version with levels and scores</li>
+                <li><strong>Text-Based RPG</strong> – Character creation, leveling, and combat</li>
+            </ul>
+
+            <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>📋 Requirements:</strong></p>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li>• Use at least 3 different data structures (lists, dictionaries, strings)</li>
+                    <li>• Use at least 5 functions (including <code>main()</code>)</li>
+                    <li>• Use loops and conditionals</li>
+                    <li>• Handle user input with validation</li>
+                    <li>• Include proper comments</li>
+                    <li>• Include error handling</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1rem; background: #e3f2fd; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #1565c0;">
+                <p><strong>📊 Grading Rubric:</strong></p>
+                <table class="rubric-table">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Code works correctly</td><td>25</td></tr>
+                        <tr><td>Code is well-organized</td><td>15</td></tr>
+                        <tr><td>Uses appropriate data structures</td><td>15</td></tr>
+                        <tr><td>Error handling</td><td>15</td></tr>
+                        <tr><td>Comments and documentation</td><td>10</td></tr>
+                        <tr><td>User experience (clear output)</td><td>10</td></tr>
+                        <tr><td>Creativity and fun</td><td>10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>✅ Checklist for Submission:</strong></p>
+                <div class="review-checklist">
+                    <div class="item"><span class="check">☐</span> Code runs without syntax errors</div>
+                    <div class="item"><span class="check">☐</span> Code handles errors gracefully</div>
+                    <div class="item"><span class="check">☐</span> Code has clear variable names</div>
+                    <div class="item"><span class="check">☐</span> Code has comments explaining complex sections</div>
+                    <div class="item"><span class="check">☐</span> Code is organized into functions</div>
+                    <div class="item"><span class="check">☐</span> Code uses at least one list</div>
+                    <div class="item"><span class="check">☐</span> Code uses at least one dictionary</div>
+                    <div class="item"><span class="check">☐</span> Code uses loops and conditionals</div>
+                    <div class="item"><span class="check">☐</span> Code has a smooth user experience</div>
+                    <div class="item"><span class="check">☐</span> Code has error handling for invalid input</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section10-xxxxx-xx
+                </span>
+                <span style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've reached the end of your Python journey and begun your career as a developer! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Understand the difference between syntax and logic errors</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use print statements and other strategies to find bugs</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Review code for quality and correctness</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build complete, polished applications</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Debug your own programs with confidence</li>
+            </ul>
+        </div>
+
+        <!-- Final Words -->
+        <div style="background: #e8f5e9; border-radius: 20px; padding: 1.8rem 2rem; margin: 1.5rem 0; border: 2px solid #a5d6a7; text-align: center;">
+            <h3 style="color: #1b5e20;">🚀 Where to go from here:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.5rem; margin-top: 0.8rem; text-align: left;">
+                <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #c8e6c9;">📚 Build more projects</div>
+                <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #c8e6c9;">📖 Read other people's code</div>
+                <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #c8e6c9;">🔧 Learn about version control (Git)</div>
+                <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #c8e6c9;">📦 Explore Python libraries</div>
+                <div style="background: white; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid #c8e6c9;">👥 Join a coding community</div>
+            </div>
+        </div>
+
+        <!-- Course Completion -->
+        <div style="background: linear-gradient(145deg, #1a237e, #0d47a1); border-radius: 20px; padding: 2rem; margin: 2rem 0; text-align: center; color: white;">
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">🎓 You've Completed the Course!</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">You've come so far! Think about where you started – printing "Hello, World!" – and look at what you can build now.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 1.5rem; text-align: left;">
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Basic syntax and print</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Variables and data types</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Conditional statements</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Loops (for and while)</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Lists and string methods</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Functions and parameters</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Dictionaries</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ User input and validation</div>
+                <div style="background: rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px;">✅ Debugging and problem-solving</div>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 1.2rem; font-weight: 600;">You're now a Python programmer. The only limit is your imagination! 🚀</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Every expert was once a beginner. Keep learning, keep building, and most importantly, keep having fun!</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section9-dictionaries.html" class="back">← Back: Dictionaries</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <span style="color: #4d6f8b; font-weight: 500;">🏁 You've completed all sections!</span>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 10 · Final Project &amp; Debugging</span>
+            <span>syntax errors · logic errors · debugging · code review</span>
+        </div>
+    </div>
+</body>
+</html>
