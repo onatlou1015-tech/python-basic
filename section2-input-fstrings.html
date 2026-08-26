@@ -1,454 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Section 2 – Interactive Chatbot | Basic Python</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-        <div class="container">
-            <!-- Top Navigation -->
-            <div class="top-nav">
-                <div class="breadcrumb">
-                    <a href="index.html">🏠 Home</a> &gt; <a
-                        href="section1-hello-world.html">Section 1</a> &gt;
-                    Section 2
-                </div>
-                <span class="section-badge">Section 2 of 10</span>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 2 – Interactive Chatbot | Basic Python</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="breadcrumb">
+                <a href="index.html">🏠 Home</a> &gt; <a href="section1-hello-world.html">Section 1</a> &gt;
+                Section 2
+            </div>
+            <span class="section-badge">Section 2 of 10</span>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <h1>🤖 Section 2 · The Interactive Chatbot – Input &amp;
+                f-Strings</h1>
+            <div class="subtitle">The input() function. Type conversion
+                (int(), str()). Using f-strings for clean output.
+                Concatenation.</div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-block">
+            <p><strong>Making Your Program Talk Back</strong></p>
+            <p>Imagine you're a radio host. You ask a question, your guest answers, and then you respond based on what
+                they said. A one-way conversation is boring—the magic happens when there's interaction.</p>
+            <p style="margin-top: 0.6rem;">That's exactly what
+                <code>input()</code> does for your code. It turns your
+                program from a monologue into a dialogue. Your program can
+                ask for information, remember it, and then use it to
+                personalize its response.
+            </p>
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="learning-outcomes">
+            <span class="label">📘 By the end of this lesson, you
+                will:</span>
+            <span class="pill">capture user input with input()</span>
+            <span class="pill">convert data types safely</span>
+            <span class="pill">format output with f-strings</span>
+            <span class="pill">understand concatenation</span>
+        </div>
+
+        <!-- Part A -->
+        <div class="part">
+            <h2><span class="part-label">A</span> The input() Function –
+                Your Program's Ears</h2>
+            <p>The <code>input()</code> function pauses your program and
+                waits for the user to type something and press Enter.
+                Whatever they type comes back as a string (text).</p>
+
+            <div class="example-box">
+                <p><strong>Syntax example:</strong></p>
+                <div class="code-block">
+                    # Syntax example
+                    name = input("What is your name? ")
+                    print(name)</div>
+                <ul>
+                    <li>The text inside the parentheses <span class="inline-code">"What is your name? "</span>
+                        is the <strong>prompt</strong> – it tells the user
+                        what to type.</li>
+                    <li>The program <strong>pauses</strong> and waits.</li>
+                    <li>The user types something (e.g., "Alice") and presses
+                        Enter.</li>
+                    <li>Whatever was typed gets stored in the variable <span class="inline-code">name</span>.</li>
+                    <li>The program continues and prints the name.</li>
+                </ul>
             </div>
 
-            <!-- Section Header -->
-            <div class="section-header">
-                <h1>🤖 Section 2 · The Interactive Chatbot – Input &amp;
-                    f-Strings</h1>
-                <div class="subtitle">The input() function. Type conversion
-                    (int(), str()). Using f-strings for clean output.
-                    Concatenation.</div>
-            </div>
-
-            <!-- Intro -->
-            <div class="intro-block">
-                <p><strong>Making Your Program Talk Back</strong></p>
-                <p>Imagine you're a radio host. You ask a question, your guest
-                    answers, and then you respond based on what they said. A
-                    one-way conversation is boring—the magic happens when
-                    there's interaction.</p>
-                <p style="margin-top: 0.6rem;">That's exactly what
-                    <code>input()</code> does for your code. It turns your
-                    program from a monologue into a dialogue. Your program can
-                    ask for information, remember it, and then use it to
-                    personalize its response.</p>
-            </div>
-
-            <!-- Learning Outcomes -->
-            <div class="learning-outcomes">
-                <span class="label">📘 By the end of this lesson, you
-                    will:</span>
-                <span class="pill">capture user input with input()</span>
-                <span class="pill">convert data types safely</span>
-                <span class="pill">format output with f-strings</span>
-                <span class="pill">understand concatenation</span>
-            </div>
-
-            <!-- Part A -->
-            <div class="part">
-                <h2><span class="part-label">A</span> The input() Function –
-                    Your Program's Ears</h2>
-                <p>The <code>input()</code> function pauses your program and
-                    waits for the user to type something and press Enter.
-                    Whatever they type comes back as a string (text).</p>
-
-                <div class="example-box">
-                    <p><strong>Syntax example:</strong></p>
-                    <div class="code-block">                        
-                        # Syntax example
-                        name = input("What is your name? ")
-                        print(name)</div>
-                    <ul>
-                        <li>The text inside the parentheses <span
-                                class="inline-code">"What is your name? "</span>
-                            is the <strong>prompt</strong> – it tells the user
-                            what to type.</li>
-                        <li>The program <strong>pauses</strong> and waits.</li>
-                        <li>The user types something (e.g., "Alice") and presses
-                            Enter.</li>
-                        <li>Whatever was typed gets stored in the variable <span
-                                class="inline-code">name</span>.</li>
-                        <li>The program continues and prints the name.</li>
-                    </ul>
-                </div>
-
-                <div
-                    style="background: #fff3e0; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #e67e22;">
-                    <p style="font-weight: 600; color: #a04000;">⚠️ Important:
-                        <code>input()</code> ALWAYS returns a string. Even if
-                        the user types a number, Python treats it as text.</p>
-                    <div class="code-block" style="margin-top: 0.5rem;">
+            <div
+                style="background: #fff3e0; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #e67e22;">
+                <p style="font-weight: 600; color: #a04000;">⚠️ Important:
+                    <code>input()</code> ALWAYS returns a string. Even if
+                    the user types a number, Python treats it as text.
+                </p>
+                <div class="code-block" style="margin-top: 0.5rem;">
                     age = input("Enter your age: ") # User types: 25
                     print(age + 5) # ERROR! You can't add a string and a number.</div>
-                </div>
             </div>
+        </div>
 
-            <!-- Part B -->
-            <div class="part">
-                <h2><span class="part-label">B</span> Type Conversion – Making
-                    Data Behave</h2>
-                <p>Since <code>input()</code> always gives you strings, you need
-                    to convert them when you want numbers.</p>
+        <!-- Part B -->
+        <div class="part">
+            <h2><span class="part-label">B</span> Type Conversion – Making
+                Data Behave</h2>
+            <p>Since <code>input()</code> always gives you strings, you need
+                to convert them when you want numbers.</p>
 
-                <div class="example-box">
-                    <p><strong>Converting to an Integer:</strong></p>
-                    <div class="code-block">
+            <div class="example-box">
+                <p><strong>Converting to an Integer:</strong></p>
+                <div class="code-block">
                     # Converting to an Integer
                     age = input("Enter your age: ") # "25" (string)
                     age = int(age) # 25 (integer)
                     print(age + 5) # Outputs: 30</div>
-                </div>
+            </div>
 
-                <div class="example-box">
-                    <p><strong>Converting to a Float:</strong></p>
-                    <div class="code-block">
+            <div class="example-box">
+                <p><strong>Converting to a Float:</strong></p>
+                <div class="code-block">
                     # Converting to a Float
                     price = input("Enter the price: ") # "19.99" (string)
                     price = float(price) # 19.99 (float)
                     print(price * 2) # Outputs: 39.98</div>
-                </div>
+            </div>
 
-                <div class="example-box">
-                    <p><strong>Converting to a String (rarely needed but good to
-                            know):</strong></p>
-                    <div class="code-block">
+            <div class="example-box">
+                <p><strong>Converting to a String (rarely needed but good to
+                        know):</strong></p>
+                <div class="code-block">
                     # Converting to a String
                     number = 42
                     text = str(number) # "42"</div>
-                </div>
-
-                <div
-                    style="background: #e8f5e9; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #2e7d32;">
-                    <p><strong>💡 You can combine input and conversion in one
-                            line:</strong></p>
-                    <div class="code-block" style="margin-top: 0.5rem;">age = int(input("Enter your age: "))</div>
-                    <p style="margin-top: 0.5rem; color: #c62828;">⚠️ But be
-                        careful! If the user types letters when you expect a
-                        number, your program will crash. We'll learn how to
-                        handle that later!</p>
-                </div>
             </div>
 
-            <!-- Part C -->
-            <div class="part">
-                <h2><span class="part-label">C</span> f-Strings – The Clean Way
-                    to Combine Text</h2>
-                <p>When you want to mix variables with text, you have two main
-                    options.</p>
+            <div
+                style="background: #e8f5e9; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #2e7d32;">
+                <p><strong>💡 You can combine input and conversion in one
+                        line:</strong></p>
+                <div class="code-block" style="margin-top: 0.5rem;">age = int(input("Enter your age: "))</div>
+                <p style="margin-top: 0.5rem; color: #c62828;">⚠️ But be
+                    careful! If the user types letters when you expect a
+                    number, your program will crash. We'll learn how to
+                    handle that later!</p>
+            </div>
+        </div>
 
-                <h3
-                    style="margin-top: 1rem; font-size: 1.1rem; color: #0e314b;">Option
-                    1: Concatenation (The "Old" Way)</h3>
-                <p>Concatenation means joining strings together using the <span
-                        class="inline-code">+</span> operator.</p>
+        <!-- Part C -->
+        <div class="part">
+            <h2><span class="part-label">C</span> f-Strings – The Clean Way
+                to Combine Text</h2>
+            <p>When you want to mix variables with text, you have two main
+                options.</p>
 
-                <div class="example-box">
-                    <div class="code-block">
+            <h3 style="margin-top: 1rem; font-size: 1.1rem; color: #0e314b;">Option
+                1: Concatenation (The "Old" Way)</h3>
+            <p>Concatenation means joining strings together using the <span class="inline-code">+</span> operator.</p>
+
+            <div class="example-box">
+                <div class="code-block">
                     name = "Alice"
                     age = 30
                     print("Hello, " + name + "! You are " + str(age) + " years old.")
                     # Outputs: Hello, Alice! You are 30 years old.</div>
-                    <ul>
-                        <li><strong>Problems with concatenation:</strong></li>
-                        <li>You must convert non-strings manually (<span
-                                class="inline-code">str(age)</span>).</li>
-                        <li>Many <span class="inline-code">+</span> signs make
-                            it hard to read.</li>
-                        <li>Easy to forget spaces.</li>
-                    </ul>
-                </div>
+                <ul>
+                    <li><strong>Problems with concatenation:</strong></li>
+                    <li>You must convert non-strings manually (<span class="inline-code">str(age)</span>).</li>
+                    <li>Many <span class="inline-code">+</span> signs make
+                        it hard to read.</li>
+                    <li>Easy to forget spaces.</li>
+                </ul>
+            </div>
 
-                <h3
-                    style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Option
-                    2: f-Strings (The "Modern" Way) – RECOMMENDED</h3>
-                <p>An f-string lets you embed variables directly inside a string
-                    by putting an <span class="inline-code">f</span> before the
-                    quotes and using <span class="inline-code">{ }</span> curly
-                    braces.</p>
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Option
+                2: f-Strings (The "Modern" Way) – RECOMMENDED</h3>
+            <p>An f-string lets you embed variables directly inside a string
+                by putting an <span class="inline-code">f</span> before the
+                quotes and using <span class="inline-code">{ }</span> curly
+                braces.</p>
 
-                <div class="example-box">
-                    <div class="code-block">
+            <div class="example-box">
+                <div class="code-block">
                     name = "Alice"
                     age = 30
                     print(f"Hello, {name}! You are {age} years old.")
                     # Outputs: Hello, Alice! You are 30 years old.</div>
-                    <ul>
-                        <li><strong>Why f-strings are better:</strong></li>
-                        <li>✅ No need to convert numbers—Python does it
-                            automatically.</li>
-                        <li>✅ Much cleaner and easier to read.</li>
-                        <li>✅ You can even do math inside the braces!</li>
-                    </ul>
-                </div>
+                <ul>
+                    <li><strong>Why f-strings are better:</strong></li>
+                    <li>✅ No need to convert numbers—Python does it
+                        automatically.</li>
+                    <li>✅ Much cleaner and easier to read.</li>
+                    <li>✅ You can even do math inside the braces!</li>
+                </ul>
+            </div>
 
-                <div class="example-box">
-                    <p><strong>Example with math inside f-string:</strong></p>
-                    <div class="code-block">
+            <div class="example-box">
+                <p><strong>Example with math inside f-string:</strong></p>
+                <div class="code-block">
                     price = 19.99
                     quantity = 3
                     print(f"Total cost: ${price * quantity}")
                     # Outputs: Total cost: $59.97</div>
-                </div>
+            </div>
 
-                <div
-                    style="background: #e3f2fd; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #1565c0;">
-                    <p><strong>Real-world comparison:</strong></p>
-                    <div class="code-block" style="margin-top: 0.5rem;">
+            <div
+                style="background: #e3f2fd; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #1565c0;">
+                <p><strong>Real-world comparison:</strong></p>
+                <div class="code-block" style="margin-top: 0.5rem;">
                     # Without f-strings (messy)
-                    print("Welcome, " + name + ". Your score is " +  str(score) + " out of " + str(total) + ".")
+                    print("Welcome, " + name + ". Your score is " +str(score) + " out of " + str(total) + ".")
                     # With f-strings (clean!)
                     print(f"Welcome, {name}. Your score is {score} out of {total}.")</div>
-                </div>
-            </div>
-
-            <!-- Part D -->
-            <div class="part">
-                <h2><span class="part-label">D</span> Bringing It All Together –
-                    The Interactive Chatbot</h2>
-                <p>Let's build a simple program that asks for the user's name
-                    and age, then responds with personalized information.</p>
-
-                <div class="example-box">
-                    <p><strong>Interactive Chatbot:</strong></p>
-                    <div class="code-block">
-                        # Ask for user input
-                        name = input("What is your name? ")
-                        age = int(input("How old are you? "))
-
-                        # Calculate future age
-                        future_age = age + 10
-
-                        # Respond using f-strings
-                        print(f"Hello, {name}! Nice to meet you.")
-                        print(f"You are currently {age} years old.")
-                        print(f"In 10 years, you will be {future_age} years
-                        old.")</div>
-                </div>
-
-                <div
-                    style="background: #f3e5f5; border-radius: 16px; padding: 1rem 1.5rem; border-left: 4px solid #7b1fa2;">
-                    <p><strong>Sample run:</strong></p>
-                    <div class="code-block"
-                        style="background: #1a1a2e; margin-top: 0.5rem;">
-                        What is your name? Alex
-                        How old are you? 25
-                        Hello, Alex! Nice to meet you.
-                        You are currently 25 years old.
-                        In 10 years, you will be 35 years old.</div>
-                </div>
-
-                <h3
-                    style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Now
-                    with multiple data types:</h3>
-                <div class="example-box">
-                    <div class="code-block">
-                        # Collect information
-                        name = input("Enter student name: ")
-                        grade = float(input("Enter grade average: "))
-                        classes = int(input("Enter number of classes: "))
-
-                        # Display using f-string
-                        print(f"Student: {name}")
-                        print(f"Grade Average: {grade}%")
-                        print(f"Total Classes: {classes}")
-                        print(f"{name} is taking {classes} classes with an
-                        average of {grade}%.")</div>
-                </div>
-
-                <div
-                    style="background: #fff8e1; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #f9a825;">
-                    <p><strong>🎯 Key pattern:</strong> <span
-                            class="inline-code">Input → Convert → Store → Output
-                            using f-strings</span></p>
-                </div>
-            </div>
-
-            <!-- Golden Rules -->
-            <div class="part">
-                <h2>📌 Golden Rules for Input &amp; f-Strings</h2>
-                <div class="golden-rules">
-                    <h4>Remember these 3 rules:</h4>
-                    <ul>
-                        <li><strong><code>input()</code> always returns a
-                                string.</strong> If you need a number, convert
-                            it immediately.
-                            <div class="code-block"
-                                style="margin-top: 0.3rem; font-size: 0.8rem;">
-                                age = int(input("Age: ")) # Good
-                                price = float(input("Price: ")) # Good</div>
-                        </li>
-                        <li><strong>f-strings start with <span
-                                    class="inline-code">f</span> and use <span
-                                    class="inline-code">{}</span> for
-                                variables.</strong> Don't forget the <span
-                                class="inline-code">f</span>!
-                            <div class="code-block"
-                                style="margin-top: 0.3rem; font-size: 0.8rem;">
-                                print(f"Hello {name}") # Correct
-                                print("Hello {name}") # Wrong - prints literally "{name}"</div>
-                        </li>
-                        <li><strong>Be careful with user errors.</strong> If
-                            someone types "twenty" instead of "20",
-                            <code>int()</code> will crash your program. Always
-                            assume users will make mistakes!</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Recap -->
-            <div
-                style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
-                <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today,
-                        you learned</strong> how to make your programs
-                    interactive using <code>input()</code>. You discovered that
-                    all input comes as strings, so you must convert numbers
-                    using <code>int()</code> or <code>float()</code>. Finally,
-                    you mastered f-strings—the cleanest way to combine text and
-                    variables.</p>
-                <p
-                    style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">🎯
-                    <strong>Remember:</strong> <code>input()</code> listens,
-                    <code>int()</code>/<code>float()</code> converts, and
-                    f-strings speak beautifully.</p>
-            </div>
-
-            <!-- Challenge -->
-            <div class="challenge-box">
-                <h3>Challenge</h3>
-                <p>Create an interactive
-                    <strong>"Student Profile Generator"</strong> that does the
-                    following:</p>
-                <ul>
-                    <li><strong>Asks the user for:</strong>
-                        <ul
-                            style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
-                            <li>• Their full name (string)</li>
-                            <li>• Their age (integer)</li>
-                            <li>• Their GPA (float)</li>
-                            <li>• Their major (string)</li>
-                            <li>• The number of credits they're taking
-                                (integer)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Calculates:</strong>
-                        <ul
-                            style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
-                            <li>• Years until they turn 65 (65 - age)</li>
-                            <li>• Total credits after 4 semesters (credits *
-                                4)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Prints a beautiful profile using
-                            f-strings</strong> that includes ALL the
-                        information.</li>
-                </ul>
-
-                <div
-                    style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.9rem; overflow-x: auto;">
-                    <span style="color: #9bb9d9;"># Expected output
-                        format:</span><br><br>
-                    === STUDENT PROFILE ===<br>
-                    Name: Sarah Johnson<br>
-                    Age: 20<br>
-                    Major: Computer Science<br>
-                    GPA: 3.75<br>
-                    Current Credits: 15<br><br>
-                    Did you know?<br>
-                    - In 45 years, you'll be 65!<br>
-                    - After 4 semesters, you'll have 60 credits
-                    completed.<br><br>
-                    Keep coding, Sarah!
-                </div>
-
-                <div
-                    style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
-                    <p><strong>⭐ Bonus:</strong> Add a friendly greeting at the
-                        beginning and a personalized sign-off at the end. Try
-                        using at least one calculation inside an f-string (like
-                        <span class="inline-code">{age + 5}</span> without
-                        creating a separate variable).</p>
-                </div>
-
-                <div
-                    style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
-                    <p><strong>💡 Starter Code:</strong></p>
-                    <div class="code-block"
-                        style="margin-top: 0.3rem; font-size: 0.85rem;">
-                        # Student Profile Generator
-                        print("=== STUDENT PROFILE GENERATOR ===")
-
-                        # Get user input
-                        name = input("Enter your full name: ")
-                        age = int(input("Enter your age: "))
-                        gpa = float(input("Enter your GPA: "))
-                        major = input("Enter your major: ")
-                        credits = int(input("Enter number of credits: "))
-
-                        # Your calculations here
-                        # Your f-string output here</div>
-                </div>
-
-                <div style="margin-top: 1rem;">
-                    <span
-                        style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
-                        📁 Name: section2-xxxxx-xx
-                    </span>
-                    <span
-                        style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
-                        📧 onatlou1015@gmail.com
-                    </span>
-                </div>
-            </div>
-
-            <!-- What You've Accomplished -->
-            <div
-                style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
-                <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What
-                    You've Accomplished Today</h4>
-                <p style="color: #0d47a1;">You've transformed your program into
-                    an interactive experience! You can now:</p>
-                <ul
-                    style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
-                    <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Capture
-                        user input with <code>input()</code></li>
-                    <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Convert
-                        strings to integers and floats</li>
-                    <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use
-                        f-strings for clean, professional output</li>
-                    <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build
-                        programs that have real conversations with users</li>
-                </ul>
-                <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Now
-                        you're ready to build programs that actually talk to
-                        people!</strong></p>
-            </div>
-
-            <!-- Navigation -->
-            <div class="nav-links">
-                <a href="section1-hello-world.html" class="back">← Back: Hello,
-                    World!</a>
-                <a href="index.html" class="toc-link">📑 Table of Contents</a>
-                <a href="section3-conditional-statements.html"
-                    class="next">Next: Conditional Statements →</a>
-            </div>
-
-            <!-- Footer -->
-            <div class="section-footer">
-                <span>🐍 Section 2 · Interactive Chatbot</span>
-                <span>input() · type conversion · f-strings</span>
             </div>
         </div>
-    </body>
+
+        <!-- Part D -->
+        <div class="part">
+            <h2><span class="part-label">D</span> Bringing It All Together –
+                The Interactive Chatbot</h2>
+            <p>Let's build a simple program that asks for the user's name
+                and age, then responds with personalized information.</p>
+
+            <div class="example-box">
+                <p><strong>Interactive Chatbot:</strong></p>
+                <div class="code-block">
+                    # Ask for user input
+                    name = input("What is your name? ")
+                    age = int(input("How old are you? "))
+
+                    # Calculate future age
+                    future_age = age + 10
+
+                    # Respond using f-strings
+                    print(f"Hello, {name}! Nice to meet you.")
+                    print(f"You are currently {age} years old.")
+                    print(f"In 10 years, you will be {future_age} years
+                    old.")</div>
+            </div>
+
+            <div
+                style="background: #f3e5f5; border-radius: 16px; padding: 1rem 1.5rem; border-left: 4px solid #7b1fa2;">
+                <p><strong>Sample run:</strong></p>
+                <div class="code-block" style="background: #1a1a2e; margin-top: 0.5rem;">
+                    What is your name? Alex
+                    How old are you? 25
+                    Hello, Alex! Nice to meet you.
+                    You are currently 25 years old.
+                    In 10 years, you will be 35 years old.</div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem; color: #0e314b;">Now
+                with multiple data types:</h3>
+            <div class="example-box">
+                <div class="code-block">
+                    # Collect information
+                    name = input("Enter student name: ")
+                    grade = float(input("Enter grade average: "))
+                    classes = int(input("Enter number of classes: "))
+
+                    # Display using f-string
+                    print(f"Student: {name}")
+                    print(f"Grade Average: {grade}%")
+                    print(f"Total Classes: {classes}")
+                    print(f"{name} is taking {classes} classes with an
+                    average of {grade}%.")</div>
+            </div>
+
+            <div
+                style="background: #fff8e1; border-radius: 16px; padding: 1rem 1.5rem; margin-top: 1rem; border-left: 4px solid #f9a825;">
+                <p><strong>🎯 Key pattern:</strong> <span class="inline-code">Input → Convert → Store → Output
+                        using f-strings</span></p>
+            </div>
+        </div>
+
+        <!-- Golden Rules -->
+        <div class="part">
+            <h2>📌 Golden Rules for Input &amp; f-Strings</h2>
+            <div class="golden-rules">
+                <h4>Remember these 3 rules:</h4>
+                <ul>
+                    <li><strong><code>input()</code> always returns a
+                            string.</strong> If you need a number, convert
+                        it immediately.
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">
+                            age = int(input("Age: ")) # Good
+                            price = float(input("Price: ")) # Good</div>
+                    </li>
+                    <li><strong>f-strings start with <span class="inline-code">f</span> and use <span
+                                class="inline-code">{}</span> for
+                            variables.</strong> Don't forget the <span class="inline-code">f</span>!
+                        <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;">
+                            print(f"Hello {name}") # Correct
+                            print("Hello {name}") # Wrong - prints literally "{name}"</div>
+                    </li>
+                    <li><strong>Be careful with user errors.</strong> If
+                        someone types "twenty" instead of "20",
+                        <code>int()</code> will crash your program. Always
+                        assume users will make mistakes!
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recap -->
+        <div
+            style="background: #e8f5e9; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.2rem 0; border: 1px solid #a5d6a7;">
+            <p style="font-weight: 500; color: #1b5e20;">📌 <strong>Today,
+                    you learned</strong> how to make your programs
+                interactive using <code>input()</code>. You discovered that
+                all input comes as strings, so you must convert numbers
+                using <code>int()</code> or <code>float()</code>. Finally,
+                you mastered f-strings—the cleanest way to combine text and
+                variables.</p>
+            <p style="font-weight: 500; color: #1b5e20; margin-top: 0.5rem;">🎯
+                <strong>Remember:</strong> <code>input()</code> listens,
+                <code>int()</code>/<code>float()</code> converts, and
+                f-strings speak beautifully.
+            </p>
+        </div>
+
+        <!-- Challenge -->
+        <div class="challenge-box">
+            <h3>Challenge</h3>
+            <p>Create an interactive
+                <strong>"Student Profile Generator"</strong> that does the
+                following:
+            </p>
+            <ul>
+                <li><strong>Asks the user for:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Their full name (string)</li>
+                        <li>• Their age (integer)</li>
+                        <li>• Their GPA (float)</li>
+                        <li>• Their major (string)</li>
+                        <li>• The number of credits they're taking
+                            (integer)</li>
+                    </ul>
+                </li>
+                <li><strong>Calculates:</strong>
+                    <ul style="margin-top: 0.3rem; list-style: none; padding-left: 1.5rem;">
+                        <li>• Years until they turn 65 (65 - age)</li>
+                        <li>• Total credits after 4 semesters (credits *
+                            4)</li>
+                    </ul>
+                </li>
+                <li><strong>Prints a beautiful profile using
+                        f-strings</strong> that includes ALL the
+                    information.</li>
+            </ul>
+
+            <div
+                style="background: #0f2336; border-radius: 18px; padding: 1rem 1.5rem; margin-top: 1rem; color: #d6e8f9; font-family: monospace; font-size: 0.9rem; overflow-x: auto;">
+                <span style="color: #9bb9d9;"># Expected output
+                    format:</span><br><br>
+                === STUDENT PROFILE ===<br>
+                Name: Sarah Johnson<br>
+                Age: 20<br>
+                Major: Computer Science<br>
+                GPA: 3.75<br>
+                Current Credits: 15<br><br>
+                Did you know?<br>
+                - In 45 years, you'll be 65!<br>
+                - After 4 semesters, you'll have 60 credits
+                completed.<br><br>
+                Keep coding, Sarah!
+            </div>
+
+            <div
+                style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
+                <p><strong>⭐ Bonus:</strong> Add a friendly greeting at the
+                    beginning and a personalized sign-off at the end. Try
+                    using at least one calculation inside an f-string (like
+                    <span class="inline-code">{age + 5}</span> without
+                    creating a separate variable).
+                </p>
+            </div>
+
+            <div
+                style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
+                <p><strong>💡 Starter Code:</strong></p>
+                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">
+                    # Student Profile Generator
+                    print("=== STUDENT PROFILE GENERATOR ===")
+
+                    # Get user input
+                    name = input("Enter your full name: ")
+                    age = int(input("Enter your age: "))
+                    gpa = float(input("Enter your GPA: "))
+                    major = input("Enter your major: ")
+                    credits = int(input("Enter number of credits: "))
+
+                    # Your calculations here
+                    # Your f-string output here</div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <span
+                    style="background: #fcf3e0; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.85rem; border: 1px solid #e4d1b5;">
+                    📁 Name: section2-xxxxx-xx
+                </span>
+                <span
+                    style="display: inline-block; margin-left: 0.8rem; background: #f0f4fa; padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.85rem;">
+                    📧 onatlou1015@gmail.com
+                </span>
+            </div>
+        </div>
+
+        <!-- What You've Accomplished -->
+        <div
+            style="background: #e3f2fd; border-radius: 20px; padding: 1.4rem 2rem; margin: 1.5rem 0; border: 1px solid #90caf9;">
+            <h4 style="color: #0d47a1; margin-bottom: 0.5rem;">🎉 What
+                You've Accomplished Today</h4>
+            <p style="color: #0d47a1;">You've transformed your program into
+                an interactive experience! You can now:</p>
+            <ul style="list-style: none; padding-left: 0.5rem; margin-top: 0.3rem;">
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Capture
+                    user input with <code>input()</code></li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Convert
+                    strings to integers and floats</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Use
+                    f-strings for clean, professional output</li>
+                <li style="padding: 0.2rem 0; color: #0d47a1;">✅ Build
+                    programs that have real conversations with users</li>
+            </ul>
+            <p style="color: #0d47a1; margin-top: 0.5rem;">💡 <strong>Now
+                    you're ready to build programs that actually talk to
+                    people!</strong></p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="section1-hello-world.html" class="back">← Back: Hello,
+                World!</a>
+            <a href="index.html" class="toc-link">📑 Table of Contents</a>
+            <a href="section3-conditional-statements.html" class="next">Next: Conditional Statements →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="section-footer">
+            <span>🐍 Section 2 · Interactive Chatbot</span>
+            <span>input() · type conversion · f-strings</span>
+        </div>
+    </div>
+</body>
+
 </html>
