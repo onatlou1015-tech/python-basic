@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .function-visual {
             background: #0e1f2e;
             border-radius: 16px;
@@ -89,6 +130,40 @@
         .calculator-output .highlight {
             color: #f7768e;
         }
+
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #2e7d32;
+            margin: 1rem 0;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +205,9 @@
             <p><strong>DRY</strong> stands for <strong>Don't Repeat Yourself</strong>. It's one of the most important principles in programming.</p>
 
             <p><strong>Without functions (repetitive and messy):</strong></p>
-            <div class="code-block" style="font-size: 0.85rem;"># Calculating the area of three rectangles
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.85rem;"># Calculating the area of three rectangles
 # Rectangle 1
 length1 = 5
 width1 = 3
@@ -148,9 +225,12 @@ length3 = 6
 width3 = 2
 area3 = length3 * width3
 print(f"Rectangle 3 area: {area3}")</div>
+            </div>
 
             <p><strong>With functions (clean and reusable):</strong></p>
-            <div class="code-block" style="font-size: 0.85rem;">def calculate_area(length, width):
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.85rem;">def calculate_area(length, width):
     """Calculate the area of a rectangle."""
     return length * width
 
@@ -158,6 +238,7 @@ print(f"Rectangle 3 area: {area3}")</div>
 print(f"Rectangle 1 area: {calculate_area(5, 3)}")
 print(f"Rectangle 2 area: {calculate_area(7, 4)}")
 print(f"Rectangle 3 area: {calculate_area(6, 2)}")</div>
+            </div>
 
             <div class="success-box">
                 <p><strong>Why functions matter:</strong></p>
@@ -177,15 +258,20 @@ print(f"Rectangle 3 area: {calculate_area(6, 2)}")</div>
 
             <div class="example-box">
                 <p><strong>Basic syntax:</strong></p>
-                <div class="code-block">def function_name():
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def function_name():
     """Optional docstring describing the function."""
     # Code block
     # This code runs when the function is called</div>
+                </div>
             </div>
 
             <p><strong>Simple example:</strong></p>
             <div class="example-box">
-                <div class="code-block">def greet():
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def greet():
     """Print a greeting message."""
     print("Hello! Welcome to Python!")
 
@@ -198,6 +284,7 @@ greet()
 # Hello! Welcome to Python!
 # Hello! Welcome to Python!
 # Hello! Welcome to Python!</div>
+                </div>
             </div>
 
             <p><strong>The anatomy of a function:</strong></p>
@@ -228,7 +315,9 @@ greet()
             <p><strong>Parameters</strong> are the placeholders in the function definition. <strong>Arguments</strong> are the actual values you pass when calling the function.</p>
 
             <div class="example-box">
-                <div class="code-block">def add_numbers(a, b):  # a and b are parameters
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def add_numbers(a, b):  # a and b are parameters
     """Add two numbers and print the result."""
     result = a + b
     print(f"{a} + {b} = {result}")
@@ -242,11 +331,14 @@ add_numbers(100, 50)
 # 5 + 3 = 8
 # 10 + 7 = 17
 # 100 + 50 = 150</div>
+                </div>
             </div>
 
             <p><strong>Multiple parameters:</strong></p>
             <div class="example-box">
-                <div class="code-block">def create_profile(name, age, city, occupation):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def create_profile(name, age, city, occupation):
     """Create a user profile string."""
     print(f"Name: {name}")
     print(f"Age: {age}")
@@ -256,11 +348,14 @@ add_numbers(100, 50)
 
 create_profile("Alice", 30, "New York", "Engineer")
 create_profile("Bob", 25, "San Francisco", "Designer")</div>
+                </div>
             </div>
 
             <p><strong>Default parameters (values that are optional):</strong></p>
             <div class="example-box">
-                <div class="code-block">def greet_user(name, greeting="Hello"):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def greet_user(name, greeting="Hello"):
     """Greet a user with a customizable greeting."""
     print(f"{greeting}, {name}!")
 
@@ -270,11 +365,14 @@ greet_user("Alice")           # Hello, Alice!
 # Override the default
 greet_user("Bob", "Good morning")  # Good morning, Bob!
 greet_user("Charlie", "Hey there") # Hey there, Charlie!</div>
+                </div>
             </div>
 
             <p><strong>Real-world example:</strong></p>
             <div class="example-box">
-                <div class="code-block">def create_invoice(item, price, quantity=1, tax_rate=0.08):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def create_invoice(item, price, quantity=1, tax_rate=0.08):
     """Create an invoice for a purchase."""
     subtotal = price * quantity
     tax = subtotal * tax_rate
@@ -293,6 +391,7 @@ create_invoice("Laptop", 999.99, 1)
 
 # Override tax rate
 create_invoice("Headphones", 49.99, 2, 0.05)</div>
+                </div>
             </div>
         </div>
 
@@ -303,7 +402,9 @@ create_invoice("Headphones", 49.99, 2, 0.05)</div>
 
             <p><strong>Basic return:</strong></p>
             <div class="example-box">
-                <div class="code-block">def add(a, b):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def add(a, b):
     """Add two numbers and return the result."""
     return a + b
 
@@ -317,11 +418,14 @@ print(add(10, 7))  # 17
 # You can chain functions
 total = add(add(2, 3), add(4, 5))
 print(total)  # 14 (5 + 9)</div>
+                </div>
             </div>
 
             <p><strong>Functions without return (return None):</strong></p>
             <div class="example-box">
-                <div class="code-block">def print_sum(a, b):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def print_sum(a, b):
     """Print the sum (no return)."""
     print(a + b)
 
@@ -336,11 +440,14 @@ print(result1)              # Prints: None
 # Return function - returns a value
 result2 = return_sum(5, 3)  # Nothing printed
 print(result2)              # Prints: 8</div>
+                </div>
             </div>
 
             <p><strong>Multiple return values:</strong></p>
             <div class="example-box">
-                <div class="code-block">def get_user_info():
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def get_user_info():
     """Return multiple values as a tuple."""
     name = "Alice"
     age = 30
@@ -354,11 +461,14 @@ print(f"Name: {name}, Age: {age}, City: {city}")
 # Or keep as a tuple
 info = get_user_info()
 print(info)  # ("Alice", 30, "New York")</div>
+                </div>
             </div>
 
             <p><strong>Early return (exit function early):</strong></p>
             <div class="example-box">
-                <div class="code-block">def divide(a, b):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">def divide(a, b):
     """Divide two numbers, handle division by zero."""
     if b == 0:
         return "Error: Cannot divide by zero!"
@@ -366,6 +476,7 @@ print(info)  # ("Alice", 30, "New York")</div>
 
 print(divide(10, 2))   # 5.0
 print(divide(10, 0))   # Error: Cannot divide by zero!</div>
+                </div>
             </div>
         </div>
 
@@ -374,7 +485,9 @@ print(divide(10, 0))   # Error: Cannot divide by zero!</div>
             <h2><span class="part-label">E</span> Real-World Example – Building a Calculator System</h2>
             <p>Let's build a complete calculator using functions:</p>
 
-            <div class="code-block" style="font-size: 0.8rem;"># Calculator System - Using Functions
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.8rem; max-height: 500px; overflow-y: auto;"># Calculator System - Using Functions
 
 def display_menu():
     """Display the calculator menu."""
@@ -487,6 +600,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+            </div>
 
             <div class="calculator-output"><span class="prompt">Welcome to the Function-Based Calculator!</span>
 
@@ -569,14 +683,19 @@ if __name__ == "__main__":
                 <h4 style="color: #1b5e20;">1. One function, one job (Single Responsibility)</h4>
                 <div class="bad">
                     <p><strong>❌ Bad - Does too many things</strong></p>
-                    <div class="code-block" style="font-size: 0.8rem;">def process_user(name, age, city):
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">def process_user(name, age, city):
     validate_age(age)  # Should be separate
     format_name(name)  # Should be separate
     print(f"User: {name}, Age: {age}, City: {city}")</div>
+                    </div>
                 </div>
                 <div class="good">
                     <p><strong>✅ Good - Each function does one thing</strong></p>
-                    <div class="code-block" style="font-size: 0.8rem;">def validate_age(age):
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">def validate_age(age):
     return 0 <= age <= 120
 
 def format_name(name):
@@ -584,6 +703,7 @@ def format_name(name):
 
 def display_user(name, age, city):
     print(f"User: {name}, Age: {age}, City: {city}")</div>
+                    </div>
                 </div>
             </div>
 
@@ -591,19 +711,27 @@ def display_user(name, age, city):
                 <h4 style="color: #1b5e20;">2. Use descriptive names</h4>
                 <div class="bad">
                     <p><strong>❌ Bad - What does this do?</strong></p>
-                    <div class="code-block" style="font-size: 0.8rem;">def a(x, y):
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">def a(x, y):
     return x + y</div>
+                    </div>
                 </div>
                 <div class="good">
                     <p><strong>✅ Good - Clear purpose</strong></p>
-                    <div class="code-block" style="font-size: 0.8rem;">def calculate_total(price, tax_rate):
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">def calculate_total(price, tax_rate):
     return price + (price * tax_rate)</div>
+                    </div>
                 </div>
             </div>
 
             <div class="best-practice">
                 <h4 style="color: #1b5e20;">3. Add docstrings</h4>
-                <div class="code-block" style="font-size: 0.8rem;">def calculate_average(numbers):
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="font-size: 0.8rem;">def calculate_average(numbers):
     """
     Calculate the average of a list of numbers.
     
@@ -620,17 +748,21 @@ def display_user(name, age, city):
     if not numbers:
         return 0
     return sum(numbers) / len(numbers)</div>
+                </div>
             </div>
 
             <div class="best-practice">
                 <h4 style="color: #1b5e20;">4. Use type hints (optional but helpful)</h4>
-                <div class="code-block" style="font-size: 0.8rem;">def add_numbers(a: float, b: float) -> float:
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="font-size: 0.8rem;">def add_numbers(a: float, b: float) -> float:
     """Add two numbers and return the result."""
     return a + b
 
 def greet_user(name: str) -> None:
     """Greet a user by name."""
     print(f"Hello, {name}!")</div>
+                </div>
             </div>
         </div>
 
@@ -655,7 +787,9 @@ def greet_user(name: str) -> None:
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Forgetting to call the function</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Just the function name, no parentheses
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Just the function name, no parentheses
 def greet():
     print("Hello!")
 
@@ -663,11 +797,14 @@ greet  # Does nothing! No output!
 
 # Correct - Add parentheses to call
 greet()  # Prints "Hello!"</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Not using <code>return</code> when needed</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Just prints, doesn't return
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Just prints, doesn't return
 def add(a, b):
     print(a + b)
 
@@ -680,11 +817,14 @@ def add(a, b):
 
 result = add(5, 3)  # Nothing printed
 print(result)       # Prints 8</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Modifying global variables accidentally</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This creates a local variable
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This creates a local variable
 count = 0
 def increment():
     count = count + 1  # ERROR! count referenced before assignment
@@ -697,11 +837,14 @@ def increment_global():
 # Better - Pass as parameter
 def increment(count):
     return count + 1</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 4: Forgetting to import the module</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Function defined in another file but not imported
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Function defined in another file but not imported
 # my_functions.py
 def greet(name):
     print(f"Hello, {name}!")
@@ -712,11 +855,14 @@ greet("Alice")  # NameError: name 'greet' is not defined
 # Correct - Import the function
 from my_functions import greet
 greet("Alice")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 5: Using mutable default parameters</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - Mutable default parameters retain state!
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - Mutable default parameters retain state!
 def add_item(item, items=[]):
     items.append(item)
     return items
@@ -733,6 +879,7 @@ def add_item(item, items=None):
 
 print(add_item("apple"))  # ["apple"]
 print(add_item("banana")) # ["banana"]</div>
+                </div>
             </div>
         </div>
 
@@ -811,7 +958,9 @@ print(add_item("banana")) # ["banana"]</div>
 
             <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                 <p><strong>💡 Starter Code:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Math Function Library
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Math Function Library
 
 def factorial(n):
     # Your code here
@@ -867,6 +1016,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
@@ -917,5 +1067,70 @@ if __name__ == "__main__":
             <span>def · parameters · return · DRY · scope</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

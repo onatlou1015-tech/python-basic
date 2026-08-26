@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .comparison-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -95,6 +136,25 @@
         .game-output .error {
             color: #f7768e;
         }
+
+        /* Warning box styles */
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -137,15 +197,20 @@
 
             <div class="example-box">
                 <p><strong>Basic syntax:</strong></p>
-                <div class="code-block">while condition:
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">while condition:
     # Code to run repeatedly
     # Keep running WHILE condition is True
     # Stop when condition becomes False</div>
+                </div>
             </div>
 
             <p><strong>Simple example:</strong></p>
             <div class="example-box">
-                <div class="code-block">counter = 0
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">counter = 0
 while counter < 5:
     print(f"Count: {counter}")
     counter += 1  # Increment counter
@@ -158,17 +223,24 @@ print("Done!")
 # Count: 3
 # Count: 4
 # Done!</div>
+                </div>
             </div>
 
             <p><strong>Visual comparison:</strong></p>
             <div class="comparison-grid">
                 <div class="comparison-card for">
                     <h4>for loop (known number of times)</h4>
-                    <div class="code-block" style="font-size: 0.8rem;">Repeat 5 times → [1][2][3][4][5] → Stop</div>
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">Repeat 5 times → [1][2][3][4][5] → Stop</div>
+                    </div>
                 </div>
                 <div class="comparison-card while">
                     <h4>while loop (unknown number of times)</h4>
-                    <div class="code-block" style="font-size: 0.8rem;">Keep going while condition is True<br>→ [1][2][3]... [?] → Stop when condition becomes False</div>
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">Keep going while condition is True<br>→ [1][2][3]... [?] → Stop when condition becomes False</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,13 +257,16 @@ print("Done!")
                         <li>You're iterating through a sequence (list, string, range).</li>
                         <li>You want to process each item in a collection.</li>
                     </ul>
-                    <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># For loop - known number of iterations
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># For loop - known number of iterations
 for i in range(10):
     print(i)  # Exactly 10 times
 
 # For loop - iterating through a list
 for fruit in ["apple", "banana", "cherry"]:
     print(fruit)  # Exactly 3 times</div>
+                    </div>
                 </div>
                 <div class="comparison-card while">
                     <h4>Use a <code>while</code> loop when:</h4>
@@ -200,7 +275,9 @@ for fruit in ["apple", "banana", "cherry"]:
                         <li>The repetition depends on user input or dynamic conditions.</li>
                         <li>You need to keep running until something changes.</li>
                     </ul>
-                    <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># While loop - continues until user says stop
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem; margin-top: 0.5rem;"># While loop - continues until user says stop
 user_input = ""
 while user_input != "quit":
     user_input = input("Type something (or 'quit' to stop): ")
@@ -212,6 +289,7 @@ roll = 0
 while roll != 6:
     roll = random.randint(1, 6)
     print(f"Rolled: {roll}")</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,17 +301,22 @@ while roll != 6:
 
             <div class="danger-box">
                 <p><strong>⚠️ WARNING: Infinite loop example (NEVER RUN THIS!):</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># DANGER! This will run forever!
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># DANGER! This will run forever!
 while True:
     print("Help! I'm stuck!")
     # No way to exit! Your program will freeze!</div>
+                </div>
             </div>
 
             <p><strong>How to fix common infinite loop mistakes:</strong></p>
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Forgetting to update the condition</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
 count = 0
 while count < 5:
     print(count)
@@ -244,11 +327,14 @@ count = 0
 while count < 5:
     print(count)
     count += 1  # NOW the condition will eventually become False</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Wrong condition logic</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
 password = "secret"
 user_input = ""
 while user_input != password:
@@ -262,11 +348,14 @@ while user_input != password:
     user_input = input("Enter password: ")
     if user_input != password:
         print("Wrong password! Try again.")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Using <code>=</code> instead of <code>==</code> in conditions</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This assigns, never becomes False
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This assigns, never becomes False
 x = 0
 while x = 5:  # Syntax error or infinite loop!
     print(x)
@@ -276,6 +365,7 @@ x = 0
 while x != 5:  # Or while x < 5
     print(x)
     x += 1</div>
+                </div>
             </div>
         </div>
 
@@ -286,18 +376,23 @@ while x != 5:  # Or while x < 5
 
             <div class="example-box">
                 <p><strong>Basic usage:</strong></p>
-                <div class="code-block">while True:  # Infinite loop (on purpose!)
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">while True:  # Infinite loop (on purpose!)
     user_input = input("Enter a number (or 'quit' to exit): ")
     
     if user_input == "quit":
         break  # Exit the loop immediately
     print(f"You entered: {user_input}")
 print("Loop ended!")</div>
+                </div>
             </div>
 
             <p><strong>Real-world example: Password system with limited attempts:</strong></p>
             <div class="example-box">
-                <div class="code-block">password = "python123"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">password = "python123"
 attempts = 0
 max_attempts = 3
 
@@ -314,11 +409,14 @@ while attempts < max_attempts:
 
 if attempts == max_attempts:
     print("Too many failed attempts. Account locked.")</div>
+                </div>
             </div>
 
             <p><strong>Using break in a number guessing game:</strong></p>
             <div class="example-box">
-                <div class="code-block">import random
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">import random
 secret = random.randint(1, 10)
 print("I'm thinking of a number between 1 and 10.")
 
@@ -332,6 +430,7 @@ while True:  # Keep going until the user guesses
         print("Too low! Try again.")
     else:
         print("Too high! Try again.")</div>
+                </div>
             </div>
         </div>
 
@@ -343,7 +442,9 @@ while True:  # Keep going until the user guesses
 
             <div class="example-box">
                 <p><strong>Basic usage:</strong></p>
-                <div class="code-block">import random
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">import random
 
 # Generate a random integer between 1 and 10 (inclusive)
 number = random.randint(1, 10)
@@ -362,6 +463,7 @@ print(choice)
 cards = [1, 2, 3, 4, 5]
 random.shuffle(cards)
 print(cards)  # Random order</div>
+                </div>
             </div>
 
             <p><strong>Common random functions:</strong></p>
@@ -404,7 +506,9 @@ print(cards)  # Random order</div>
 
             <p><strong>Importing specific functions:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Option 1: Import the whole module
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Option 1: Import the whole module
 import random
 roll = random.randint(1, 6)
 
@@ -412,6 +516,7 @@ roll = random.randint(1, 6)
 from random import randint, choice, shuffle
 roll = randint(1, 6)      # No "random." needed!
 color = choice(["red", "blue"])</div>
+                </div>
             </div>
         </div>
 
@@ -420,7 +525,9 @@ color = choice(["red", "blue"])</div>
             <h2><span class="part-label">F</span> Building a Complete Game – "Guess the Number"</h2>
             <p>Let's build a full-featured guessing game that uses everything we've learned:</p>
 
-            <div class="code-block" style="font-size: 0.85rem;"># Guess the Number - Complete Game
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.85rem;"># Guess the Number - Complete Game
 import random
 
 print("=== GUESS THE NUMBER ===")
@@ -471,6 +578,7 @@ play_again = input("\nPlay again? (yes/no): ").lower()
 if play_again == "yes":
     # We could restart the game here by resetting variables
     print("Restarting game...")</div>
+            </div>
 
             <div class="game-output"><span class="highlight">=== GUESS THE NUMBER ===</span>
 I'm thinking of a number between 1 and 100.
@@ -502,7 +610,9 @@ Play again? (yes/no): no</div>
             <h2><span class="part-label">G</span> Advanced – The Ultimate Guessing Game</h2>
             <p>Here's an enhanced version with multiple difficulty levels and scoring:</p>
 
-            <div class="code-block" style="font-size: 0.8rem;"># Ultimate Guessing Game
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.8rem; max-height: 500px; overflow-y: auto;"># Ultimate Guessing Game
 import random
 
 def play_game():
@@ -627,6 +737,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+            </div>
         </div>
 
         <!-- Golden Rules Summary -->
@@ -650,7 +761,9 @@ if __name__ == "__main__":
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Forgetting to update loop variables</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Infinite loop
 num = 0
 while num < 10:
     print(num)
@@ -660,11 +773,14 @@ while num < 10:
 while num < 10:
     print(num)
     num += 1  # Increment</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Incorrect condition logic</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This skips 0 and never prints it
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This skips 0 and never prints it
 num = 0
 while num > 10:  # 0 > 10 is False, loop never runs!
     print(num)
@@ -673,11 +789,14 @@ while num > 10:  # 0 > 10 is False, loop never runs!
 while num < 10:
     print(num)
     num += 1</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Using <code>break</code> when you could use the condition</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Overkill - Break not needed here
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Overkill - Break not needed here
 num = 0
 while True:
     if num >= 5:
@@ -690,11 +809,14 @@ num = 0
 while num < 5:
     print(num)
     num += 1</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 4: Forgetting to convert user input</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Comparing string to integer
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Comparing string to integer
 secret = 42
 guess = input("Guess: ")  # "42" (string)
 if guess == secret:       # False! "42" != 42
@@ -704,11 +826,14 @@ if guess == secret:       # False! "42" != 42
 guess = int(input("Guess: "))  # 42 (integer)
 if guess == secret:            # True!
     print("You win!")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 5: Not handling invalid input</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Crashes - User types "abc"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Crashes - User types "abc"
 num = int(input("Enter a number: "))  # ValueError!
 
 # Handles errors - Try/except
@@ -716,6 +841,7 @@ try:
     num = int(input("Enter a number: "))
 except ValueError:
     print("That's not a valid number!")</div>
+                </div>
             </div>
         </div>
 
@@ -778,7 +904,9 @@ except ValueError:
 
             <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                 <p><strong>💡 Starter Code:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">import random
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">import random
 
 print("=== ROCK, PAPER, SCISSORS ===")
 print("Type 'rock', 'paper', or 'scissors'")
@@ -802,11 +930,14 @@ while True:
 # Print final stats
 print("\n=== FINAL STATS ===")
 # Your code here...</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem; background: #e3f2fd; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #1565c0;">
                 <p><strong>Sample implementation for the rock-paper-scissors logic:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;"># Determine winner
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.8rem;"># Determine winner
 if player_choice == computer_choice:
     print("Tie!")
     ties += 1
@@ -818,6 +949,7 @@ elif (player_choice == "rock" and computer_choice == "scissors") or \
 else:
     print("You lose!")
     losses += 1</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
@@ -868,5 +1000,77 @@ else:
             <span>while loops · break · import random · games</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            // Get the code block - find the next .code-block element
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                // If no .code-block found, try to get text content from the wrapper
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            // Get the text content of the code block
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            // Use the Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            // Create a temporary textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                // Show error feedback
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

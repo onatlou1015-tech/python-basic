@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .debug-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -142,6 +183,32 @@
         .rubric-table tr:nth-child(even) {
             background: #f8faff;
         }
+
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -185,7 +252,9 @@
                 <div class="debug-card syntax">
                     <h4>❌ Syntax Errors (Compile-time errors)</h4>
                     <p style="font-size: 0.9rem;">These are like grammar mistakes in human language. The computer can't even start your program because it doesn't understand what you wrote.</p>
-                    <div class="code"><span class="error"># Missing colon</span>
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code"><span class="error"># Missing colon</span>
 if age > 18   <span class="error"># SyntaxError: Expected ':'</span>
     print("Adult")
 
@@ -202,11 +271,14 @@ print "Hello"   <span class="error"># SyntaxError: Missing parentheses</span>
 def greet():
     print("Hello")
   print("World")   <span class="error"># IndentationError: unexpected indent</span></div>
+                    </div>
                 </div>
                 <div class="debug-card logic">
                     <h4>🐛 Logic Errors (Runtime errors)</h4>
                     <p style="font-size: 0.9rem;">These are much trickier. Your program runs perfectly—no syntax errors, no crashes—but it produces the wrong answer. The computer is doing exactly what you told it to do, but what you told it isn't what you meant.</p>
-                    <div class="code"><span class="error"># Mistake 1: Wrong calculation</span>
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code"><span class="error"># Mistake 1: Wrong calculation</span>
 def calculate_rectangle_area(length, width):
     return length + width  <span class="error"># Should be * not +</span>
 
@@ -230,6 +302,7 @@ def check_password(password):
     if password = "secret":  <span class="error"># Assignment, not comparison!</span>
         return True
     return False</div>
+                    </div>
                 </div>
             </div>
 
@@ -282,7 +355,9 @@ def check_password(password):
             <div class="strategy-box">
                 <h4>Strategy 1: The Print Statement Method (Your Best Friend)</h4>
                 <p>The simplest and most powerful debugging tool is <code>print()</code>. Insert print statements to see what's happening inside your code.</p>
-                <div class="code"><span class="comment"># With print statements - Finding the bug</span>
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code"><span class="comment"># With print statements - Finding the bug</span>
 def calculate_average(grades):
     <span class="debug">print(f"Debug: Starting calculation with {grades}")</span>
     total = 0
@@ -299,12 +374,15 @@ def calculate_average(grades):
     return result
 
 <span class="comment"># Output shows total never changes → Aha! The bug is found!</span></div>
+                </div>
             </div>
 
             <div class="strategy-box">
                 <h4>Strategy 2: Rubber Duck Debugging</h4>
                 <p>Explain your code, line by line, to an inanimate object (like a rubber duck). Often, just verbalizing what the code should do reveals the problem.</p>
-                <div class="code"><span class="comment"># "Duck, I'm going to explain what this code does..."</span>
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code"><span class="comment"># "Duck, I'm going to explain what this code does..."</span>
 def is_palindrome(text):
     reversed_text = text
     <span class="comment"># Wait... I'm assigning reversed_text to the original text!</span>
@@ -313,12 +391,15 @@ def is_palindrome(text):
     
     <span class="comment"># The fix:</span>
     return text == text[::-1]</div>
+                </div>
             </div>
 
             <div class="strategy-box">
                 <h4>Strategy 3: The "Divide and Conquer" Method</h4>
                 <p>When you have a large program and don't know where the bug is, use print statements to narrow it down.</p>
-                <div class="code"><span class="comment"># Use print statements between each step</span>
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code"><span class="comment"># Use print statements between each step</span>
 def complex_processing(data):
     <span class="debug">print("DEBUG: Entering complex_processing")</span>
     
@@ -334,12 +415,15 @@ def complex_processing(data):
     return result3
 
 <span class="comment"># The last print that shows the expected value identifies where things go wrong</span></div>
+                </div>
             </div>
 
             <div class="strategy-box">
                 <h4>Strategy 4: The "Simplest Case" Method</h4>
                 <p>Test your code with the simplest possible data. If it works, gradually make it more complex until it breaks.</p>
-                <div class="code"><span class="comment"># Test with simplest case</span>
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code"><span class="comment"># Test with simplest case</span>
 print(calculate_average([10, 10]))  <span class="comment"># Should be 10</span>
 
 <span class="comment"># Then add more cases</span>
@@ -347,12 +431,15 @@ print(calculate_average([10, 20, 30]))  <span class="comment"># Should be 20</sp
 
 <span class="comment"># Then edge cases</span>
 print(calculate_average([]))  <span class="comment"># What should this return?</span></div>
+                </div>
             </div>
 
             <div class="strategy-box">
                 <h4>Strategy 5: Check Your Assumptions</h4>
                 <p>Often, bugs come from false assumptions about what data looks like.</p>
-                <div class="code"><span class="comment"># Assumption: User will always enter a number</span>
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code"><span class="comment"># Assumption: User will always enter a number</span>
 age = int(input("Enter your age: "))  <span class="comment"># User enters "twenty" → ValueError!</span>
 
 <span class="comment"># Better: Validate and handle errors</span>
@@ -371,6 +458,7 @@ if grades:
     average = sum(grades) / len(grades)
 else:
     average = 0</div>
+                </div>
             </div>
         </div>
 
@@ -379,7 +467,9 @@ else:
             <h2><span class="part-label">C</span> The Final Project – Adventure Game</h2>
             <p>Now let's build a complete, polished game that uses everything you've learned:</p>
 
-            <div class="code-block" style="font-size: 0.75rem; max-height: 600px; overflow-y: auto;"># ================================================
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.75rem; max-height: 600px; overflow-y: auto;"># ================================================
 #  THE TEXT ADVENTURE GAME - FINAL PROJECT
 # ================================================
 # This game combines everything you've learned:
@@ -754,6 +844,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nAn error occurred: {e}")
         print("The game encountered a bug. Please restart.")</div>
+            </div>
 
             <div class="game-output"><span class="prompt">============================================================</span>
 <span class="prompt">    WELCOME TO THE TEXT ADVENTURE</span>
@@ -820,7 +911,9 @@ if __name__ == "__main__":
             </div>
 
             <p><strong>Before and After Code Review:</strong></p>
-            <div class="code-block" style="font-size: 0.85rem;"><span class="comment"># BEFORE REVIEW - Hard to understand, buggy</span>
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.85rem;"><span class="comment"># BEFORE REVIEW - Hard to understand, buggy</span>
 def p(n):
     r=1
     for x in range(1,n+1):
@@ -873,6 +966,7 @@ def calculate_average(numbers):
     if not numbers:
         return 0
     return sum(numbers) / len(numbers)</div>
+            </div>
         </div>
 
         <!-- Golden Rules Summary -->
@@ -1018,5 +1112,70 @@ def calculate_average(numbers):
             <span>syntax errors · logic errors · debugging · code review</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

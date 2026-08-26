@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .dict-visual {
             background: #0e1f2e;
             border-radius: 16px;
@@ -103,6 +144,32 @@
         .nested-dict-demo .key { color: #61afef; }
         .nested-dict-demo .value { color: #a6e22e; }
         .nested-dict-demo .comment { color: #5c6370; }
+
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -145,7 +212,9 @@
 
             <p><strong>Creating a dictionary:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Empty dictionary
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Empty dictionary
 phonebook = {}
 
 # Dictionary with data
@@ -169,6 +238,7 @@ mixed = {
     42: "The Answer",
     (1, 2): "A tuple key"
 }</div>
+                </div>
             </div>
 
             <p><strong>Visual representation:</strong></p>
@@ -198,7 +268,9 @@ mixed = {
 
             <p><strong>Using square brackets (direct access):</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234",
     "Bob": "555-5678",
     "Charlie": "555-9012"
@@ -213,11 +285,14 @@ print(bob_number)    # "555-5678"
 
 # Warning: KeyError if key doesn't exist
 # diana_number = phonebook["Diana"]  # KeyError!</div>
+                </div>
             </div>
 
             <p><strong>Using <code>.get()</code> (safe access):</strong></p>
             <div class="example-box">
-                <div class="code-block"># .get() returns None if key doesn't exist
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># .get() returns None if key doesn't exist
 diana_number = phonebook.get("Diana")
 print(diana_number)  # None
 
@@ -227,11 +302,14 @@ print(diana_number)  # "Not found"
 
 alice_number = phonebook.get("Alice", "Not found")
 print(alice_number)  # "555-1234"</div>
+                </div>
             </div>
 
             <p><strong>Getting all keys or values:</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234",
     "Bob": "555-5678",
     "Charlie": "555-9012"
@@ -248,6 +326,7 @@ print(numbers)  # dict_values(['555-1234', '555-5678', '555-9012'])
 # Get all key-value pairs as tuples
 items = phonebook.items()
 print(items)  # dict_items([('Alice', '555-1234'), ...])</div>
+                </div>
             </div>
         </div>
 
@@ -258,7 +337,9 @@ print(items)  # dict_items([('Alice', '555-1234'), ...])</div>
 
             <p><strong>Adding new entries:</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234",
     "Bob": "555-5678"
 }
@@ -276,11 +357,14 @@ phonebook.update({
 print(phonebook)
 # {'Alice': '555-1234', 'Bob': '555-5678', 'Charlie': '555-9012', 
 #  'Diana': '555-3456', 'Eve': '555-7890'}</div>
+                </div>
             </div>
 
             <p><strong>Updating existing entries:</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234",
     "Bob": "555-5678"
 }
@@ -294,11 +378,14 @@ print(phonebook)
 phonebook["Bob"] = "555-0000"
 print(phonebook)
 # {'Alice': '555-9999', 'Bob': '555-0000'}</div>
+                </div>
             </div>
 
             <p><strong>Using <code>.setdefault()</code> (add only if key doesn't exist):</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234"
 }
 
@@ -309,6 +396,7 @@ print(phonebook)  # {'Alice': '555-1234', 'Bob': '555-5678'}
 # This doesn't change existing keys
 phonebook.setdefault("Alice", "555-9999")
 print(phonebook)  # {'Alice': '555-1234', 'Bob': '555-5678'}</div>
+                </div>
             </div>
         </div>
 
@@ -321,16 +409,21 @@ print(phonebook)  # {'Alice': '555-1234', 'Bob': '555-5678'}</div>
                     <h4>del</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove by key</p>
                     <span class="syntax">del dict[key]</span>
-                    <div class="example">phonebook = {"A": "123", "B": "456", "C": "789"}
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">phonebook = {"A": "123", "B": "456", "C": "789"}
 del phonebook["B"]
 <span class="comment"># {"A": "123", "C": "789"}</span>
 <span class="comment"># del raises KeyError if key doesn't exist</span></div>
+                    </div>
                 </div>
                 <div class="dict-method-card">
                     <h4>.pop()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove and return value</p>
                     <span class="syntax">value = dict.pop(key)</span>
-                    <div class="example">phonebook = {"A": "123", "B": "456"}
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">phonebook = {"A": "123", "B": "456"}
 removed = phonebook.pop("B")
 <span class="comment"># removed = "456"</span>
 <span class="comment"># phonebook = {"A": "123"}</span>
@@ -338,23 +431,30 @@ removed = phonebook.pop("B")
 <span class="comment"># Provide default if key doesn't exist</span>
 removed = phonebook.pop("C", "Not found")
 <span class="comment"># "Not found"</span></div>
+                    </div>
                 </div>
                 <div class="dict-method-card">
                     <h4>.popitem()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove and return the last item</p>
                     <span class="syntax">key, value = dict.popitem()</span>
-                    <div class="example">phonebook = {"A": "123", "B": "456"}
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">phonebook = {"A": "123", "B": "456"}
 last = phonebook.popitem()
 <span class="comment"># last = ("B", "456")</span>
 <span class="comment"># phonebook = {"A": "123"}</span></div>
+                    </div>
                 </div>
                 <div class="dict-method-card">
                     <h4>.clear()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove all items</p>
                     <span class="syntax">dict.clear()</span>
-                    <div class="example">phonebook = {"A": "123", "B": "456"}
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">phonebook = {"A": "123", "B": "456"}
 phonebook.clear()
 <span class="comment"># {}</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -365,7 +465,9 @@ phonebook.clear()
 
             <p><strong>Loop through keys:</strong></p>
             <div class="example-box">
-                <div class="code-block">phonebook = {
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">phonebook = {
     "Alice": "555-1234",
     "Bob": "555-5678",
     "Charlie": "555-9012"
@@ -383,11 +485,14 @@ for name in phonebook.keys():
 # Alice: 555-1234
 # Bob: 555-5678
 # Charlie: 555-9012</div>
+                </div>
             </div>
 
             <p><strong>Loop through values:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Loop through values only
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Loop through values only
 for number in phonebook.values():
     print(number)
 
@@ -395,11 +500,14 @@ for number in phonebook.values():
 # 555-1234
 # 555-5678
 # 555-9012</div>
+                </div>
             </div>
 
             <p><strong>Loop through key-value pairs (using <code>.items()</code>):</strong></p>
             <div class="example-box">
-                <div class="code-block"># This is the most common pattern
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># This is the most common pattern
 for name, number in phonebook.items():
     print(f"Name: {name}, Number: {number}")
 
@@ -407,6 +515,7 @@ for name, number in phonebook.items():
 # Name: Alice, Number: 555-1234
 # Name: Bob, Number: 555-5678
 # Name: Charlie, Number: 555-9012</div>
+                </div>
             </div>
 
             <p><strong>Nested dictionaries and loops:</strong></p>
@@ -445,7 +554,9 @@ for name, number in phonebook.items():
             <h2><span class="part-label">F</span> Building a Digital Phonebook</h2>
             <p>Let's build a complete phonebook application using dictionaries:</p>
 
-            <div class="code-block" style="font-size: 0.8rem;"># Digital Phonebook System
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.8rem; max-height: 500px; overflow-y: auto;"># Digital Phonebook System
 
 def display_menu():
     """Display the phonebook menu."""
@@ -689,6 +800,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+            </div>
 
             <div class="phonebook-output"><span class="prompt">==================================================</span>
 <span class="prompt">   WELCOME TO THE DIGITAL PHONEBOOK</span>
@@ -771,7 +883,9 @@ if __name__ == "__main__":
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Using a list as a key</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Lists are mutable and can't be keys
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Lists are mutable and can't be keys
 my_dict = {
     ["name"]: "Alice"  # TypeError: unhashable type: 'list'
 }
@@ -781,32 +895,41 @@ my_dict = {
     "name": "Alice",
     (1, 2): "Value"
 }</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Assuming dictionary order (pre-Python 3.7)</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Dictionaries are ordered in Python 3.7+, but don't rely on it
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Dictionaries are ordered in Python 3.7+, but don't rely on it
 my_dict = {"a": 1, "b": 2, "c": 3}
 # Items are in insertion order, but this is not guaranteed in older versions
 
 # Use sorted() if order matters
 for key in sorted(my_dict.keys()):
     print(key, my_dict[key])</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Not using <code>.get()</code> and causing crashes</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if key doesn't exist
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if key doesn't exist
 my_dict = {"name": "Alice"}
 age = my_dict["age"]  # KeyError!
 
 # Correct - Safe access
 age = my_dict.get("age", 0)  # Returns 0 if key doesn't exist</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 4: Modifying a dictionary while iterating</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - Changing size while iterating
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - Changing size while iterating
 my_dict = {"a": 1, "b": 2, "c": 3}
 for key in my_dict:
     if key == "b":
@@ -816,11 +939,14 @@ for key in my_dict:
 for key in list(my_dict.keys()):
     if key == "b":
         del my_dict[key]</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 5: Confusing <code>.update()</code> with assignment</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This creates a new key called "update"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - This creates a new key called "update"
 my_dict = {"name": "Alice"}
 my_dict.update = {"age": 30}  # Overwrites the method!
 
@@ -828,6 +954,7 @@ my_dict.update = {"age": 30}  # Overwrites the method!
 my_dict.update({"age": 30})  # Adds the key
 # Or assign directly
 my_dict["age"] = 30</div>
+                </div>
             </div>
         </div>
 
@@ -916,7 +1043,9 @@ my_dict["age"] = 30</div>
 
             <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                 <p><strong>💡 Starter Code:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Student Gradebook System
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Student Gradebook System
 
 def display_menu():
     # Your code here
@@ -963,6 +1092,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem;">
@@ -1004,5 +1134,70 @@ if __name__ == "__main__":
             <span>key-value · .get() · .items() · nested dictionaries</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

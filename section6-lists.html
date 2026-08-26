@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .list-visual {
             background: #0e1f2e;
             border-radius: 16px;
@@ -114,6 +155,32 @@
         .playlist-demo .highlight {
             color: #f7768e;
         }
+
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -156,7 +223,9 @@
 
             <p><strong>Creating a list:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Empty list
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Empty list
 playlist = []
 
 # List of strings
@@ -170,6 +239,7 @@ mixed = ["Hello", 42, 3.14, True]
 
 # List of lists (nested lists)
 matrix = [[1, 2], [3, 4], [5, 6]]</div>
+                </div>
             </div>
 
             <p><strong>Visual representation:</strong></p>
@@ -179,11 +249,14 @@ matrix = [[1, 2], [3, 4], [5, 6]]</div>
 
             <p><strong>Real-world example:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Creating your music playlist
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Creating your music playlist
 my_playlist = ["Shape of You", "Blinding Lights", "Dance Monkey", "Levitating"]
 print(my_playlist)
 
 # Output: ['Shape of You', 'Blinding Lights', 'Dance Monkey', 'Levitating']</div>
+                </div>
             </div>
         </div>
 
@@ -194,7 +267,9 @@ print(my_playlist)
 
             <p><strong>Basic indexing:</strong></p>
             <div class="example-box">
-                <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D", "Song E"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D", "Song E"]
 # Positive indexing (from the start)
 first = playlist[0]    # "Song A"
 second = playlist[1]   # "Song B"
@@ -205,6 +280,7 @@ last = playlist[4]     # "Song E"
 last = playlist[-1]      # "Song E"
 second_last = playlist[-2]  # "Song D"
 first = playlist[-5]     # "Song A"</div>
+                </div>
             </div>
 
             <p><strong>Visual guide to indexing:</strong></p>
@@ -214,7 +290,9 @@ first = playlist[-5]     # "Song A"</div>
 
             <p><strong>Common indexing mistakes:</strong></p>
             <div class="warning-box">
-                <div class="code-block" style="font-size: 0.85rem;">playlist = ["A", "B", "C"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="font-size: 0.85rem;">playlist = ["A", "B", "C"]
 
 # Wrong - Index out of range (list has no index 3)
 song = playlist[3]  # IndexError!
@@ -225,11 +303,14 @@ song = playlist[-4]  # IndexError!
 # Correct - Valid indices are 0, 1, 2 and -1, -2, -3
 song = playlist[2]   # "C"
 song = playlist[-1]  # "C"</div>
+                </div>
             </div>
 
             <p><strong>Practical example:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Creating a student roster
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Creating a student roster
 students = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
 
 print(f"First student: {students[0]}")
@@ -240,6 +321,7 @@ print(f"Middle student: {students[2]}")
 # First student: Alice
 # Last student: Eve
 # Middle student: Charlie</div>
+                </div>
             </div>
         </div>
 
@@ -253,7 +335,9 @@ print(f"Middle student: {students[2]}")
             </div>
 
             <div class="example-box">
-                <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
 
 # Basic slicing
 first_three = playlist[0:3]  # ["A", "B", "C"]
@@ -272,6 +356,7 @@ middle_three = playlist[2:-2] # ["C", "D", "E"]
 
 # Copying an entire list
 full_copy = playlist[:]       # ["A", "B", "C", "D", "E", "F", "G"]</div>
+                </div>
             </div>
 
             <p><strong>Visual guide to slicing:</strong></p>
@@ -286,7 +371,9 @@ full_copy = playlist[:]       # ["A", "B", "C", "D", "E", "F", "G"]</div>
 
             <p><strong>Slicing with step (skip items):</strong></p>
             <div class="example-box">
-                <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["A", "B", "C", "D", "E", "F", "G"]
 
 # Every other item
 every_other = playlist[0:7:2]  # ["A", "C", "E", "G"]
@@ -296,11 +383,14 @@ reversed_list = playlist[::-1]  # ["G", "F", "E", "D", "C", "B", "A"]
 
 # Every second item from index 1 to 6
 step_slice = playlist[1:6:2]   # ["B", "D", "F"]</div>
+                </div>
             </div>
 
             <p><strong>Practical example:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Getting top 3 songs from a playlist
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Getting top 3 songs from a playlist
 songs = ["Song 1", "Song 2", "Song 3", "Song 4", "Song 5"]
 top_3 = songs[0:3]
 print(f"Top 3 songs: {top_3}")
@@ -312,6 +402,7 @@ print(f"Recently added: {recent}")
 # Getting songs 2 through 4 (index 1 to 3)
 middle = songs[1:4]
 print(f"Middle songs: {middle}")</div>
+                </div>
             </div>
         </div>
 
@@ -327,29 +418,38 @@ print(f"Middle songs: {middle}")</div>
                     <h4>append()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Adds an item to the end</p>
                     <span class="syntax">list.append(item)</span>
-                    <div class="example">playlist = ["A", "B"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B"]
 playlist.append("C")
 <span class="comment"># ["A", "B", "C"]</span></div>
+                    </div>
                 </div>
                 <div class="method-card">
                     <h4>insert()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Adds an item at a specific position</p>
                     <span class="syntax">list.insert(index, item)</span>
-                    <div class="example">playlist = ["A", "C"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "C"]
 playlist.insert(1, "B")
 <span class="comment"># ["A", "B", "C"]</span>
 
 playlist.insert(0, "Intro")
 <span class="comment"># ["Intro", "A", "B", "C"]</span></div>
+                    </div>
                 </div>
                 <div class="method-card">
                     <h4>extend()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Adds multiple items from another list</p>
                     <span class="syntax">list.extend(iterable)</span>
-                    <div class="example">playlist = ["A", "B"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B"]
 new_songs = ["C", "D"]
 playlist.extend(new_songs)
 <span class="comment"># ["A", "B", "C", "D"]</span></div>
+                    </div>
                 </div>
             </div>
 
@@ -360,26 +460,34 @@ playlist.extend(new_songs)
                     <h4>remove()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Removes the first occurrence of a value</p>
                     <span class="syntax">list.remove(value)</span>
-                    <div class="example">playlist = ["A", "B", "C", "B"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B", "C", "B"]
 playlist.remove("B")
 <span class="comment"># ["A", "C", "B"]</span></div>
+                    </div>
                 </div>
                 <div class="method-card">
                     <h4>pop()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Removes and returns an item by index</p>
                     <span class="syntax">list.pop(index)</span>
-                    <div class="example">playlist = ["A", "B", "C"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B", "C"]
 last = playlist.pop()
 <span class="comment"># last = "C", playlist = ["A", "B"]</span>
 
 first = playlist.pop(0)
 <span class="comment"># first = "A", playlist = ["B"]</span></div>
+                    </div>
                 </div>
                 <div class="method-card">
                     <h4>del</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Deletes items or the entire list</p>
                     <span class="syntax">del list[index]</span>
-                    <div class="example">playlist = ["A", "B", "C", "D"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B", "C", "D"]
 del playlist[0]
 <span class="comment"># ["B", "C", "D"]</span>
 
@@ -388,14 +496,18 @@ del playlist[1:3]
 
 del playlist
 <span class="comment"># NameError: list not defined</span></div>
+                    </div>
                 </div>
                 <div class="method-card">
                     <h4>clear()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Removes all items (keeps the list)</p>
                     <span class="syntax">list.clear()</span>
-                    <div class="example">playlist = ["A", "B", "C"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">playlist = ["A", "B", "C"]
 playlist.clear()
 <span class="comment"># []</span></div>
+                    </div>
                 </div>
             </div>
 
@@ -416,7 +528,9 @@ playlist.clear()
             <p><code>len()</code> tells you how many items are in a list.</p>
 
             <div class="example-box">
-                <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["Song A", "Song B", "Song C", "Song D"]
 count = len(playlist)
 print(f"Number of songs: {count}")  # Number of songs: 4
 
@@ -429,11 +543,14 @@ for i in range(len(playlist)):
 # Track 2: Song B
 # Track 3: Song C
 # Track 4: Song D</div>
+                </div>
             </div>
 
             <p><strong>Common <code>len()</code> patterns:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Check if list is empty
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Check if list is empty
 if len(playlist) == 0:
     print("Your playlist is empty!")
 
@@ -445,6 +562,7 @@ if len(playlist) > 0:
 # Create a range based on list length
 for i in range(len(playlist) - 1, -1, -1):  # Reverse order
     print(playlist[i])</div>
+                </div>
             </div>
         </div>
 
@@ -454,31 +572,42 @@ for i in range(len(playlist) - 1, -1, -1):  # Reverse order
 
             <p><strong>Checking if an item exists:</strong></p>
             <div class="example-box">
-                <div class="code-block">playlist = ["Song A", "Song B", "Song C"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["Song A", "Song B", "Song C"]
 
 if "Song B" in playlist:
     print("Song B is in the playlist!")
 if "Song Z" not in playlist:
     print("Song Z is not in the playlist!")</div>
+                </div>
             </div>
 
             <p><strong>Finding the index of an item:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Finding the index of an item
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Finding the index of an item
 index = playlist.index("Song B")
 print(f"Song B is at position {index}")  # 1</div>
+                </div>
             </div>
 
             <p><strong>Counting occurrences:</strong></p>
             <div class="example-box">
-                <div class="code-block">playlist = ["Song A", "Song B", "Song A", "Song C", "Song A"]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">playlist = ["Song A", "Song B", "Song A", "Song C", "Song A"]
 count_a = playlist.count("Song A")
 print(f"Song A appears {count_a} times")  # 3</div>
+                </div>
             </div>
 
             <p><strong>Sorting and reversing:</strong></p>
             <div class="example-box">
-                <div class="code-block">numbers = [3, 1, 4, 1, 5, 9, 2]
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">numbers = [3, 1, 4, 1, 5, 9, 2]
 
 # Sort in place (modifies the list)
 numbers.sort()
@@ -497,6 +626,7 @@ original = [3, 1, 4]
 sorted_copy = sorted(original)
 print(sorted_copy)  # [1, 3, 4]
 print(original)     # [3, 1, 4] (unchanged)</div>
+                </div>
             </div>
         </div>
 
@@ -505,7 +635,9 @@ print(original)     # [3, 1, 4] (unchanged)</div>
             <h2><span class="part-label">G</span> Practical Application – Building a Music Playlist System</h2>
             <p>Let's build a complete playlist manager:</p>
 
-            <div class="code-block" style="font-size: 0.8rem;"># Music Playlist Manager
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.8rem; max-height: 500px; overflow-y: auto;"># Music Playlist Manager
 import time
 
 def display_menu():
@@ -647,6 +779,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+            </div>
 
             <div class="playlist-demo"><span class="prompt">Welcome to the Music Playlist Manager!</span>
 <span class="prompt">Create and manage your custom playlist.</span>
@@ -721,18 +854,23 @@ if __name__ == "__main__":
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Off-by-one errors with indexing</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Expecting last item at index len(list)
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Expecting last item at index len(list)
 playlist = ["A", "B", "C"]
 last = playlist[3]  # IndexError!
 
 # Correct - Last item is at len(list) - 1
 last = playlist[2]   # "C"
 last = playlist[-1]  # "C"</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Modifying a list while iterating over it</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - This will skip items
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Danger - This will skip items
 playlist = ["A", "B", "C", "D"]
 for song in playlist:
     if song == "B":
@@ -743,11 +881,14 @@ playlist = ["A", "B", "C", "D"]
 for song in playlist[:]:  # Iterate over a copy
     if song == "B":
         playlist.remove(song)</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Confusing <code>append()</code> with <code>extend()</code></strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Adds the list itself as one item
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Adds the list itself as one item
 playlist = ["A", "B"]
 playlist.append(["C", "D"])
 print(playlist)  # ["A", "B", ["C", "D"]]
@@ -756,11 +897,14 @@ print(playlist)  # ["A", "B", ["C", "D"]]
 playlist = ["A", "B"]
 playlist.extend(["C", "D"])
 print(playlist)  # ["A", "B", "C", "D"]</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 4: Using <code>remove()</code> when item might not exist</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if item not found
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - Crashes if item not found
 playlist = ["A", "B", "C"]
 playlist.remove("Z")  # ValueError!
 
@@ -769,14 +913,18 @@ if "Z" in playlist:
     playlist.remove("Z")
 else:
     print("Item not found")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 5: Slicing with out-of-range indices</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Slicing is forgiving - it just returns whatever exists
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Slicing is forgiving - it just returns whatever exists
 playlist = ["A", "B", "C"]
 result = playlist[1:10]  # ["B", "C"] - no error!
 result = playlist[-10:3]  # ["A", "B", "C"] - no error!</div>
+                </div>
             </div>
         </div>
 
@@ -858,7 +1006,9 @@ result = playlist[-10:3]  # ["A", "B", "C"] - no error!</div>
 
             <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                 <p><strong>💡 Starter Code:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Todo List Manager
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Todo List Manager
 
 def display_menu():
     print("\n=== TODO LIST MANAGER ===")
@@ -905,6 +1055,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
@@ -955,5 +1106,70 @@ if __name__ == "__main__":
             <span>lists · indexing · slicing · append · pop · len()</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

@@ -9,6 +9,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* ===== COPY BUTTON STYLES ===== */
+        .code-wrapper {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+        .code-wrapper .code-block {
+            margin: 0;
+            padding-right: 70px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #e4f0fb;
+            border: 1px solid #2b4a66;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.7;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            border-color: #4a7a9a;
+        }
+        .copy-btn.copied {
+            background: #2e7d32;
+            border-color: #2e7d32;
+            color: white;
+            opacity: 1;
+        }
+        .copy-btn.copied::after {
+            content: " ✓";
+        }
+
         .string-visual {
             background: #0e1f2e;
             border-radius: 16px;
@@ -114,6 +155,32 @@
         .encoder-output .highlight {
             color: #f7768e;
         }
+
+        .warning-box {
+            background: #fff3e0;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #e67e22;
+            margin: 1rem 0;
+        }
+        .warning-box code {
+            background: #fce4d6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: #bf360c;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #1565c0;
+            margin: 1rem 0;
+        }
+
+        .example-box .code-wrapper {
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -157,14 +224,20 @@
             <div class="vs-box">
                 <div class="mutable">
                     <h4 style="color: #1b5e20;">✅ Lists are mutable (changeable)</h4>
-                    <div class="code-block" style="font-size: 0.8rem;">my_list = ["A", "B", "C"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">my_list = ["A", "B", "C"]
 my_list[0] = "X"  # Works! List is changed
 print(my_list)    # ["X", "B", "C"]</div>
+                    </div>
                 </div>
                 <div class="immutable-box">
                     <h4 style="color: #b71c1c;">❌ Strings are immutable (unchangeable)</h4>
-                    <div class="code-block" style="font-size: 0.8rem;">my_string = "ABC"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="code-block" style="font-size: 0.8rem;">my_string = "ABC"
 # my_string[0] = "X"  # ERROR! Strings don't support item assignment</div>
+                    </div>
                 </div>
             </div>
 
@@ -172,13 +245,16 @@ print(my_list)    # ["X", "B", "C"]</div>
             <p>When you "modify" a string, you're actually creating a <strong>new string</strong>. The original stays the same.</p>
 
             <div class="example-box">
-                <div class="code-block">name = "Alice"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">name = "Alice"
 upper_name = name.upper()  # Creates a NEW string
 print(name)       # "Alice" (unchanged)
 print(upper_name) # "ALICE" (new string)
 
 # You must reassign if you want to update the variable
 name = name.upper()  # Now name becomes "ALICE"</div>
+                </div>
             </div>
 
             <p><strong>Visual representation:</strong></p>
@@ -190,7 +266,9 @@ name = name.upper()  # Now name becomes "ALICE"</div>
 
             <p><strong>Accessing characters like a list:</strong></p>
             <div class="example-box">
-                <div class="code-block">message = "Hello World!"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">message = "Hello World!"
 
 # Indexing works just like lists
 first_char = message[0]    # "H"
@@ -208,6 +286,7 @@ for char in message:
 
 # len() works too
 print(len(message))  # 12</div>
+                </div>
             </div>
         </div>
 
@@ -221,7 +300,9 @@ print(len(message))  # 12</div>
                     <h4>.upper()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Convert all characters to uppercase</p>
                     <span class="syntax">string.upper()</span>
-                    <div class="example">message = "Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!"
 uppercase = message.upper()
 <span class="comment"># "HELLO WORLD!"</span>
 
@@ -229,12 +310,15 @@ uppercase = message.upper()
 user_input = "Yes"
 if user_input.upper() == "YES":
     print("User said yes")</div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.lower()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Convert all characters to lowercase</p>
                     <span class="syntax">string.lower()</span>
-                    <div class="example">message = "Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!"
 lowercase = message.lower()
 <span class="comment"># "hello world!"</span>
 
@@ -242,30 +326,40 @@ lowercase = message.lower()
 user_input = "YES"
 if user_input.lower() == "yes":
     print("User said yes")</div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.capitalize()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Capitalize first letter only</p>
                     <span class="syntax">string.capitalize()</span>
-                    <div class="example">message = "hello world!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "hello world!"
 capitalized = message.capitalize()
 <span class="comment"># "Hello world!"</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.title()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Capitalize first letter of each word</p>
                     <span class="syntax">string.title()</span>
-                    <div class="example">message = "hello world! how are you?"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "hello world! how are you?"
 title = message.title()
 <span class="comment"># "Hello World! How Are You?"</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.swapcase()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Swap uppercase and lowercase</p>
                     <span class="syntax">string.swapcase()</span>
-                    <div class="example">message = "Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!"
 swapped = message.swapcase()
 <span class="comment"># "hELLO wORLD!"</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -280,7 +374,9 @@ swapped = message.swapcase()
                     <h4>.strip()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from both ends</p>
                     <span class="syntax">string.strip()</span>
-                    <div class="example">message = "   Hello World!   \n"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "   Hello World!   \n"
 cleaned = message.strip()
 <span class="comment"># "'Hello World!'"</span>
 
@@ -288,28 +384,37 @@ cleaned = message.strip()
 message = "###Hello World!###"
 cleaned = message.strip("#")
 <span class="comment"># "Hello World!"</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.lstrip()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from the left (start)</p>
                     <span class="syntax">string.lstrip()</span>
-                    <div class="example">message = "   Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "   Hello World!"
 cleaned = message.lstrip()
 <span class="comment"># "'Hello World!'"</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.rstrip()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Remove whitespace from the right (end)</p>
                     <span class="syntax">string.rstrip()</span>
-                    <div class="example">message = "Hello World!   \n"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!   \n"
 cleaned = message.rstrip()
 <span class="comment"># "'Hello World!'"</span></div>
+                    </div>
                 </div>
             </div>
 
             <p><strong>Real-world example: Cleaning user input:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Typical user input with extra spaces and newlines
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Typical user input with extra spaces and newlines
 user_input = "   Alice   "
 username = user_input.strip()
 print(f"Welcome, {username}!")  # "Welcome, Alice!"
@@ -318,6 +423,7 @@ print(f"Welcome, {username}!")  # "Welcome, Alice!"
 email = "  user@example.com  "
 clean_email = email.strip().lower()
 print(clean_email)  # "user@example.com"</div>
+                </div>
             </div>
         </div>
 
@@ -330,7 +436,9 @@ print(clean_email)  # "user@example.com"</div>
                 <h4>.replace()</h4>
                 <p style="font-size: 0.9rem; color: #4d6f8b;">Replace occurrences of a substring</p>
                 <span class="syntax">string.replace(old, new, count)</span>
-                <div class="example">message = "Hello World!"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="example">message = "Hello World!"
 new_message = message.replace("World", "Python")
 <span class="comment"># "Hello Python!"</span>
 
@@ -343,11 +451,14 @@ new_message = message.replace("cat", "mouse")
 message = "apple apple apple apple"
 new_message = message.replace("apple", "orange", 2)
 <span class="comment"># "orange orange apple apple"</span></div>
+                </div>
             </div>
 
             <p><strong>Practical examples:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Correcting common misspellings
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Correcting common misspellings
 text = "I like progranmming in Pyton"
 text = text.replace("progranmming", "programming")
 text = text.replace("Pyton", "Python")
@@ -357,17 +468,21 @@ print(text)  # "I like programming in Python"
 credit_card = "1234-5678-9012-3456"
 masked = credit_card.replace("1234", "XXXX")
 print(masked)  # "XXXX-5678-9012-XXXX"</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>⚠️ Important: <code>.replace()</code> doesn't modify the original string:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">text = "Hello World"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;">text = "Hello World"
 text.replace("World", "Python")  # Creates a new string, but doesn't assign it
 print(text)  # "Hello World" (unchanged!)
 
 # Must assign the result back
 text = text.replace("World", "Python")  # Now text is changed
 print(text)  # "Hello Python"</div>
+                </div>
             </div>
         </div>
 
@@ -381,7 +496,9 @@ print(text)  # "Hello Python"</div>
                     <h4>.find()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Returns the index of the first occurrence</p>
                     <span class="syntax">string.find(sub[, start[, end]])</span>
-                    <div class="example">message = "Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!"
 position = message.find("World")
 <span class="comment"># 6 (where "World" starts)</span>
 
@@ -391,20 +508,26 @@ position = message.find("e")
 <span class="comment"># Find returns -1 if not found</span>
 position = message.find("Python")
 <span class="comment"># -1</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.rfind()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Find from the right (last occurrence)</p>
                     <span class="syntax">string.rfind(sub)</span>
-                    <div class="example">message = "Hello World! Hello Python!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World! Hello Python!"
 position = message.rfind("Hello")
 <span class="comment"># 14 (the second "Hello")</span></div>
+                    </div>
                 </div>
             </div>
 
             <p><strong>Using <code>in</code> operator (simpler check):</strong></p>
             <div class="example-box">
-                <div class="code-block">message = "Hello World!"
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block">message = "Hello World!"
 
 if "World" in message:
     print("Found 'World'!")
@@ -413,11 +536,14 @@ else:
 
 if "Python" not in message:
     print("'Python' not found")</div>
+                </div>
             </div>
 
             <p><strong>Practical example: Finding and extracting:</strong></p>
             <div class="example-box">
-                <div class="code-block"># Email validation
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block"># Email validation
 email = "user@example.com"
 if "@" in email and "." in email:
     # Find the username
@@ -429,6 +555,7 @@ if "@" in email and "." in email:
     dot_position = email.find(".")
     domain = email[at_position + 1:dot_position]
     print(f"Domain: {domain}")</div>
+                </div>
             </div>
         </div>
 
@@ -440,25 +567,33 @@ if "@" in email and "." in email:
                 <div class="method-card-2">
                     <h4>.startswith() / .endswith()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Check beginnings and endings</p>
-                    <div class="example">message = "Hello World!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World!"
 
 if message.startswith("Hello"):
     print("Starts with Hello")
 
 if message.endswith("!"):
     print("Ends with exclamation mark")</div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.count()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Count occurrences</p>
-                    <div class="example">message = "Hello World! Hello Python!"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "Hello World! Hello Python!"
 count = message.count("Hello")
 <span class="comment"># 2</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.split()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Split into a list of substrings</p>
-                    <div class="example">message = "apple,banana,orange"
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">message = "apple,banana,orange"
 fruits = message.split(",")
 <span class="comment"># ["apple", "banana", "orange"]</span>
 
@@ -466,11 +601,14 @@ fruits = message.split(",")
 message = "Hello World! How are you?"
 words = message.split()
 <span class="comment"># ["Hello", "World!", "How", "are", "you?"]</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.join()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Join a list into a string</p>
-                    <div class="example">fruits = ["apple", "banana", "orange"]
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example">fruits = ["apple", "banana", "orange"]
 message = ", ".join(fruits)
 <span class="comment"># "apple, banana, orange"</span>
 
@@ -478,11 +616,14 @@ message = ", ".join(fruits)
 text = "Hello"
 reversed_text = "".join(reversed(text))
 <span class="comment"># "olleH"</span></div>
+                    </div>
                 </div>
                 <div class="method-card-2">
                     <h4>.isdigit() / .isalpha() / .isalnum()</h4>
                     <p style="font-size: 0.9rem; color: #4d6f8b;">Check character types</p>
-                    <div class="example"><span class="comment"># Check if string contains only digits</span>
+                    <div class="code-wrapper">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                        <div class="example"><span class="comment"># Check if string contains only digits</span>
 print("123".isdigit())    # True
 print("123a".isdigit())   # False
 
@@ -493,6 +634,7 @@ print("Hello123".isalpha())  # False
 <span class="comment"># Check if string contains only letters and digits</span>
 print("Hello123".isalnum())  # True
 print("Hello 123".isalnum())  # False (has space)</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -502,7 +644,9 @@ print("Hello 123".isalnum())  # False (has space)</div>
             <h2><span class="part-label">G</span> Building a Message Encoder</h2>
             <p>Let's build a program that can encode and decode messages using various transformations:</p>
 
-            <div class="code-block" style="font-size: 0.8rem;"># Message Encoder/Decoder System
+            <div class="code-wrapper">
+                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                <div class="code-block" style="font-size: 0.8rem; max-height: 500px; overflow-y: auto;"># Message Encoder/Decoder System
 
 def display_menu():
     print("\n=== MESSAGE ENCODER SYSTEM ===")
@@ -670,6 +814,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+            </div>
 
             <div class="encoder-output"><span class="prompt">==================================================</span>
 <span class="prompt">   WELCOME TO THE MESSAGE ENCODER SYSTEM</span>
@@ -743,7 +888,9 @@ if __name__ == "__main__":
 
             <div class="warning-box">
                 <p><strong>Mistake 1: Forgetting to assign the result</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - string methods return new strings
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - string methods return new strings
 text = "hello"
 text.upper()  # Creates "HELLO" but doesn't store it
 print(text)   # "hello" (unchanged!)
@@ -751,11 +898,14 @@ print(text)   # "hello" (unchanged!)
 # Correct - assign the result
 text = text.upper()
 print(text)   # "HELLO"</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 2: Using <code>.find()</code> without checking for -1</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - crashes if not found
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - crashes if not found
 text = "Hello World"
 position = text.find("Python")
 print(text[position:])  # TypeError if position is -1
@@ -766,11 +916,14 @@ if position != -1:
     print(text[position:])
 else:
     print("Substring not found")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 3: Confusing <code>.strip()</code> with <code>.replace()</code></strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strip only removes from ends, not middle
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strip only removes from ends, not middle
 text = "  Hello  World  "
 result = text.strip()
 print(result)  # "Hello  World" (middle spaces remain)
@@ -778,11 +931,14 @@ print(result)  # "Hello  World" (middle spaces remain)
 # Correct - use replace for all spaces
 result = text.replace(" ", "")
 print(result)  # "HelloWorld"</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 4: Case-sensitive comparisons</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - fails if case doesn't match
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - fails if case doesn't match
 user_input = "Yes"
 if user_input == "yes":  # False!
     print("User said yes")
@@ -790,11 +946,14 @@ if user_input == "yes":  # False!
 # Correct - normalize case
 if user_input.lower() == "yes":
     print("User said yes")</div>
+                </div>
             </div>
 
             <div class="warning-box">
                 <p><strong>Mistake 5: Trying to modify a string like a list</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strings are immutable
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Wrong - strings are immutable
 text = "Hello"
 text[0] = "J"  # TypeError!
 
@@ -802,6 +961,7 @@ text[0] = "J"  # TypeError!
 text = "J" + text[1:]  # "Jello"
 # Or use replace
 text = text.replace("H", "J")  # "Jello"</div>
+                </div>
             </div>
         </div>
 
@@ -871,7 +1031,9 @@ text = text.replace("H", "J")  # "Jello"</div>
 
             <div style="margin-top: 1rem; background: #fff3e0; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #e67e22;">
                 <p><strong>💡 Starter Code:</strong></p>
-                <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Text Formatter and Analyzer
+                <div class="code-wrapper">
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                    <div class="code-block" style="margin-top: 0.3rem; font-size: 0.85rem;"># Text Formatter and Analyzer
 
 def display_menu():
     print("\n=== TEXT FORMATTER & ANALYZER ===")
@@ -936,6 +1098,7 @@ def main():
 
 if __name__ == "__main__":
     main()</div>
+                </div>
             </div>
 
             <div style="margin-top: 1rem; background: #e8f5e9; border-radius: 12px; padding: 0.8rem 1.2rem; border-left: 4px solid #2e7d32;">
@@ -987,5 +1150,70 @@ if __name__ == "__main__":
             <span>.upper() · .strip() · .replace() · .find() · Message Encoder</span>
         </div>
     </div>
+
+    <!-- Copy Button JavaScript -->
+    <script>
+        function copyCode(button) {
+            const wrapper = button.parentElement;
+            const codeBlock = wrapper.querySelector('.code-block');
+            
+            if (!codeBlock) {
+                const text = wrapper.textContent.replace('📋 Copy', '').trim();
+                copyToClipboard(text, button);
+                return;
+            }
+            
+            const text = codeBlock.textContent;
+            copyToClipboard(text, button);
+        }
+
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopiedFeedback(button);
+                }).catch(() => {
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopiedFeedback(button);
+            } catch (err) {
+                button.textContent = '❌ Error!';
+                button.style.background = '#c62828';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.classList.remove('copied');
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showCopiedFeedback(button) {
+            button.textContent = '✅ Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = '📋 Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
